@@ -1,4 +1,4 @@
-package com.mygdx.entity;
+package com.mygdx.movingbehaviour;
 
 import com.mygdx.util.Direction;
 

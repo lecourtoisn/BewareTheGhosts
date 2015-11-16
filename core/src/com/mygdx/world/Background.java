@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Background {
-    Sprite sprite;
+    private Sprite sprite;
 
     public Background(float width, float height) {
         sprite = new Sprite(new Texture("background.png"));

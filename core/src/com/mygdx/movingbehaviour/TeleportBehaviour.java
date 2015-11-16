@@ -1,7 +1,6 @@
 package com.mygdx.movingbehaviour;
 
 import com.mygdx.entity.Entity;
-import com.mygdx.entity.MovingBehaviour;
 import com.mygdx.util.Direction;
 
 public class TeleportBehaviour implements MovingBehaviour {
@@ -21,8 +20,8 @@ public class TeleportBehaviour implements MovingBehaviour {
     @Override
     public void move(float delta) {
         if (movement != Direction.NONE) {
-            float cellUnit = entity.getGrid().CELLUNIT;
-            entity.getPosition().move(cellUnit, 0);
+            //float cellUnit = entity.getGrid().CELLUNIT;
+            entity.getPosition().move(1, 0, entity.getGrid());
             movement = Direction.NONE;
         }
     }

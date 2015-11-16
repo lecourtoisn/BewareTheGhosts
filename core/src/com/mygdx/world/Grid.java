@@ -2,28 +2,42 @@ package com.mygdx.world;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.entity.Position;
 
 public class Grid {
-    public final float SIZE = 90;
-    public final float RATIO = SIZE / 586f;
-    public final float CELLUNIT = 94f * RATIO;
-    public final Vector2 FIRSTCELL = new Vector2(40, 5).add(14f*RATIO, 13f*RATIO);
 
-    Sprite sprite;
+    private final static Texture TEXTURE = new Texture("grid.png");
+    private Position position;
+    private float size;
+    private Position firstCellPosition;
 
-    public Grid(float worldWidth, float worldHeight) {
-        sprite = new Sprite(new Texture("grid.png"));
-        sprite.setSize(SIZE, SIZE);
-        sprite.setCenter(worldWidth / 2, worldHeight / 2);
+    public Grid(float size, float worldWidth, float worldHeight) {
+        this.size = size;
+
+        Vector2 vPosition = new Vector2(worldWidth - size, worldHeight - size).scl(0.5f);
+        position = new Position(vPosition.x, vPosition.y);
+
+        float ratio = getRatio();
+        firstCellPosition = new Position(58.5f*ratio, 57.5f*ratio);
+        firstCellPosition.add(position);
+    }
+
+    public float getRatio() {
+        return size / TEXTURE.getHeight();
     }
 
     public void draw(Batch batch) {
-        sprite.draw(batch);
+        batch.draw(TEXTURE, position.getX(), position.getY(), size, size);
     }
 
-    public Vector2 getCellUnit() {
-        return new Vector2(CELLUNIT, CELLUNIT);
+    public float getCellUnit() {
+        return 94f * getRatio();
+    }
+
+    public Position getCellPosition(int x, int y) {
+        Position pos = new Position(firstCellPosition);
+        pos.move(x, y, this);
+        return pos;
     }
 }
