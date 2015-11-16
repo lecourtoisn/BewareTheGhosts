@@ -35,7 +35,7 @@ public class World {
                 garry.setMovingDirection(Direction.RIGHT);
             }
             else {
-                garry.getCellPosition().setPosition(grid.getCellPosition(0, 0));
+                garry.getCellCenterPosition().setPosition(grid.getCellCenterPosition(0, 0));
                 bli = 5;
             }
 

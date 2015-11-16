@@ -17,7 +17,7 @@ public class Garry extends Entity implements MovingBehaviour {
 
     public Garry(Grid grid) {
         super(grid);
-        getPosition().setPosition(grid.getCellPosition(0, 0));
+        getPosition().setPosition(grid.getCellCenterPosition(0, 0));
         movingStrategy = new TeleportBehaviour(this);
         this.center = new Vector2(WIDTH/2, HEIGHT/2);
     }

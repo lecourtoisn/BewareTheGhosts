@@ -2,6 +2,7 @@ package com.mygdx.world;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Position;
 
@@ -10,7 +11,8 @@ public class Grid {
     private final static Texture TEXTURE = new Texture("grid.png");
     private Position position;
     private float size;
-    private Position firstCellPosition;
+    private Position firstCellCenterPosition;
+    private Vector2 borderThickness;
 
     public Grid(float size, float worldWidth, float worldHeight) {
         this.size = size;
@@ -19,8 +21,9 @@ public class Grid {
         position = new Position(vPosition.x, vPosition.y);
 
         float ratio = getRatio();
-        firstCellPosition = new Position(58.5f*ratio, 57.5f*ratio);
-        firstCellPosition.add(position);
+        firstCellCenterPosition = new Position(58.5f*ratio, 57.5f*ratio);
+        firstCellCenterPosition.add(position);
+        borderThickness = new Vector2(14*ratio, 13*ratio);
     }
 
     public float getRatio() {
@@ -35,9 +38,18 @@ public class Grid {
         return 94f * getRatio();
     }
 
-    public Position getCellPosition(int x, int y) {
-        Position pos = new Position(firstCellPosition);
+    public Position getCellCenterPosition(int x, int y) {
+        Position pos = new Position(firstCellCenterPosition);
         pos.move(x, y, this);
         return pos;
+    }
+
+    public Rectangle getBoundaries() {
+        Vector2 recPos = new Vector2(position.getPosition());
+        Vector2 recSize = new Vector2(size, size);
+        recPos.add(borderThickness);
+        recSize.sub(borderThickness);
+
+        return new Rectangle(recPos.x, recPos.y, recSize.x, recSize.y);
     }
 }

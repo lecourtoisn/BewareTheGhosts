@@ -2,6 +2,7 @@ package com.mygdx.movingbehaviour;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Entity;
+import com.mygdx.entity.Position;
 import com.mygdx.util.Direction;
 
 public class TeleportBehaviour implements MovingBehaviour {
@@ -22,7 +23,11 @@ public class TeleportBehaviour implements MovingBehaviour {
     public void move(float delta) {
         if (movement != Direction.NONE) {
             Vector2 unitVector = movement.getUnitVector();
-            entity.getPosition().move(unitVector.x, unitVector.y, entity.getGrid());
+            Position newPos = new Position(entity.getPosition());
+            newPos.move(unitVector.x, unitVector.y, entity.getGrid());
+            if (entity.getGrid().getBoundaries().contains(newPos.getPosition())) {
+                entity.setPosition(newPos.getX(), newPos.getY());
+            }
             movement = Direction.NONE;
         }
     }
