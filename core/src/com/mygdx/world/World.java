@@ -48,4 +48,8 @@ public class World {
         grid.draw(batch);
         garry.draw(batch);
     }
+
+    public Garry getGarry() {
+        return garry;
+    }
 }

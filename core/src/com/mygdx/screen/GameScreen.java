@@ -1,9 +1,11 @@
 package com.mygdx.screen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.commandhandlers.InputHandler;
 import com.mygdx.game.BTGGame;
 import com.mygdx.world.World;
 
@@ -23,11 +25,13 @@ public class GameScreen implements Screen {
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(cam.combined);
+
+
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(new InputHandler(world));
     }
 
     /**
