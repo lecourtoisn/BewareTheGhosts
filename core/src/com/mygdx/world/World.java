@@ -1,0 +1,42 @@
+package com.mygdx.world;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.entity.Garry;
+import com.mygdx.entity.IEntity;
+import com.mygdx.util.Direction;
+import com.mygdx.util.StopWatch;
+
+import java.util.List;
+
+public class World {
+    public final float WIDTH = 170;
+    public final float HEIGHT = 100;
+
+    private Background background;
+    private Grid grid;
+    private Garry garry;
+    private List<IEntity> entities;
+
+    private StopWatch stopWatch = new StopWatch();
+
+    public World() {
+        this.background = new Background(WIDTH, HEIGHT);
+        this.grid = new Grid(WIDTH, HEIGHT);
+        this.garry = new Garry(grid);
+        stopWatch.start();
+    }
+
+    public void update(float delta) {
+        garry.update(delta);
+        if (stopWatch.getMilliseconds() > 1500) {
+            garry.setMovingDirection(Direction.RIGHT);
+            stopWatch.restart();
+        }
+    }
+
+    public void render(Batch batch) {
+        background.draw(batch);
+        grid.draw(batch);
+        garry.draw(batch);
+    }
+}

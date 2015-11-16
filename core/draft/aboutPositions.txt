@@ -1,0 +1,23 @@
+Il y a en soit 2 positions à prendre en compte. La position à laquelle la texture sera dessinée, et la position sur la grille.
+La première peut en théorie être calculée grâce à la seconde et les coordonnées de la grille dans le monde.
+
+Je pourrais faire en sort que chaque entiée fournisse un moyen de savoir où elle doit se dessiner en fonction de ses données membre. En faisant comme ça, peu importe comment je stock ses positions, elles se demerderont avec lorsqu'on leur demandera où ils doivent se dessiner. Idem pour leur size.
+
+De ce fait, les fantômes auraient une position sur la grille, les flêches une rangée et une place sur la rangée, les fantômes une place sur la grille.
+
+La on voit de la duplication de code. Strategy pattern ? Ca peut marcher, je pense.
+
+
+
+CREATION D'UNE CLASS POSITION
+Cette classe pourrait fournir à n'importe quelle entitée sa position sur la grille, ailleurs, peu importe !! Et on ne passe qu'à travers cette classe !!
+
+Elle aurait des méthodes du genre 
+setPosition(float x, float y); // Absolute position 
+setPosition(float x, float y, Grid grid); // Position relative to a grid position
+getPosition(Grid grid);
+getPosition();
+
+// Plus des méthodes pour modifier la position en fonction de grille, etc;
+
+Du coup chaque entitéaurait sa position peu importe comment le gère le reste, ça marcherait je pense;
