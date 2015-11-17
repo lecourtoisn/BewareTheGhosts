@@ -32,8 +32,7 @@ public class Ghost extends Entity implements IMovingBehaviour{
         move(delta);
     }
 
-    /** Private & protected **/
-
+    /** Private & protected **
 
     /** Strategy pattern **/
     @Override

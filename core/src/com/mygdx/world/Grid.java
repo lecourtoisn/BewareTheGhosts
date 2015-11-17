@@ -47,8 +47,9 @@ public class Grid {
     public Rectangle getBoundaries() {
         Vector2 recPos = new Vector2(position.getPosition());
         Vector2 recSize = new Vector2(size, size);
+        Vector2 doubleBorder = new Vector2(borderThickness).scl(2);
         recPos.add(borderThickness);
-        recSize.sub(borderThickness);
+        recSize.sub(doubleBorder);
 
         return new Rectangle(recPos.x, recPos.y, recSize.x, recSize.y);
     }
