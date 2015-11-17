@@ -67,4 +67,8 @@ public abstract class Entity implements IEntity {
         hitbox.setSize(hitboxSize.x, hitboxSize.y);
         return hitbox;
     }
+
+    public boolean couldBeAt(Position nextPos) {
+        return true;
+    }
 }

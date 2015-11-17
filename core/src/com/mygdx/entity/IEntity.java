@@ -7,6 +7,8 @@ import com.mygdx.world.Grid;
 public interface IEntity {
     void update(float delta);
     void draw(Batch batch);
+
+    /** Getters & setters **/
     Grid getGrid();
     void setPosition(float x, float y);
     void setPosition(Position position);

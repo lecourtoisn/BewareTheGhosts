@@ -45,12 +45,16 @@ public class Position {
         getPosition().y = position.getY();
     }
 
-    public void add(Position position) {
-        rawPosition.add(position.getPosition());
-    }
-
     @Override
     public String toString() {
         return rawPosition.toString();
+    }
+
+    public void add(Vector2 otherVector) {
+        rawPosition.add(otherVector);
+    }
+
+    public void add(Position otherPos) {
+        add(otherPos.getPosition());
     }
 }
