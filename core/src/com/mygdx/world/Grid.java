@@ -26,7 +26,7 @@ public class Grid {
         borderThickness = new Vector2(14*ratio, 13*ratio);
     }
 
-    public float getRatio() {
+    private float getRatio() {
         return size / TEXTURE.getHeight();
     }
 

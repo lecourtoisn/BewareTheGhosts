@@ -9,6 +9,7 @@ public interface IEntity {
     void draw(Batch batch);
     Grid getGrid();
     void setPosition(float x, float y);
+    void setPosition(Position position);
     Position getPosition();
     Rectangle getHitbox();
 }

@@ -1,5 +1,8 @@
 package com.mygdx.entity;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.world.Grid;
@@ -8,16 +11,33 @@ public abstract class Entity implements IEntity {
     private Grid grid;
     private Position position;
     private Vector2 hitboxSize;
+    private Vector2 center;
 
-    public Entity(Grid grid, Vector2 hitboxSize) {
+    protected Sprite sprite;
+
+    public Entity(Grid grid, Texture spriteTexture, Vector2 spriteSize, Vector2 center) {
         this.grid = grid;
+        this.center = center;
         this.position = new Position(0, 0);
-        this.hitboxSize = hitboxSize;
+        this.sprite = new Sprite(spriteTexture);
+        this.sprite.setSize(spriteSize.x, spriteSize.y);
+    }
+
+    public void setHitboxSize(float x, float y) {
+        this.hitboxSize = new Vector2(x, y);
     }
 
     @Override
     public void update(float delta) {
         // Does nothing
+    }
+
+    @Override
+    public void draw(Batch batch) {
+        Vector2 spritePos = new Vector2(getPosition().getPosition());
+        spritePos.sub(center);
+        sprite.setPosition(spritePos.x, spritePos.y);
+        sprite.draw(batch);
     }
 
     @Override
@@ -30,8 +50,14 @@ public abstract class Entity implements IEntity {
         return position;
     }
 
+    @Override
     public void setPosition(float x, float y) {
         position.setPosition(x, y);
+    }
+
+    @Override
+    public void setPosition(Position position) {
+        setPosition(position.getX(), position.getY());
     }
 
     @Override
