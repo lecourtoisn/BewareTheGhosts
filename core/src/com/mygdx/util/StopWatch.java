@@ -2,8 +2,20 @@ package com.mygdx.util;
 
 public class StopWatch {
     private long begin;
+    private boolean stopped = true;
+
+    private long getDifference() {
+        long difference;
+        if (stopped) {
+            difference = 0;
+        } else {
+            difference = System.currentTimeMillis()-begin;
+        }
+        return difference;
+    }
 
     public void start(){
+        stopped = false;
         begin = System.currentTimeMillis();
     }
 
@@ -11,15 +23,15 @@ public class StopWatch {
         start();
     }
 
-    public long getTime() {
-        return System.currentTimeMillis()-begin;
-    }
-
     public long getMilliseconds() {
-        return System.currentTimeMillis()-begin;
+        return getDifference();
     }
 
     public double getSeconds() {
-        return (System.currentTimeMillis() - begin) / 1000.0;
+        return (getDifference()) / 1000.0;
+    }
+
+    public void stop() {
+        stopped = true;
     }
 }
