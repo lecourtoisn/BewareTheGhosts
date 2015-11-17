@@ -1,5 +1,6 @@
 package com.mygdx.movingbehaviour;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Entity;
 import com.mygdx.entity.Position;
@@ -25,7 +26,12 @@ public class TeleportBehaviour implements MovingBehaviour {
             Vector2 unitVector = movement.getUnitVector();
             Position newPos = new Position(entity.getPosition());
             newPos.move(unitVector.x, unitVector.y, entity.getGrid());
-            if (entity.getGrid().getBoundaries().contains(newPos.getPosition())) {
+
+            Rectangle gridHitbox = entity.getGrid().getBoundaries();
+            Rectangle entityHitbox = entity.getHitbox();
+            entityHitbox.setCenter(newPos.getPosition());
+
+            if (gridHitbox.contains(entityHitbox)) {
                 entity.setPosition(newPos.getX(), newPos.getY());
             }
             movement = Direction.NONE;
