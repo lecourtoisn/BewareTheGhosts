@@ -1,14 +1,10 @@
 package com.mygdx.event;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Ghost;
 import com.mygdx.util.Direction;
-import com.mygdx.util.Randomizer;
-import com.mygdx.world.Grid;
 import com.mygdx.world.World;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GhostAttack extends Event {
@@ -16,7 +12,7 @@ public class GhostAttack extends Event {
     private boolean sameDirection;
     private float arrowWarningDuration;
 
-    private Map<Direction, Ghost> ghosts;
+    private Map<Ghost, Direction> ghosts;
 
     public GhostAttack(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration) {
         super(world);
@@ -24,14 +20,17 @@ public class GhostAttack extends Event {
         this.sameDirection = sameDirection;
         this.arrowWarningDuration = arrowWarningDuration;
 
-        this.ghosts = new HashMap<Direction, Ghost>();
+        this.ghosts = new HashMap<Ghost, Direction>();
     }
 
     @Override
     protected void initialize() {
+/*
         // I create the ghosts and the ghosts but don't place them yey.
         Grid grid = world.getGrid();
         List<Vector2> initialPositions = Randomizer.getXInList(nbGhost, grid.getExternalCells());
+
+
         for (int i = 0; i < nbGhost; i++) {
             Ghost newGhost = new Ghost(grid);
             Vector2 pos = initialPositions.get(i);
@@ -39,6 +38,7 @@ public class GhostAttack extends Event {
             world.addEntity(newGhost);
             newGhost.setMovingDirection(Direction.NONE);
         }
+*/
     }
 
     @Override

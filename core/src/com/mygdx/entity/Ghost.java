@@ -13,7 +13,7 @@ public class Ghost extends Entity implements IMovingBehaviour{
     private static final float WIDTH = 6.2f;
     private static final float HEIGHT = 9;
     private static final Vector2 CENTER = new Vector2(WIDTH/2, HEIGHT/2);
-    private static final float VELOCITY = 5;
+    private static final float VELOCITY = 15;
 
     private IMovingBehaviour movingBehaviour;
 

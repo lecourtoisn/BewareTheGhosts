@@ -8,7 +8,7 @@ import com.mygdx.util.StopWatch;
 import com.mygdx.world.Grid;
 import com.mygdx.world.World;
 
-import java.util.List;
+import java.util.Map;
 
 public class GhostPopperEvent extends Event {
     private StopWatch stopWatch;
@@ -30,27 +30,26 @@ public class GhostPopperEvent extends Event {
 
     @Override
     public void update(float delta) {
-        if (stopWatch.getSeconds() > 1) {
-            world.clearEntities();
+        if (stopWatch.getSeconds() > 2) {
+            //world.clearEntities();
             popAGhost();
             stopWatch.restart();
         }
     }
 
     private void popAGhost() {
-        int nbGhost = 3;
+        int nbGhost = 6;
         Direction movingDirection = Randomizer.getDirection();
         Grid grid = world.getGrid();
-        List<Vector2> positions = Randomizer.getXInList(3, grid.getExternalCells());
+        Map<Vector2, Direction> posAndDir = grid.getExternalCells();
+        posAndDir = Randomizer.getXInMap(nbGhost, posAndDir);
 
-        for (int i = 0; i < nbGhost; i++) {
+        for (Vector2 pos : posAndDir.keySet()) {
             Ghost newGhost = new Ghost(grid);
-            Vector2 pos = positions.get(i);
             newGhost.setPosition(grid.getCellCenterPosition(Math.round(pos.x), Math.round(pos.y)));
             world.addEntity(newGhost);
-            newGhost.setMovingDirection(Direction.NONE);
+            newGhost.setMovingDirection(posAndDir.get(pos).getOpposite());
         }
-
     }
 
 

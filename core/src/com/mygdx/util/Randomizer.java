@@ -1,8 +1,6 @@
 package com.mygdx.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Randomizer {
 
@@ -53,12 +51,14 @@ public class Randomizer {
         return random.nextFloat();
     }
 
-    public static <T> List<T> getXInList(int x, List<T> list) {
-        List<T> test = new ArrayList<T>();
-        for (int i = 0; i < x; i++) {
-            int random = getInt(list.size());
-            test.add(list.remove(random));
+    public static <T, U> Map<T, U> getXInMap(int x, Map<T, U> map) {
+        List<T> keys = new ArrayList<T>(map.keySet());
+        Set<T> removedKeys = new HashSet<T>();
+        for (int i = 0; i < map.size()-x; i++) {
+            int random = getInt(keys.size());
+            removedKeys.add(keys.remove(random));
         }
-        return test;
+        map.keySet().removeAll(removedKeys);
+        return map;
     }
 }

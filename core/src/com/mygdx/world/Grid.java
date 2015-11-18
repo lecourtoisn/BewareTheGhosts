@@ -5,9 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Position;
+import com.mygdx.util.Direction;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Grid {
 
@@ -58,13 +59,34 @@ public class Grid {
         return new Rectangle(recPos.x, recPos.y, recSize.x, recSize.y);
     }
 
-    public List<Vector2> getExternalCells() {
-        List<Vector2> externalCells = new ArrayList<Vector2>(4*SIZEINCELL);
+    public Map<Vector2, Direction> getExternalCells() {
+        Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(4*SIZEINCELL);
+
+        for (Direction direction : Direction.values()) {
+            externalCells.putAll(getExternalCells(direction));
+        }
+        return externalCells;
+    }
+
+    public Map<Vector2, Direction> getExternalCells(Direction direction) {
+        //List<Vector2> externalCells = new ArrayList<Vector2>(SIZEINCELL);
+        Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(SIZEINCELL);
+
         for (int i = 0; i < SIZEINCELL; i++) {
-            externalCells.add(new Vector2(i, SIZEINCELL));
-            externalCells.add(new Vector2(i, -1));
-            externalCells.add(new Vector2(SIZEINCELL, i));
-            externalCells.add(new Vector2(-1, i));
+            switch (direction) {
+                case LEFT:
+                    externalCells.put(new Vector2(-1, i), direction);
+                    break;
+                case UP:
+                    externalCells.put(new Vector2(i, SIZEINCELL), direction);
+                    break;
+                case RIGHT:
+                    externalCells.put(new Vector2(SIZEINCELL, i), direction);
+                    break;
+                case DOWN:
+                    externalCells.put(new Vector2(i, -1), direction);
+                    break;
+            }
         }
         return externalCells;
     }
