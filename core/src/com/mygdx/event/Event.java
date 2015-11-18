@@ -31,7 +31,7 @@ public abstract class Event implements IEvent {
 
     @Override
     public final boolean isHappening() {
-        return false;
+        return isHappening;
     }
 
     protected void initialize() {

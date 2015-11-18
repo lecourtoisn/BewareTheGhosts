@@ -6,7 +6,6 @@ import com.mygdx.entity.Ghost;
 import com.mygdx.entity.IEntity;
 import com.mygdx.event.GhostPopperEvent;
 import com.mygdx.event.IEvent;
-import com.mygdx.util.StopWatch;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +21,6 @@ public class World {
     private Set<IEntity> entities;
 
     private IEvent ghostPopperEvent;
-    private StopWatch stopWatch = new StopWatch();
-    private StopWatch stopWatch2 = new StopWatch();
 
     public World() {
         this.background = new Background(WIDTH, HEIGHT);
@@ -32,21 +29,12 @@ public class World {
 
         this.entities = new HashSet<IEntity>();
         this.ghostPopperEvent = new GhostPopperEvent(this);
-        stopWatch.start();
     }
 
     public void update(float delta) {
-        if (stopWatch.getSeconds() > 5) {
+        if (!ghostPopperEvent.isHappening()) {
             ghostPopperEvent.start();
-            stopWatch.stop();
-            stopWatch2.start();
         }
-        if (stopWatch2.getSeconds() > 5) {
-            ghostPopperEvent.end();
-            stopWatch2.stop();
-            stopWatch.start();
-        }
-
 
         garry.update(delta);
         ghostPopperEvent.process(delta);
@@ -75,5 +63,9 @@ public class World {
 
     public void addEntity(Ghost newGhost) {
         entities.add(newGhost);
+    }
+
+    public void clearEntities() {
+        entities.clear();
     }
 }

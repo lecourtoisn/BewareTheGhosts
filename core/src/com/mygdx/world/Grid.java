@@ -6,9 +6,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Position;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grid {
 
     private final static Texture TEXTURE = new Texture("grid.png");
+    private final static int SIZEINCELL = 6;
     private Position position;
     private float size;
     private Position firstCellCenterPosition;
@@ -52,5 +56,16 @@ public class Grid {
         recSize.sub(doubleBorder);
 
         return new Rectangle(recPos.x, recPos.y, recSize.x, recSize.y);
+    }
+
+    public List<Vector2> getExternalCells() {
+        List<Vector2> externalCells = new ArrayList<Vector2>(4*SIZEINCELL);
+        for (int i = 0; i < SIZEINCELL; i++) {
+            externalCells.add(new Vector2(i, SIZEINCELL));
+            externalCells.add(new Vector2(i, -1));
+            externalCells.add(new Vector2(SIZEINCELL, i));
+            externalCells.add(new Vector2(-1, i));
+        }
+        return externalCells;
     }
 }

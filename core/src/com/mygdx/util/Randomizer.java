@@ -1,6 +1,8 @@
 package com.mygdx.util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Randomizer {
 
@@ -21,16 +23,18 @@ public class Randomizer {
         return values[pick];
     }
 
-    public static Direction getDirection(List<Direction> excludedDir) {
+    /*public static Direction getDirection(List<Direction> excludedDir) {
         if (excludedDir.size() == Direction.getDirections().length) {
             return null;
         }
-        Direction direction;
+
+        Direction dir =
+       Direction direction;
         do {
             direction = getDirection();
         } while (excludedDir.contains(direction));
         return direction;
-    }
+    }*/
 
     public static List<Integer> getXInt(int x, int exclusiveBound) {
         List<Integer> ints = new ArrayList<Integer>();
@@ -47,5 +51,14 @@ public class Randomizer {
 
     public static float getFloat() {
         return random.nextFloat();
+    }
+
+    public static <T> List<T> getXInList(int x, List<T> list) {
+        List<T> test = new ArrayList<T>();
+        for (int i = 0; i < x; i++) {
+            int random = getInt(list.size());
+            test.add(list.remove(random));
+        }
+        return test;
     }
 }
