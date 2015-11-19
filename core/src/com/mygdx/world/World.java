@@ -12,7 +12,7 @@ import java.util.Set;
 public class World {
     public final float WIDTH = 170;
     public final float HEIGHT = 100;
-    private final float GRIDSIZE = 90;
+    private final float GRIDSIZE = 80;
 
     private Background background;
     private Grid grid;

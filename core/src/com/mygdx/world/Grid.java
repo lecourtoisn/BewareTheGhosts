@@ -13,7 +13,7 @@ import java.util.Map;
 public class Grid {
 
     private final static Texture TEXTURE = new Texture("grid.png");
-    private final static int SIZEINCELL = 6;
+    private final static int CELLPEREDGE = 6;
     private Position position;
     private float size;
     private Position firstCellCenterPosition;
@@ -60,7 +60,7 @@ public class Grid {
     }
 
     public Map<Vector2, Direction> getExternalCells() {
-        Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(4*SIZEINCELL);
+        Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(4* CELLPEREDGE);
 
         for (Direction direction : Direction.values()) {
             externalCells.putAll(getExternalCells(direction));
@@ -69,19 +69,18 @@ public class Grid {
     }
 
     public Map<Vector2, Direction> getExternalCells(Direction direction) {
-        //List<Vector2> externalCells = new ArrayList<Vector2>(SIZEINCELL);
-        Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(SIZEINCELL);
+        Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(CELLPEREDGE);
 
-        for (int i = 0; i < SIZEINCELL; i++) {
+        for (int i = 0; i < CELLPEREDGE; i++) {
             switch (direction) {
                 case LEFT:
                     externalCells.put(new Vector2(-1, i), direction);
                     break;
                 case UP:
-                    externalCells.put(new Vector2(i, SIZEINCELL), direction);
+                    externalCells.put(new Vector2(i, CELLPEREDGE), direction);
                     break;
                 case RIGHT:
-                    externalCells.put(new Vector2(SIZEINCELL, i), direction);
+                    externalCells.put(new Vector2(CELLPEREDGE, i), direction);
                     break;
                 case DOWN:
                     externalCells.put(new Vector2(i, -1), direction);
