@@ -5,5 +5,6 @@ public interface IEvent {
     void process(float delta);
     void end();
     boolean isHappening();
+    boolean isOver();
 
 }

@@ -14,6 +14,7 @@ public abstract class Entity implements IEntity {
     private Vector2 center;
 
     protected Sprite sprite;
+    private boolean hasBeenOnGrid;
 
     public Entity(Grid grid, Texture spriteTexture, Vector2 spriteSize, Vector2 center) {
         this.grid = grid;
@@ -21,6 +22,8 @@ public abstract class Entity implements IEntity {
         this.position = new Position(0, 0);
         this.sprite = new Sprite(spriteTexture);
         this.sprite.setSize(spriteSize.x, spriteSize.y);
+        this.hasBeenOnGrid = false;
+        this.hitboxSize = new Vector2();
     }
 
     public void setHitboxSize(float x, float y) {
@@ -29,7 +32,9 @@ public abstract class Entity implements IEntity {
 
     @Override
     public void update(float delta) {
-        // Does nothing
+        if (getHitbox().overlaps(grid.getBoundaries())) {
+            hasBeenOnGrid = true;
+        }
     }
 
     @Override
@@ -70,5 +75,17 @@ public abstract class Entity implements IEntity {
 
     public boolean couldBeAt(Position nextPos) {
         return true;
+    }
+
+    @Override
+    public boolean isOutOfGrid() {
+        Rectangle gridHitbox = grid.getBoundaries();
+        Rectangle hitBox = getHitbox();
+        return !(gridHitbox.contains(hitBox) || gridHitbox.overlaps(hitBox));
+    }
+
+    @Override
+    public boolean hasBeenOnGrid() {
+        return hasBeenOnGrid;
     }
 }

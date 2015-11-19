@@ -14,4 +14,6 @@ public interface IEntity {
     void setPosition(Position position);
     Position getPosition();
     Rectangle getHitbox();
+    boolean isOutOfGrid();
+    boolean hasBeenOnGrid();
 }

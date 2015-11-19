@@ -3,7 +3,7 @@ package com.mygdx.world;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.entity.Garry;
 import com.mygdx.entity.IEntity;
-import com.mygdx.event.GhostPopperEvent;
+import com.mygdx.event.GhostAttack;
 import com.mygdx.event.IEvent;
 
 import java.util.HashSet;
@@ -19,7 +19,8 @@ public class World {
     private Garry garry;
     private Set<IEntity> entities;
 
-    private IEvent ghostPopperEvent;
+    //private IEvent ghostPopperEvent;
+    private IEvent ghostAttack;
 
     public World() {
         this.background = new Background(WIDTH, HEIGHT);
@@ -27,16 +28,17 @@ public class World {
         this.garry = new Garry(grid);
 
         this.entities = new HashSet<IEntity>();
-        this.ghostPopperEvent = new GhostPopperEvent(this);
+        //this.ghostPopperEvent = new GhostPopperEvent(this);
+        this.ghostAttack = new GhostAttack(this, 4, false, 3000);
     }
 
     public void update(float delta) {
-        if (!ghostPopperEvent.isHappening()) {
-            ghostPopperEvent.start();
+        if (!ghostAttack.isHappening()) {
+            ghostAttack.start();
         }
 
         garry.update(delta);
-        ghostPopperEvent.process(delta);
+        ghostAttack.process(delta);
         for (IEntity entity : entities) {
             entity.update(delta);
         }
@@ -66,5 +68,9 @@ public class World {
 
     public void clearEntities() {
         entities.clear();
+    }
+
+    public Set<IEntity> getEntities() {
+        return entities;
     }
 }

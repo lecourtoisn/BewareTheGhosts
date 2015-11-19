@@ -41,7 +41,7 @@ public class GhostPopperEvent extends Event {
         int nbGhost = 3;
         Direction movingDirection = Randomizer.getDirection();
         Grid grid = world.getGrid();
-        Map<Vector2, Direction> posAndDir = grid.getExternalCells();
+        Map<Vector2, Direction> posAndDir = grid.getExternalCells(new Direction[] {movingDirection});
         posAndDir = Randomizer.getXInMap(nbGhost, posAndDir);
 
         for (Vector2 pos : posAndDir.keySet()) {

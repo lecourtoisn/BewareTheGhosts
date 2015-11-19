@@ -26,6 +26,7 @@ public class Garry extends Entity implements IMovingBehaviour {
 
     @Override
     public void update(float delta) {
+        super.update(delta);
         move(delta);
     }
 

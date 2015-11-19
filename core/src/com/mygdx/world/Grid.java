@@ -59,10 +59,10 @@ public class Grid {
         return new Rectangle(recPos.x, recPos.y, recSize.x, recSize.y);
     }
 
-    public Map<Vector2, Direction> getExternalCells() {
+    public Map<Vector2, Direction> getExternalCells(Direction directions[]) {
         Map<Vector2, Direction> externalCells = new HashMap<Vector2, Direction>(4* CELLPEREDGE);
 
-        for (Direction direction : Direction.values()) {
+        for (Direction direction : directions) {
             externalCells.putAll(getExternalCells(direction));
         }
         return externalCells;
