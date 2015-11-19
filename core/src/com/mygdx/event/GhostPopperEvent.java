@@ -19,7 +19,7 @@ public class GhostPopperEvent extends Event {
     }
 
     @Override
-    protected void initialize() {
+    protected void run() {
         stopWatch.start();
     }
 

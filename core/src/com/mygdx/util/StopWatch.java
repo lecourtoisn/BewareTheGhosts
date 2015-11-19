@@ -15,8 +15,12 @@ public class StopWatch {
     }
 
     public void start(){
+        start(0);
+    }
+
+    public void start(long delayBetweenAttacks) {
         stopped = false;
-        begin = System.currentTimeMillis();
+        begin = System.currentTimeMillis() - delayBetweenAttacks;
     }
 
     public void restart() {

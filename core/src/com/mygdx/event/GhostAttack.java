@@ -19,8 +19,6 @@ import java.util.Set;
 
 
 public class GhostAttack extends Event {
-    private int nbGhost;
-    private boolean sameDirection;
     private float arrowWarningDuration;
 
     private StopWatch stopWatch;
@@ -32,34 +30,39 @@ public class GhostAttack extends Event {
     public GhostAttack(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration) {
         super(world);
         nbGhost = nbGhost == 0 ? 1 : nbGhost;
-        this.nbGhost = nbGhost;
-        this.sameDirection = sameDirection;
         this.arrowWarningDuration = arrowWarningDuration;
-
         this.stopWatch = new StopWatch();
-
         this.ghosts = new HashMap<Ghost, ArrowDirectionPair>();
-    }
 
-    @Override
-    protected void initialize() {
-        stopWatch.start();
         Grid grid = world.getGrid();
+
+        // Generate ghosts positions
         Direction directions[] = sameDirection ? new Direction[] {Randomizer.getDirection()} : Direction.getDirections();
         Map<Vector2, Direction> posAndDir = grid.getExternalCells(directions);
         posAndDir = Randomizer.getXInMap(nbGhost, posAndDir);
 
+
+        // Create ghosts and arrows, and position them
         for (Vector2 position : posAndDir.keySet()) {
             Direction direction = posAndDir.get(position).getOpposite();
             Position startingPosition = new Position(grid.getCellCenterPosition(Math.round(position.x), Math.round(position.y)));
 
             Ghost ghost = new Ghost(grid);
             Arrow arrow = new Arrow(grid, direction);
+
             ghost.setMovingDirection(direction);
+
             ghost.setPosition(startingPosition);
             arrow.setPosition(startingPosition);
+
             ghosts.put(ghost, new ArrowDirectionPair(arrow, direction));
         }
+
+    }
+
+    @Override
+    protected void run() {
+        stopWatch.start();
 
         startArrowPhase();
     }

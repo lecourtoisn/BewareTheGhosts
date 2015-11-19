@@ -3,8 +3,8 @@ package com.mygdx.world;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.entity.Garry;
 import com.mygdx.entity.IEntity;
-import com.mygdx.event.GhostAttack;
 import com.mygdx.event.IEvent;
+import com.mygdx.event.GhostSalvo;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,8 +28,7 @@ public class World {
         this.garry = new Garry(grid);
 
         this.entities = new HashSet<IEntity>();
-        //this.ghostPopperEvent = new GhostPopperEvent(this);
-        this.ghostAttack = new GhostAttack(this, 4, false, 3000);
+        this.ghostAttack = new GhostSalvo(this, 3, true, 1500, 4, 3000);
     }
 
     public void update(float delta) {

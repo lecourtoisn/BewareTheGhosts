@@ -12,15 +12,17 @@ public class Arrow extends Entity {
     private static final Texture TEXTURE = new Texture("arrow.png");
     private static final Vector2 SIZE = new Vector2(10, 10);
     private static final Vector2 CENTER = new Vector2(SIZE).scl(1/2f);
-    private static final float DISPLAYED = 300;
-    private static final float HIDDEN = 100;
+    private static final long DISPLAYED = 300;
+    private static final long HIDDEN = 100;
 
     private StopWatch stopWatch;
+    private boolean displayed;
 
     public Arrow(Grid grid, Direction orientation) {
         super(grid, TEXTURE, SIZE, CENTER);
+        displayed = false;
         this.stopWatch = new StopWatch();
-        stopWatch.start();
+        stopWatch.start(HIDDEN);
         sprite.setColor(Color.LIME);
         switch (orientation) {
             case LEFT:
@@ -37,9 +39,16 @@ public class Arrow extends Entity {
 
     @Override
     public void draw(Batch batch) {
-        float phase = stopWatch.getMilliseconds() % (DISPLAYED + HIDDEN);
-        if (phase < DISPLAYED) {
+        if (displayed) {
             super.draw(batch);
+        }
+
+        if (!displayed && stopWatch.getMilliseconds() > HIDDEN) {
+            stopWatch.restart();
+            displayed = true;
+        } else if (stopWatch.getMilliseconds() > DISPLAYED){
+            stopWatch.restart();
+            displayed = false;
         }
     }
 }

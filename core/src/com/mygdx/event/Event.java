@@ -16,7 +16,7 @@ public abstract class Event implements IEvent {
     @Override
     public final void start() {
         if (!isOver) {
-            initialize();
+            run();
             this.isHappening = true;
         }
     }
@@ -49,7 +49,7 @@ public abstract class Event implements IEvent {
 
 
     /** Methods to override in subclasses to define an event **/
-    protected void initialize() {
+    protected void run() {
         // Does nothing by default
     }
 
