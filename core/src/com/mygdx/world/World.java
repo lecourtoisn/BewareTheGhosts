@@ -2,7 +2,6 @@ package com.mygdx.world;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.entity.Garry;
-import com.mygdx.entity.Ghost;
 import com.mygdx.entity.IEntity;
 import com.mygdx.event.GhostPopperEvent;
 import com.mygdx.event.IEvent;
@@ -61,7 +60,7 @@ public class World {
         return grid;
     }
 
-    public void addEntity(Ghost newGhost) {
+    public void addEntity(IEntity newGhost) {
         entities.add(newGhost);
     }
 

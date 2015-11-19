@@ -1,7 +1,7 @@
 package com.mygdx.event;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.entity.Ghost;
+import com.mygdx.entity.Arrow;
 import com.mygdx.util.Direction;
 import com.mygdx.util.Randomizer;
 import com.mygdx.util.StopWatch;
@@ -38,17 +38,18 @@ public class GhostPopperEvent extends Event {
     }
 
     private void popAGhost() {
-        int nbGhost = 6;
+        int nbGhost = 3;
         Direction movingDirection = Randomizer.getDirection();
         Grid grid = world.getGrid();
         Map<Vector2, Direction> posAndDir = grid.getExternalCells();
         posAndDir = Randomizer.getXInMap(nbGhost, posAndDir);
 
         for (Vector2 pos : posAndDir.keySet()) {
-            Ghost newGhost = new Ghost(grid);
+            Direction dir = posAndDir.get(pos);
+            Arrow newGhost = new Arrow(grid, dir.getOpposite());
             newGhost.setPosition(grid.getCellCenterPosition(Math.round(pos.x), Math.round(pos.y)));
             world.addEntity(newGhost);
-            newGhost.setMovingDirection(posAndDir.get(pos).getOpposite());
+            //newGhost.setMovingDirection(dir.getOpposite());
         }
     }
 
