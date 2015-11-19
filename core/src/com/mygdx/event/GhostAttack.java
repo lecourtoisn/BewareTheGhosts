@@ -25,11 +25,13 @@ public class GhostAttack extends Event {
 
     private StopWatch stopWatch;
     private boolean arrowPhase;
+    private boolean ghostsHasShown;
 
     private Map<Ghost, ArrowDirectionPair> ghosts;
 
     public GhostAttack(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration) {
         super(world);
+        nbGhost = nbGhost == 0 ? 1 : nbGhost;
         this.nbGhost = nbGhost;
         this.sameDirection = sameDirection;
         this.arrowWarningDuration = arrowWarningDuration;
@@ -64,6 +66,9 @@ public class GhostAttack extends Event {
 
     @Override
     protected void update(float delta) {
+        if (!ghostsHasShown && someGhostsAreVisible()) {
+            this.ghostsHasShown = true;
+        }
         if (arrowPhase && stopWatch.getMilliseconds() > arrowWarningDuration) {
             endArrowPhase();
             startGhostPhase();
@@ -73,24 +78,28 @@ public class GhostAttack extends Event {
         }
     }
 
-    private boolean attackOver() {
-        boolean outOfGrid = false;
-        for (Ghost ghost : ghosts.keySet()) {
-            if (ghost.hasBeenOnGrid() && ghost.isOutOfGrid()) {
-                outOfGrid = true;
-            }
-        }
-        return outOfGrid;
-    }
-
-    private void startGhostPhase() {
-        world.getEntities().addAll(ghosts.keySet());
-    }
-
     @Override
     protected void clean() {
         Set<IEntity> worldEntities = world.getEntities();
         worldEntities.removeAll(ghosts.keySet());
+    }
+
+    private boolean attackOver() {
+        return ghostsHasShown && !someGhostsAreVisible();
+    }
+
+    private boolean someGhostsAreVisible() {
+        boolean ghostsAreVisible = false;
+        for (Ghost ghost : ghosts.keySet()) {
+            if (ghost.isVisibleOnGrid()) {
+                ghostsAreVisible = true;
+            }
+        }
+        return ghostsAreVisible;
+    }
+
+    private void startGhostPhase() {
+        world.getEntities().addAll(ghosts.keySet());
     }
 
     private void startArrowPhase() {
