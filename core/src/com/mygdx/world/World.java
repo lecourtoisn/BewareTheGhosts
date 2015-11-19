@@ -1,13 +1,12 @@
 package com.mygdx.world;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.entity.Arrow;
 import com.mygdx.entity.Garry;
+import com.mygdx.entity.Ghost;
 import com.mygdx.entity.IEntity;
-import com.mygdx.event.IEvent;
 import com.mygdx.event.GhostSalvo;
-
-import java.util.HashSet;
-import java.util.Set;
+import com.mygdx.event.IEvent;
 
 public class World {
     public final float WIDTH = 170;
@@ -17,7 +16,8 @@ public class World {
     private Background background;
     private Grid grid;
     private Garry garry;
-    private Set<IEntity> entities;
+    //private Set<IEntity> entities;
+    EntityHolder entities;
 
     //private IEvent ghostPopperEvent;
     private IEvent ghostAttack;
@@ -27,8 +27,8 @@ public class World {
         this.grid = new Grid(GRIDSIZE, WIDTH, HEIGHT);
         this.garry = new Garry(grid);
 
-        this.entities = new HashSet<IEntity>();
-        this.ghostAttack = new GhostSalvo(this, 3, true, 1500, 4, 3000);
+        this.entities = new EntityHolder();
+        this.ghostAttack = new GhostSalvo(this, 3, false, 1000, 20, 1000);
     }
 
     public void update(float delta) {
@@ -38,7 +38,7 @@ public class World {
 
         garry.update(delta);
         ghostAttack.process(delta);
-        for (IEntity entity : entities) {
+        for (IEntity entity : entities.getEntities()) {
             entity.update(delta);
         }
     }
@@ -48,7 +48,10 @@ public class World {
         grid.draw(batch);
         garry.draw(batch);
 
-        for (IEntity entity : entities) {
+        for (IEntity entity : entities.getEntities(Arrow.class)) {
+            entity.draw(batch);
+        }
+        for (IEntity entity : entities.getEntities(Ghost.class)) {
             entity.draw(batch);
         }
     }
@@ -61,15 +64,7 @@ public class World {
         return grid;
     }
 
-    public void addEntity(IEntity newGhost) {
-        entities.add(newGhost);
-    }
-
-    public void clearEntities() {
-        entities.clear();
-    }
-
-    public Set<IEntity> getEntities() {
+    public EntityHolder getEntities() {
         return entities;
     }
 }

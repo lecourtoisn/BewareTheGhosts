@@ -23,7 +23,7 @@ public class Arrow extends Entity {
         displayed = false;
         this.stopWatch = new StopWatch();
         stopWatch.start(HIDDEN);
-        sprite.setColor(Color.LIME);
+        sprite.setColor(Color.RED);
         switch (orientation) {
             case LEFT:
                 sprite.flip(true, false);

@@ -3,7 +3,6 @@ package com.mygdx.event;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Arrow;
 import com.mygdx.entity.Ghost;
-import com.mygdx.entity.IEntity;
 import com.mygdx.entity.Position;
 import com.mygdx.util.Direction;
 import com.mygdx.util.Randomizer;
@@ -83,8 +82,7 @@ public class GhostAttack extends Event {
 
     @Override
     protected void clean() {
-        Set<IEntity> worldEntities = world.getEntities();
-        worldEntities.removeAll(ghosts.keySet());
+        world.getEntities().removeAll(ghosts.keySet());
     }
 
     private boolean attackOver() {
@@ -112,8 +110,7 @@ public class GhostAttack extends Event {
 
     private void endArrowPhase() {
         arrowPhase = false;
-        Set<IEntity> worldEntities = world.getEntities();
-        worldEntities.removeAll(getArrows());
+        world.getEntities().removeAll(getArrows());
     }
 
     public Set<Arrow> getArrows() {

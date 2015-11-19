@@ -24,7 +24,7 @@ public class Ghost extends Entity implements IMovingBehaviour{
 
         setPosition(grid.getCellCenterPosition(1, 1));
 
-        sprite.setColor(Color.LIME);
+        sprite.setColor(Color.CHARTREUSE);
     }
 
     @Override
