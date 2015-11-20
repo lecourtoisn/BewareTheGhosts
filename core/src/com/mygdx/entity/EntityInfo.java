@@ -10,6 +10,7 @@ public enum EntityInfo {
     GHOST(new Texture("ghost.png"), 6.2f, 9),
     SUN(new Texture("sun1.png"), 9, 9),
     SPIDER(new Texture("spider.png"), 9, 5.7f),
+    MOUSE(new Texture("mouse.png"), 9, 5.3f),
     SPIKEMAN(new Texture("spikeMan_stand.png"), 5.3f, 9);
 
     private Texture texture;
