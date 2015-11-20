@@ -41,6 +41,15 @@ public abstract class Entity implements IEntity {
         sprite.draw(batch);
     }
 
+    /*@Override
+    public void draw(Batch batch, OrthographicCamera cam) {
+        Vector2 spritePos = new Vector2(getPosition().getPosition());
+        spritePos.sub(center);
+        sprite.setPosition(spritePos.x, spritePos.y);
+        //sprite.draw(batch, cam);
+
+    }*/
+
     @Override
     public Grid getGrid() {
         return grid;

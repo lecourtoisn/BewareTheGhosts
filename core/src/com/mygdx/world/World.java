@@ -1,6 +1,9 @@
 package com.mygdx.world;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.mygdx.entity.Arrow;
 import com.mygdx.entity.Garry;
 import com.mygdx.entity.Ghost;
@@ -43,7 +46,11 @@ public class World {
         }
     }
 
-    public void render(Batch batch) {
+    public void render(Batch batch, OrthographicCamera cam) {
+        Rectangle scissors = new Rectangle();
+        Rectangle clipBounds = grid.getBoundaries();
+        ScissorStack.calculateScissors(cam, batch.getTransformMatrix(), clipBounds, scissors);
+
         background.draw(batch);
         grid.draw(batch);
         garry.draw(batch);
@@ -51,9 +58,14 @@ public class World {
         for (IEntity entity : entities.getEntities(Arrow.class)) {
             entity.draw(batch);
         }
+
+        batch.flush();
+        ScissorStack.pushScissors(scissors);
         for (IEntity entity : entities.getEntities(Ghost.class)) {
             entity.draw(batch);
         }
+        batch.flush();
+        ScissorStack.popScissors();
     }
 
     public Garry getGarry() {
