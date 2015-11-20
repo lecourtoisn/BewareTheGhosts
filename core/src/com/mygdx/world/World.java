@@ -1,5 +1,6 @@
 package com.mygdx.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
@@ -12,8 +13,9 @@ import com.mygdx.event.GhostSalvo;
 import com.mygdx.event.IEvent;
 
 public class World {
-    public final float WIDTH = 170;
+//    public final float WIDTH = 170;
     public final float HEIGHT = 100;
+    public final float WIDTH = Gdx.graphics.getWidth() * 100f / Gdx.graphics.getHeight();
     private final float GRIDSIZE = 80;
 
     private Background background;
