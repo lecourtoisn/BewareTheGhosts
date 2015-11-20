@@ -2,7 +2,8 @@ package com.mygdx.event;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Arrow;
-import com.mygdx.entity.Ghost;
+import com.mygdx.entity.Enemy;
+import com.mygdx.entity.EntityInfo;
 import com.mygdx.entity.Position;
 import com.mygdx.util.Direction;
 import com.mygdx.util.Randomizer;
@@ -24,14 +25,14 @@ public class GhostAttack extends Event {
     private boolean arrowPhase;
     private boolean ghostsHasShown;
 
-    private Map<Ghost, ArrowDirectionPair> ghosts;
+    private Map<Enemy, ArrowDirectionPair> ghosts;
 
     public GhostAttack(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration) {
         super(world);
         nbGhost = nbGhost == 0 ? 1 : nbGhost;
         this.arrowWarningDuration = arrowWarningDuration;
         this.stopWatch = new StopWatch();
-        this.ghosts = new HashMap<Ghost, ArrowDirectionPair>();
+        this.ghosts = new HashMap<Enemy, ArrowDirectionPair>();
 
         Grid grid = world.getGrid();
 
@@ -46,7 +47,7 @@ public class GhostAttack extends Event {
             Direction direction = posAndDir.get(position).getOpposite();
             Position startingPosition = new Position(grid.getCellCenterPosition(Math.round(position.x), Math.round(position.y)));
 
-            Ghost ghost = new Ghost(grid);
+            Enemy ghost = new Enemy(grid, EntityInfo.GHOST);
             Arrow arrow = new Arrow(grid, direction);
 
             ghost.setMovingDirection(direction);
@@ -91,7 +92,7 @@ public class GhostAttack extends Event {
 
     private boolean someGhostsAreVisible() {
         boolean ghostsAreVisible = false;
-        for (Ghost ghost : ghosts.keySet()) {
+        for (Enemy ghost : ghosts.keySet()) {
             if (ghost.isVisibleOnGrid()) {
                 ghostsAreVisible = true;
             }

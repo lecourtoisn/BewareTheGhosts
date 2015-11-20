@@ -1,6 +1,5 @@
 package com.mygdx.entity;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,15 +12,17 @@ public abstract class Entity implements IEntity {
     private Vector2 hitboxSize;
     private Vector2 center;
 
+    protected EntityInfo entityInfo;
     protected Sprite sprite;
 
-    public Entity(Grid grid, Texture spriteTexture, Vector2 spriteSize, Vector2 center) {
+    public Entity(Grid grid,EntityInfo entityInfo) {
         this.grid = grid;
-        this.center = center;
+        this.center = entityInfo.getCenter();
         this.position = new Position(0, 0);
-        this.sprite = new Sprite(spriteTexture);
-        this.sprite.setSize(spriteSize.x, spriteSize.y);
+        this.sprite = new Sprite(entityInfo.getTexture());
+        this.sprite.setSize(entityInfo.getSize().x, entityInfo.getSize().y);
         this.hitboxSize = new Vector2();
+        this.entityInfo = entityInfo;
     }
 
     public void setHitboxSize(float x, float y) {

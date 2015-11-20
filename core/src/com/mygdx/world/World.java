@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.mygdx.entity.Arrow;
 import com.mygdx.entity.Garry;
-import com.mygdx.entity.Ghost;
+import com.mygdx.entity.Enemy;
 import com.mygdx.entity.IEntity;
 import com.mygdx.event.GhostSalvo;
 import com.mygdx.event.IEvent;
@@ -63,7 +63,7 @@ public class World {
 
         batch.flush();
         ScissorStack.pushScissors(scissors);
-        for (IEntity entity : entities.getEntities(Ghost.class)) {
+        for (IEntity entity : entities.getEntities(Enemy.class)) {
             entity.draw(batch);
         }
         batch.flush();

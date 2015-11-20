@@ -33,8 +33,8 @@ public class GhostSalvo extends Event {
 
     @Override
     protected void update(float delta) {
-        for (Event attack : attacks) {
-            attack.update(delta);
+        if (noMoreAttackRunning()) {
+            end();
         }
 
         if(attacksIterator.hasNext() && stopWatch.getMilliseconds() > delayBetweenAttacks) {
@@ -43,8 +43,8 @@ public class GhostSalvo extends Event {
             stopWatch.restart();
         }
 
-        if (noMoreAttackRunning()) {
-            end();
+        for (Event attack : attacks) {
+            attack.update(delta);
         }
     }
 

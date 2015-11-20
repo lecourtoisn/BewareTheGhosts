@@ -1,17 +1,12 @@
 package com.mygdx.entity;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.util.Direction;
 import com.mygdx.util.StopWatch;
 import com.mygdx.world.Grid;
 
 public class Arrow extends Entity {
-    private static final Texture TEXTURE = new Texture("arrow.png");
-    private static final Vector2 SIZE = new Vector2(10, 10);
-    private static final Vector2 CENTER = new Vector2(SIZE).scl(1/2f);
     private static final long DISPLAYED = 300;
     private static final long HIDDEN = 100;
 
@@ -19,7 +14,7 @@ public class Arrow extends Entity {
     private boolean displayed;
 
     public Arrow(Grid grid, Direction orientation) {
-        super(grid, TEXTURE, SIZE, CENTER);
+        super(grid, EntityInfo.ARROW);
         displayed = false;
         this.stopWatch = new StopWatch();
         stopWatch.start(HIDDEN);
