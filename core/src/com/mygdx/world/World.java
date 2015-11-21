@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
-import com.mygdx.entity.*;
-import com.mygdx.event.GhostSalvo;
+import com.mygdx.entity.Arrow;
+import com.mygdx.entity.Enemy;
+import com.mygdx.entity.Garry;
+import com.mygdx.entity.IEntity;
 import com.mygdx.event.IEvent;
 import com.mygdx.util.GenericHolder;
 
@@ -31,16 +33,10 @@ public class World {
         this.entities = new GenericHolder<IEntity>();
         this.events = new GenericHolder<IEvent>();
 
-        IEvent ghostAttack = new GhostSalvo(this, 3, false, 1000, 20, 1000);
-        events.add(ghostAttack);
-
-        //TODELETE;
-        ghostAttack.start();
+        entities.add(garry);
     }
 
     public void update(float delta) {
-        garry.update(delta);
-
         for (IEvent event : events.getElements()) {
             event.process(delta);
         }
