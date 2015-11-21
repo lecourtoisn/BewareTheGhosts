@@ -1,7 +1,7 @@
 package com.mygdx.movingbehaviour;
 
 import com.mygdx.entity.Entity;
-import com.mygdx.entity.Position;
+import com.mygdx.util.Position;
 import com.mygdx.util.Direction;
 
 public abstract class MovingBehaviour implements IMovingBehaviour{

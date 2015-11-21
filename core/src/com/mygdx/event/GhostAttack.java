@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Arrow;
 import com.mygdx.entity.Enemy;
 import com.mygdx.entity.EntityInfo;
-import com.mygdx.entity.Position;
+import com.mygdx.util.Position;
 import com.mygdx.util.Direction;
 import com.mygdx.util.Randomizer;
 import com.mygdx.util.StopWatch;

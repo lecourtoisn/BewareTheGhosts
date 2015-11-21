@@ -2,7 +2,7 @@ package com.mygdx.movingbehaviour;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Entity;
-import com.mygdx.entity.Position;
+import com.mygdx.util.Position;
 
 public class GlidingBehaviour extends MovingBehaviour {
 

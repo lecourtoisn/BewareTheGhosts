@@ -34,7 +34,6 @@ public class GameSession {
         }
     }
 
-
     public void render(SpriteBatch batch, OrthographicCamera cam) {
         world.render(batch, cam);
     }

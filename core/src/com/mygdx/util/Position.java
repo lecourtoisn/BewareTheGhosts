@@ -1,4 +1,4 @@
-package com.mygdx.entity;
+package com.mygdx.util;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.world.Grid;

@@ -2,6 +2,7 @@ package com.mygdx.entity;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.util.Position;
 import com.mygdx.world.Grid;
 
 public interface IEntity {

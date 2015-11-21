@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.movingbehaviour.IMovingBehaviour;
 import com.mygdx.movingbehaviour.TeleportBehaviour;
 import com.mygdx.util.Direction;
+import com.mygdx.util.Position;
 import com.mygdx.world.Grid;
 
 public class Garry extends Entity implements IMovingBehaviour {
