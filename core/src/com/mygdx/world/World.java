@@ -11,6 +11,7 @@ import com.mygdx.entity.Enemy;
 import com.mygdx.entity.IEntity;
 import com.mygdx.event.GhostSalvo;
 import com.mygdx.event.IEvent;
+import com.mygdx.util.GenericHolder;
 
 public class World {
 //    public final float WIDTH = 170;
@@ -21,10 +22,8 @@ public class World {
     private Background background;
     private Grid grid;
     private Garry garry;
-    //private Set<IEntity> entities;
-    EntityHolder entities;
+    private GenericHolder<IEntity> entities;
 
-    //private IEvent ghostPopperEvent;
     private IEvent ghostAttack;
 
     public World() {
@@ -32,7 +31,7 @@ public class World {
         this.grid = new Grid(GRIDSIZE, WIDTH, HEIGHT);
         this.garry = new Garry(grid);
 
-        this.entities = new EntityHolder();
+        this.entities = new GenericHolder<IEntity>();
         this.ghostAttack = new GhostSalvo(this, 3, false, 1000, 20, 1000);
     }
 
@@ -78,7 +77,7 @@ public class World {
         return grid;
     }
 
-    public EntityHolder getEntities() {
+    public GenericHolder getEntities() {
         return entities;
     }
 }
