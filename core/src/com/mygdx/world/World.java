@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
-import com.mygdx.entity.Arrow;
-import com.mygdx.entity.Garry;
-import com.mygdx.entity.Enemy;
-import com.mygdx.entity.IEntity;
+import com.mygdx.entity.*;
 import com.mygdx.event.GhostSalvo;
 import com.mygdx.event.IEvent;
 import com.mygdx.util.GenericHolder;
@@ -22,9 +19,9 @@ public class World {
     private Background background;
     private Grid grid;
     private Garry garry;
-    private GenericHolder<IEntity> entities;
 
-    private IEvent ghostAttack;
+    private GenericHolder<IEntity> entities;
+    private GenericHolder<IEvent> events;
 
     public World() {
         this.background = new Background(WIDTH, HEIGHT);
@@ -32,17 +29,23 @@ public class World {
         this.garry = new Garry(grid);
 
         this.entities = new GenericHolder<IEntity>();
-        this.ghostAttack = new GhostSalvo(this, 3, false, 1000, 20, 1000);
+        this.events = new GenericHolder<IEvent>();
+
+        IEvent ghostAttack = new GhostSalvo(this, 3, false, 1000, 20, 1000);
+        events.add(ghostAttack);
+
+        //TODELETE;
+        ghostAttack.start();
     }
 
     public void update(float delta) {
-        if (!ghostAttack.isHappening()) {
-            ghostAttack.start();
+        garry.update(delta);
+
+        for (IEvent event : events.getElements()) {
+            event.process(delta);
         }
 
-        garry.update(delta);
-        ghostAttack.process(delta);
-        for (IEntity entity : entities.getEntities()) {
+        for (IEntity entity : entities.getElements()) {
             entity.update(delta);
         }
     }
@@ -56,13 +59,13 @@ public class World {
         grid.draw(batch);
         garry.draw(batch);
 
-        for (IEntity entity : entities.getEntities(Arrow.class)) {
+        for (IEntity entity : entities.getElements(Arrow.class)) {
             entity.draw(batch);
         }
 
         batch.flush();
         ScissorStack.pushScissors(scissors);
-        for (IEntity entity : entities.getEntities(Enemy.class)) {
+        for (IEntity entity : entities.getElements(Enemy.class)) {
             entity.draw(batch);
         }
         batch.flush();
@@ -77,7 +80,11 @@ public class World {
         return grid;
     }
 
-    public GenericHolder getEntities() {
+    public GenericHolder<IEntity> getEntities() {
         return entities;
+    }
+
+    public GenericHolder<IEvent> getEvents() {
+        return events;
     }
 }

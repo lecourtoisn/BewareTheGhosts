@@ -42,10 +42,6 @@ public class GhostSalvo extends Event {
             attack.start();
             stopWatch.restart();
         }
-
-        for (Event attack : attacks) {
-            attack.update(delta);
-        }
     }
 
     private boolean noMoreAttackRunning() {

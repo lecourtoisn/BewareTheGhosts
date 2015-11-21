@@ -16,8 +16,9 @@ public abstract class Event implements IEvent {
     @Override
     public final void start() {
         if (!isOver) {
-            run();
             this.isHappening = true;
+            world.getEvents().add(this);
+            run();
         }
     }
 
