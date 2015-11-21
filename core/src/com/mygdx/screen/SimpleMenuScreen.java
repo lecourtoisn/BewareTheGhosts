@@ -21,6 +21,12 @@ public class SimpleMenuScreen extends ScreenAdapter {
                 simpleMenu.startGameSession();
                 return true;
             }
+
+            @Override
+            public boolean keyTyped(char character) {
+                simpleMenu.startGameSession();
+                return true;
+            }
         });
     }
 
