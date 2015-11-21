@@ -1,30 +1,32 @@
 package com.mygdx.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.commandhandlers.InputHandler;
-import com.mygdx.world.World;
+import com.mygdx.game.GameSession;
 
 public class GameScreen extends ScreenAdapter {
+    private GameSession gameSession;
+
     private OrthographicCamera cam;
     private SpriteBatch batch;
 
-    private World world;
+    private InputProcessor inputProcessor;
 
-    public GameScreen(World world) {
+    public GameScreen(GameSession gameSession, InputProcessor inputProcessor, float width, float height) {
+        this.gameSession = gameSession;
+        this.inputProcessor = inputProcessor;
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, world.WIDTH, world.HEIGHT);
+        cam.setToOrtho(false, width, height);
         batch = new SpriteBatch();
         batch.setProjectionMatrix(cam.combined);
-
-        this.world = world;
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(new InputHandler(world));
+        Gdx.input.setInputProcessor(inputProcessor);
     }
 
     /**
@@ -32,9 +34,9 @@ public class GameScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        world.update(delta);
+        gameSession.update(delta);
         batch.begin();
-        world.render(batch, cam);
+        gameSession.render(batch, cam);
         batch.end();
     }
 }

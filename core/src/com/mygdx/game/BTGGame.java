@@ -3,11 +3,20 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 
 public class BTGGame extends Game {
-    private GameSession gameSession;
+    private SimpleMenu simpleMenu;
 
 	@Override
 	public void create() {
-		gameSession = new GameSession(this);
-        gameSession.start();
+        simpleMenu = new SimpleMenu(this);
+        launchSimpleMenu();
 	}
+
+    public void startGameSession() {
+        GameSession gameSession = new GameSession(this);
+        gameSession.start();
+    }
+
+    public void launchSimpleMenu() {
+        simpleMenu.start();
+    }
 }
