@@ -1,7 +1,6 @@
 package com.mygdx.world;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
@@ -13,10 +12,8 @@ import com.mygdx.event.IEvent;
 import com.mygdx.util.GenericHolder;
 
 public class World {
-//    public final float WIDTH = 170;
-    public final float HEIGHT = 100;
-    public final float WIDTH = Gdx.graphics.getWidth() * 100f / Gdx.graphics.getHeight();
-    private final float GRIDSIZE = 80;
+    //public static final float WIDTH = 100;
+    //public static final float HEIGHT = 100;
 
     private Background background;
     private Grid grid;
@@ -25,9 +22,14 @@ public class World {
     private GenericHolder<IEntity> entities;
     private GenericHolder<IEvent> events;
 
-    public World() {
-        this.background = new Background(WIDTH, HEIGHT);
-        this.grid = new Grid(GRIDSIZE, WIDTH, HEIGHT);
+    private float width, height;
+
+    public World(float width, float height) {
+        float GRIDSIZE = 80;
+        this.width = width;
+        this.height = height;
+        this.background = new Background(width, height);
+        this.grid = new Grid(GRIDSIZE, width, height);
         this.garry = new Garry(grid);
 
         this.entities = new GenericHolder<IEntity>();
@@ -46,7 +48,7 @@ public class World {
         }
     }
 
-    public void render(Batch batch, OrthographicCamera cam) {
+    public void render(Batch batch, Camera cam) {
         Rectangle scissors = new Rectangle();
         Rectangle clipBounds = grid.getBoundaries();
         ScissorStack.calculateScissors(cam, batch.getTransformMatrix(), clipBounds, scissors);
