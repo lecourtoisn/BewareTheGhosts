@@ -76,18 +76,19 @@ public class GhostAttack extends Event {
             endArrowPhase();
             startGhostPhase();
         }
-        if (attackOver()) {
-            end();
-        }
+    }
+
+    /**
+     * Ends if the attack is over
+     */
+    @Override
+    protected boolean mustEnd() {
+        return ghostsHasShown && !someGhostsAreVisible();
     }
 
     @Override
-    protected void clean() {
+    protected void terminate() {
         world.getEntities().removeAll(ghosts.keySet());
-    }
-
-    private boolean attackOver() {
-        return ghostsHasShown && !someGhostsAreVisible();
     }
 
     private boolean someGhostsAreVisible() {

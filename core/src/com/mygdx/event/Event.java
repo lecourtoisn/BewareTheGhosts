@@ -26,13 +26,16 @@ public abstract class Event implements IEvent {
     public final void process(float delta) {
         if (isHappening && !isOver) {
             update(delta);
+            if (mustEnd()) {
+                end();
+            }
         }
     }
 
     @Override
     public final void end() {
         if (!isOver) {
-            clean();
+            terminate();
             this.isHappening = false;
             this.isOver = true;
         }
@@ -48,17 +51,21 @@ public abstract class Event implements IEvent {
         return isOver;
     }
 
-
     /** Methods to override in subclasses to define an event **/
     protected void run() {
         // Does nothing by default
     }
 
+
     protected void update(float delta) {
         // Does nothing by default
     }
 
-    protected void clean() {
+    protected void terminate() {
         // Does nothing by default
+    }
+
+    protected boolean mustEnd() {
+        return false; // By default an event never ends
     }
 }

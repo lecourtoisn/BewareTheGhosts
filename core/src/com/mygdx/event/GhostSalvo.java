@@ -33,10 +33,6 @@ public class GhostSalvo extends Event {
 
     @Override
     protected void update(float delta) {
-        if (noMoreAttackRunning()) {
-            end();
-        }
-
         if(attacksIterator.hasNext() && stopWatch.getMilliseconds() > delayBetweenAttacks) {
             IEvent attack = attacksIterator.next();
             attack.start();
@@ -44,7 +40,11 @@ public class GhostSalvo extends Event {
         }
     }
 
-    private boolean noMoreAttackRunning() {
+    /**
+     * Ends if every attacks are over
+     */
+    @Override
+    protected boolean mustEnd() {
         boolean noMoreAttackRunning = true;
         for (Event attack : attacks) {
             if (!attack.isOver()) {
