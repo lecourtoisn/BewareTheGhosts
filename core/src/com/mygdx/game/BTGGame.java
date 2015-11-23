@@ -7,6 +7,7 @@ public class BTGGame extends Game {
 
 	@Override
 	public void create() {
+        Score.setHighScore(0);
         simpleMenu = new SimpleMenu(this);
         launchSimpleMenu();
 	}

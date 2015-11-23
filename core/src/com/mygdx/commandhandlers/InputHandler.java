@@ -30,6 +30,9 @@ public class InputHandler implements InputProcessor {
             case Input.Keys.LEFT:
                 garry.setMovingDirection(Direction.LEFT);
                 break;
+            case Input.Keys.SPACE:
+                garry.setDead(false);
+                break;
             default:
                 return false;
         }

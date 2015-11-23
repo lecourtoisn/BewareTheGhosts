@@ -42,8 +42,8 @@ public class GhostAttack extends Event {
             Direction direction = posAndDir.get(position).getOpposite();
             Position startingPosition = new Position(grid.getCellCenterPosition(Math.round(position.x), Math.round(position.y)));
 
-            Enemy ghost = new Enemy(grid, EntityInfo.GHOST);
-            Arrow arrow = new Arrow(grid, direction);
+            Enemy ghost = new Enemy(world, EntityInfo.GHOST);
+            Arrow arrow = new Arrow(world, direction);
 
             ghost.setMovingDirection(direction);
 

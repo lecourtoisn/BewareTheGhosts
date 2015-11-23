@@ -41,6 +41,9 @@ public class GameSession extends ScreenListener {
 
     @Override
     public void update(float delta) {
+        if (world.getGarry().isDead()) {
+            event.end();
+        }
         world.update(delta);
         if (event.isOver()) {
             int highScore = Score.getHighScore();

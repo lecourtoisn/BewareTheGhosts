@@ -5,24 +5,35 @@ import com.mygdx.movingbehaviour.IMovingBehaviour;
 import com.mygdx.movingbehaviour.TeleportBehaviour;
 import com.mygdx.util.Direction;
 import com.mygdx.util.Position;
-import com.mygdx.world.Grid;
+import com.mygdx.world.World;
+
+import java.util.Set;
 
 public class Garry extends Entity implements IMovingBehaviour {
 
     private IMovingBehaviour movingStrategy;
+    private boolean dead;
 
-    public Garry(Grid grid) {
-        super(grid, EntityInfo.GARRY);
+    public Garry(World world) {
+        super(world, EntityInfo.GARRY);
+        this.dead = false;
         setHitboxSize(entityInfo.getSize().x, entityInfo.getSize().y);
         movingStrategy = new TeleportBehaviour(this);
 
-        setPosition(grid.getCellCenterPosition(0, 0));
+        setPosition(getGrid().getCellCenterPosition(0, 0));
     }
 
     @Override
     public void update(float delta) {
-        super.update(delta);
-        move(delta);
+        if (!dead) {
+            Set<IEntity> colliding = world.getCollisions(this);
+            if (!colliding.isEmpty()) {
+                for (IEntity entity : colliding) {
+                    entity.collidesWithGarry(this);
+                }
+            }
+            move(delta);
+        }
     }
 
     /** Private & protected **/
@@ -44,5 +55,19 @@ public class Garry extends Entity implements IMovingBehaviour {
     @Override
     public void move(float delta) {
         movingStrategy.move(delta);
+    }
+
+    public void getsHurt() {
+        if (!dead) {
+            dead = true;
+        }
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 }

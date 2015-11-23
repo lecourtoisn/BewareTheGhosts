@@ -6,18 +6,19 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.util.Position;
 import com.mygdx.world.Grid;
+import com.mygdx.world.World;
 
 public abstract class Entity implements IEntity {
-    private Grid grid;
     private Position position;
     private Vector2 hitboxSize;
     private Vector2 center;
-
     protected EntityInfo entityInfo;
-    protected Sprite sprite;
 
-    public Entity(Grid grid,EntityInfo entityInfo) {
-        this.grid = grid;
+    protected Sprite sprite;
+    protected World world;
+
+    public Entity(World world,EntityInfo entityInfo) {
+        this.world = world;
         this.center = entityInfo.getCenter();
         this.position = new Position(0, 0);
         this.sprite = new Sprite(entityInfo.getTexture());
@@ -45,7 +46,7 @@ public abstract class Entity implements IEntity {
 
     @Override
     public Grid getGrid() {
-        return grid;
+        return world.getGrid();
     }
 
     @Override
@@ -77,8 +78,13 @@ public abstract class Entity implements IEntity {
 
     @Override
     public boolean isVisibleOnGrid() {
-        Rectangle gridHitbox = grid.getBoundaries();
+        Rectangle gridHitbox = getGrid().getBoundaries();
         Rectangle spriteHitBox = sprite.getBoundingRectangle();
         return gridHitbox.overlaps(spriteHitBox);
+    }
+
+    @Override
+    public void collidesWithGarry(Garry garry) {
+
     }
 }

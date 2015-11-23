@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.util.Direction;
 import com.mygdx.util.RelativeStopWatch;
-import com.mygdx.world.Grid;
+import com.mygdx.world.World;
 
 public class Arrow extends Entity {
     private static final long DISPLAYED = 300;
@@ -14,8 +14,8 @@ public class Arrow extends Entity {
     private RelativeStopWatch stopWatch;
     private boolean displayed;
 
-    public Arrow(Grid grid, Direction orientation) {
-        super(grid, EntityInfo.ARROW);
+    public Arrow(World world, Direction orientation) {
+        super(world, EntityInfo.ARROW);
         displayed = false;
         //this.stopWatch = new StopWatch();
         //stopWatch.start(HIDDEN);

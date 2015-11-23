@@ -11,6 +11,9 @@ import com.mygdx.entity.IEntity;
 import com.mygdx.event.IEvent;
 import com.mygdx.util.GenericHolder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class World {
     //public static final float WIDTH = 100;
     //public static final float HEIGHT = 100;
@@ -30,7 +33,7 @@ public class World {
         this.height = height;
         this.background = new Background(width, height);
         this.grid = new Grid(GRIDSIZE, width, height);
-        this.garry = new Garry(grid);
+        this.garry = new Garry(this);
 
         this.entities = new GenericHolder<IEntity>();
         this.events = new GenericHolder<IEvent>();
@@ -84,5 +87,17 @@ public class World {
 
     public GenericHolder<IEvent> getEvents() {
         return events;
+    }
+
+    public Set<IEntity> getCollisions(IEntity entity) {
+        Set<IEntity> colliding = new HashSet<IEntity>();
+        for (IEntity other : entities.getElements()) {
+            Rectangle entityHitbox = entity.getHitbox();
+            Rectangle otherHitbox = other.getHitbox();
+            if (!entity.equals(other) && entityHitbox.overlaps(otherHitbox)) {
+                colliding.add(other);
+            }
+        }
+        return colliding;
     }
 }
