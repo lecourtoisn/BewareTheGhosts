@@ -13,7 +13,6 @@ public class Enemy extends Entity implements IMovingBehaviour{
 
     public Enemy(World world, EntityInfo entInfo) {
         super(world, entInfo);
-        setHitboxSize(entityInfo.getSize().x, entityInfo.getSize().y);
         movingBehaviour = new GlidingBehaviour(this, VELOCITY);
 
         setPosition(getGrid().getCellCenterPosition(1, 1));

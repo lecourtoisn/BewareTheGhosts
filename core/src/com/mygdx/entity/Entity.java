@@ -23,17 +23,13 @@ public abstract class Entity implements IEntity {
         this.position = new Position(0, 0);
         this.sprite = new Sprite(entityInfo.getTexture());
         this.sprite.setSize(entityInfo.getSize().x, entityInfo.getSize().y);
-        this.hitboxSize = new Vector2();
+        this.hitboxSize = entityInfo.getHitbox();
         this.entityInfo = entityInfo;
-    }
-
-    public void setHitboxSize(float x, float y) {
-        this.hitboxSize = new Vector2(x, y);
     }
 
     @Override
     public void update(float delta) {
-
+        // Does nothing by default
     }
 
     @Override
@@ -67,8 +63,8 @@ public abstract class Entity implements IEntity {
     @Override
     public Rectangle getHitbox() {
         Rectangle hitbox = new Rectangle();
-        hitbox.setCenter(position.getPosition());
         hitbox.setSize(hitboxSize.x, hitboxSize.y);
+        hitbox.setCenter(position.getPosition());
         return hitbox;
     }
 
@@ -85,6 +81,6 @@ public abstract class Entity implements IEntity {
 
     @Override
     public void collidesWithGarry(Garry garry) {
-
+        // Does nothing by default
     }
 }

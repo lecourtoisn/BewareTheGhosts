@@ -17,7 +17,6 @@ public class Garry extends Entity implements IMovingBehaviour {
     public Garry(World world) {
         super(world, EntityInfo.GARRY);
         this.dead = false;
-        setHitboxSize(entityInfo.getSize().x, entityInfo.getSize().y);
         movingStrategy = new TeleportBehaviour(this);
 
         setPosition(getGrid().getCellCenterPosition(0, 0));
