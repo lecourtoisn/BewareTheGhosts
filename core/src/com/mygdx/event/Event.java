@@ -1,5 +1,6 @@
 package com.mygdx.event;
 
+import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
 
 public abstract class Event implements IEvent {
@@ -7,10 +8,13 @@ public abstract class Event implements IEvent {
     private boolean isHappening;
     private boolean isOver;
 
+    protected RelativeStopWatch stopWatch;
+
     public Event(World world) {
         this.world = world;
         this.isHappening = false;
         this.isOver = false;
+        stopWatch = new RelativeStopWatch();
     }
 
     @Override
@@ -25,6 +29,7 @@ public abstract class Event implements IEvent {
     @Override
     public final void process(float delta) {
         if (isHappening && !isOver) {
+            stopWatch.update(delta);
             update(delta);
             if (mustEnd()) {
                 end();

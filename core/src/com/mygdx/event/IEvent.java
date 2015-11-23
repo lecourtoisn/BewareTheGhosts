@@ -6,5 +6,4 @@ public interface IEvent {
     void end();
     boolean isHappening();
     boolean isOver();
-
 }

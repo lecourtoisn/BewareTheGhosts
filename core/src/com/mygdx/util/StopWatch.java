@@ -1,3 +1,4 @@
+/*
 package com.mygdx.util;
 
 public class StopWatch {
@@ -18,9 +19,9 @@ public class StopWatch {
         start(0);
     }
 
-    public void start(long delayBetweenAttacks) {
+    public void start(long delay) {
         stopped = false;
-        begin = System.currentTimeMillis() - delayBetweenAttacks;
+        begin = System.currentTimeMillis() - delay;
     }
 
     public void restart() {
@@ -34,8 +35,4 @@ public class StopWatch {
     public double getSeconds() {
         return (getDifference()) / 1000.0;
     }
-
-    public void stop() {
-        stopped = true;
-    }
-}
+}*/

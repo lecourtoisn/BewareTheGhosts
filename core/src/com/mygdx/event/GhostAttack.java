@@ -4,10 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Arrow;
 import com.mygdx.entity.Enemy;
 import com.mygdx.entity.EntityInfo;
-import com.mygdx.util.Position;
-import com.mygdx.util.Direction;
-import com.mygdx.util.Randomizer;
-import com.mygdx.util.StopWatch;
+import com.mygdx.util.*;
 import com.mygdx.world.Grid;
 import com.mygdx.world.World;
 
@@ -21,7 +18,6 @@ import java.util.Set;
 public class GhostAttack extends Event {
     private float arrowWarningDuration;
 
-    private StopWatch stopWatch;
     private boolean arrowPhase;
     private boolean ghostsHasShown;
 
@@ -31,7 +27,6 @@ public class GhostAttack extends Event {
         super(world);
         nbGhost = nbGhost == 0 ? 1 : nbGhost;
         this.arrowWarningDuration = arrowWarningDuration;
-        this.stopWatch = new StopWatch();
         this.ghosts = new HashMap<Enemy, ArrowDirectionPair>();
 
         Grid grid = world.getGrid();
@@ -63,7 +58,6 @@ public class GhostAttack extends Event {
     @Override
     protected void run() {
         stopWatch.start();
-
         startArrowPhase();
     }
 

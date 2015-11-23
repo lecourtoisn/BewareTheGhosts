@@ -1,6 +1,5 @@
 package com.mygdx.event;
 
-import com.mygdx.util.StopWatch;
 import com.mygdx.world.World;
 
 import java.util.ArrayList;
@@ -10,14 +9,12 @@ import java.util.List;
 public class GhostSalvo extends Event {
     private List<Event> attacks;
     private Iterator<Event> attacksIterator;
-    private StopWatch stopWatch;
 
     private long delayBetweenAttacks;
 
     public GhostSalvo(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration, int nbAttack, long delayBetweenAttacks) {
         super(world);
         attacks = new ArrayList<Event>(nbAttack);
-        stopWatch = new StopWatch();
         this.delayBetweenAttacks = delayBetweenAttacks;
 
         for (int i = 0; i < nbAttack; i++) {
