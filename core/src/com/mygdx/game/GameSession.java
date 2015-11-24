@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.commandhandlers.InputHandler;
-import com.mygdx.event.GhostSalvo;
+import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.screen.UnStretchedScreen;
@@ -25,10 +25,10 @@ public class GameSession extends ScreenListener {
         this.game = game;
         gameScreen = new UnStretchedScreen(this, WORLD_HEIGHT);
         world = new World(gameScreen.getWidth(), gameScreen.getHeight());
-        event = new GhostSalvo(world, 3, true, 1000, 20, 1000);
-
+        //event = new GhostSalvo(world, 3, true, 1000, 20, 1000);
+        event = new EndlessSalvos(world);
         font = new ScaledBitmapFont("fonts/calibri.ttf", WORLD_HEIGHT, 5);
-        font.setColor(Color.RED);
+        font.setColor(Color.GOLD);
 
         gameScreen.setInputProcessor(new InputHandler(world));
     }
@@ -40,9 +40,6 @@ public class GameSession extends ScreenListener {
 
     @Override
     public void update(float delta) {
-        if (world.getGarry().isDead()) {
-            event.end();
-        }
         world.update(delta);
         if (event.isOver()) {
             int highScore = Score.getHighScore();

@@ -35,4 +35,12 @@ public class RelativeStopWatch {
     public void restart() {
         start();
     }
+
+    public void stop() {
+        this.hasStarted = false;
+    }
+
+    public boolean isRunning() {
+        return hasStarted;
+    }
 }

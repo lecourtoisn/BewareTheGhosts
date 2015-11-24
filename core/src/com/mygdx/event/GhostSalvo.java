@@ -12,7 +12,7 @@ public class GhostSalvo extends Event {
 
     private long delayBetweenAttacks;
 
-    public GhostSalvo(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration, int nbAttack, long delayBetweenAttacks) {
+    public GhostSalvo(World world, int nbGhost, boolean sameDirection, long arrowWarningDuration, int nbAttack, long delayBetweenAttacks) {
         super(world);
         attacks = new ArrayList<Event>(nbAttack);
         this.delayBetweenAttacks = delayBetweenAttacks;

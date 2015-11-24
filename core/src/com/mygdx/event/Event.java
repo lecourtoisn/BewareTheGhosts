@@ -52,7 +52,7 @@ public abstract class Event implements IEvent {
     }
 
     @Override
-    public boolean isOver() {
+    public final boolean isOver() {
         return isOver;
     }
 
