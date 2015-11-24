@@ -40,7 +40,6 @@ public abstract class Entity implements IEntity {
         sprite.draw(batch);
     }
 
-    @Override
     public Grid getGrid() {
         return world.getGrid();
     }

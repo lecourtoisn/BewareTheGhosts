@@ -3,11 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.mygdx.commandhandlers.InputHandler;
+import com.mygdx.commandhandlers.GameSessionInputHandler;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.screen.ScreenListener;
-import com.mygdx.screen.UnStretchedScreen;
+import com.mygdx.userinterface.PauseButton;
+import com.mygdx.userinterface.UIElement;
+import com.mygdx.userinterface.UIManager;
 import com.mygdx.util.ScaledBitmapFont;
 import com.mygdx.world.World;
 
@@ -15,26 +17,36 @@ public class GameSession extends ScreenListener {
     private static final float WORLD_HEIGHT = 100;
 
     private IEvent event;
-    private UnStretchedScreen gameScreen;
     private BTGGame game;
     private World world;
 
     private ScaledBitmapFont font;
 
-    public GameSession(BTGGame game) {
-        this.game = game;
-        gameScreen = new UnStretchedScreen(this, WORLD_HEIGHT);
-        world = new World(gameScreen.getWidth(), gameScreen.getHeight());
-        //event = new GhostSalvo(world, 3, true, 1000, 20, 1000);
-        event = new EndlessSalvos(world);
-        font = new ScaledBitmapFont("fonts/calibri.ttf", WORLD_HEIGHT, 5);
-        font.setColor(Color.GOLD);
+    // UI part
+    private UIManager manager;
+    private UIElement pauseButton;
 
-        gameScreen.setInputProcessor(new InputHandler(world));
+    public GameSession(BTGGame game) {
+        super(WORLD_HEIGHT);
+        this.game = game;
+        world = new World(screen.getWidth(), screen.getHeight());
+        event = new EndlessSalvos(world);
+        manager = new UIManager();
+
+        screen.setInputProcessor(new GameSessionInputHandler(screen, world, manager));
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        /**/font = new ScaledBitmapFont("fonts/calibri.ttf", WORLD_HEIGHT, 10);
+        /**/font.setColor(Color.GOLD);
+        pauseButton = new PauseButton(manager);
+        pauseButton.setSize(9, 9);
+        pauseButton.setCenterPosition(screen.getWidth() - 5, screen.getHeight() - 5);
     }
 
     public void start() {
-        game.setScreen(gameScreen);
+        game.setScreen(screen);
         event.start();
     }
 
@@ -55,6 +67,7 @@ public class GameSession extends ScreenListener {
     public void render(Batch batch, Camera cam) {
         world.render(batch, cam);
         font.draw(batch, String.valueOf(getScore()), 10, WORLD_HEIGHT - 10);
+        pauseButton.draw(batch);
     }
 
     public int getScore() {

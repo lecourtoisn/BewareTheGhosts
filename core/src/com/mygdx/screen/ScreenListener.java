@@ -4,6 +4,13 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class ScreenListener implements IScreenListener {
+
+    protected UnStretchedScreen screen;
+
+    public ScreenListener(float height) {
+        screen = new UnStretchedScreen(this, height);
+    }
+
     @Override
     public void show() {
         // Does nothing by default

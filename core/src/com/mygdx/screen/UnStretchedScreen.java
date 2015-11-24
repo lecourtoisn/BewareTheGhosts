@@ -3,10 +3,10 @@ package com.mygdx.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.commandhandlers.InputHandler;
 
 public class UnStretchedScreen extends ScreenAdapter {
     private IScreenListener listener;
@@ -19,8 +19,9 @@ public class UnStretchedScreen extends ScreenAdapter {
     private float width;
 
     public UnStretchedScreen(IScreenListener listener, float height) {
+        float ratio = (float) Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
         this.height = height;
-        this.width = Gdx.graphics.getWidth() * height / Gdx.graphics.getHeight();
+        this.width = ratio *height;
 
         this.listener = listener;
         cam = new OrthographicCamera();
@@ -56,5 +57,9 @@ public class UnStretchedScreen extends ScreenAdapter {
 
     public void setInputProcessor(InputProcessor inputProcessor) {
         this.inputProcessor = inputProcessor;
+    }
+
+    public Camera getCamera() {
+        return cam;
     }
 }

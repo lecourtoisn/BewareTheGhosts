@@ -1,17 +1,26 @@
 package com.mygdx.commandhandlers;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.entity.Garry;
+import com.mygdx.screen.UnStretchedScreen;
+import com.mygdx.userinterface.IUIElement;
+import com.mygdx.userinterface.UIManager;
 import com.mygdx.util.Direction;
 import com.mygdx.world.World;
 
-public class InputHandler implements InputProcessor {
+public class GameSessionInputHandler extends InputAdapter{
 
+    private UnStretchedScreen screen;
+    private UIManager uiManager;
     private World world;
 
-    public InputHandler(World world) {
+    public GameSessionInputHandler(UnStretchedScreen screen, World world, UIManager uiManager) {
         this.world = world;
+        this.uiManager = uiManager;
+        this.screen = screen;
     }
 
     @Override
@@ -40,37 +49,13 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
+        Vector3 tp = screen.getCamera().unproject(new Vector3(screenX, screenY, 0));
+        Vector2 worldPosition = new Vector2(tp.x, tp.y);
+        IUIElement touched = uiManager.getElementAt(worldPosition);
+        if (touched != null) {
+            touched.onTouched();
+        }
+        return true;
     }
 }
