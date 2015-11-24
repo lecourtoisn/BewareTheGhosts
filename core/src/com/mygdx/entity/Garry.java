@@ -13,9 +13,11 @@ public class Garry extends Entity implements IMovingBehaviour {
 
     private IMovingBehaviour movingStrategy;
     private boolean dead;
+    private int attackAvoided;
 
     public Garry(World world) {
         super(world, EntityInfo.GARRY);
+        this.attackAvoided = 0;
         this.dead = false;
         movingStrategy = new TeleportBehaviour(this);
 
@@ -68,5 +70,13 @@ public class Garry extends Entity implements IMovingBehaviour {
 
     public void setDead(boolean dead) {
         this.dead = dead;
+    }
+
+    public void incrementAttackAvoided() {
+        attackAvoided += 1;
+    }
+
+    public int getAttackAvoided() {
+        return attackAvoided;
     }
 }

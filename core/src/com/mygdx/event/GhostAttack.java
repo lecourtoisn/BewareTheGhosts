@@ -22,6 +22,7 @@ public class GhostAttack extends Event {
     private boolean ghostsHasShown;
 
     private Map<Enemy, ArrowDirectionPair> ghosts;
+    private boolean someGhostsAreVisible;
 
     public GhostAttack(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration) {
         super(world);
@@ -63,7 +64,8 @@ public class GhostAttack extends Event {
 
     @Override
     protected void update(float delta) {
-        if (!ghostsHasShown && someGhostsAreVisible()) {
+        this.someGhostsAreVisible = someGhostsAreVisible();
+        if (!ghostsHasShown && someGhostsAreVisible) {
             this.ghostsHasShown = true;
         }
         if (arrowPhase && stopWatch.getMilliseconds() > arrowWarningDuration) {
@@ -77,7 +79,12 @@ public class GhostAttack extends Event {
      */
     @Override
     protected boolean mustEnd() {
-        return ghostsHasShown && !someGhostsAreVisible();
+        boolean attackAvoided = !someGhostsAreVisible;
+        if (ghostsHasShown && attackAvoided) {
+            world.getGarry().incrementAttackAvoided();
+            return true;
+        }
+        return false;
     }
 
     @Override

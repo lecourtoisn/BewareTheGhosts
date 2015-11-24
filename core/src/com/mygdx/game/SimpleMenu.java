@@ -46,7 +46,9 @@ public class SimpleMenu extends ScreenListener{
 
         @Override
         public boolean keyTyped(char character) {
-            startGameSession();
+            if (character == ' ') {
+                startGameSession();
+            }
             return true;
         }
     };

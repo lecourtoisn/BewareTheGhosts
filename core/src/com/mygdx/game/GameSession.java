@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.commandhandlers.InputHandler;
-import com.mygdx.event.GhostAttack;
 import com.mygdx.event.GhostSalvo;
 import com.mygdx.event.IEvent;
 import com.mygdx.screen.ScreenListener;
@@ -62,11 +61,6 @@ public class GameSession extends ScreenListener {
     }
 
     public int getScore() {
-        int score = 0;
-        for (IEvent event : world.getEvents().getElements(GhostAttack.class)) {
-            GhostAttack attack = (GhostAttack) event;
-            score += attack.isOver() ? 1 : 0;
-        }
-        return score;
+        return world.getGarry().getAttackAvoided();
     }
 }
