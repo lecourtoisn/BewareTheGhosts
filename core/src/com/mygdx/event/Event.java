@@ -43,6 +43,7 @@ public abstract class Event implements IEvent {
             terminate();
             this.isHappening = false;
             this.isOver = true;
+            world.getEvents().remove(this);
         }
     }
 
