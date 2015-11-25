@@ -71,14 +71,14 @@ public abstract class Entity implements IEntity {
         return true;
     }
 
-    @Override
+
     public boolean isVisibleOnGrid() {
         Rectangle gridHitbox = getGrid().getBoundaries();
         Rectangle spriteHitBox = sprite.getBoundingRectangle();
         return gridHitbox.overlaps(spriteHitBox);
     }
 
-    @Override
+
     public void collidesWithGarry(Garry garry) {
         // Does nothing by default
     }

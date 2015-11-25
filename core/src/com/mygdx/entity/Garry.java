@@ -27,9 +27,9 @@ public class Garry extends Entity implements IMovingBehaviour {
     @Override
     public void update(float delta) {
         if (!dead) {
-            Set<IEntity> colliding = world.getCollisions(this);
+            Set<Entity> colliding = world.getCollisions(this);
             if (!colliding.isEmpty()) {
-                for (IEntity entity : colliding) {
+                for (Entity entity : colliding) {
                     entity.collidesWithGarry(this);
                 }
             }

@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
-import com.mygdx.entity.Arrow;
-import com.mygdx.entity.Enemy;
-import com.mygdx.entity.Garry;
-import com.mygdx.entity.IEntity;
+import com.mygdx.entity.*;
 import com.mygdx.event.IEvent;
 import com.mygdx.util.GenericHolder;
 
@@ -22,20 +19,16 @@ public class World {
     private Grid grid;
     private Garry garry;
 
-    private GenericHolder<IEntity> entities;
+    private GenericHolder<Entity> entities;
     private GenericHolder<IEvent> events;
-
-    private float width, height;
 
     public World(float width, float height) {
         float GRIDSIZE = 80;
-        this.width = width;
-        this.height = height;
         this.background = new Background(width, height);
         this.grid = new Grid(GRIDSIZE, width, height);
         this.garry = new Garry(this);
 
-        this.entities = new GenericHolder<IEntity>();
+        this.entities = new GenericHolder<Entity>();
         this.events = new GenericHolder<IEvent>();
 
         entities.add(garry);
@@ -81,7 +74,7 @@ public class World {
         return grid;
     }
 
-    public GenericHolder<IEntity> getEntities() {
+    public GenericHolder<Entity> getEntities() {
         return entities;
     }
 
@@ -89,9 +82,9 @@ public class World {
         return events;
     }
 
-    public Set<IEntity> getCollisions(IEntity entity) {
-        Set<IEntity> colliding = new HashSet<IEntity>();
-        for (IEntity other : entities.getElements()) {
+    public Set<Entity> getCollisions(IEntity entity) {
+        Set<Entity> colliding = new HashSet<Entity>();
+        for (Entity other : entities.getElements()) {
             Rectangle entityHitbox = entity.getHitbox();
             Rectangle otherHitbox = other.getHitbox();
             if (!entity.equals(other) && entityHitbox.overlaps(otherHitbox)) {
