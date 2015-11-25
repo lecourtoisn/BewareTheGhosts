@@ -3,8 +3,10 @@ package com.mygdx.game;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.screen.ScreenListener;
+import com.mygdx.userinterface.Label;
 import com.mygdx.util.ScaledBitmapFont;
 
 public class SimpleMenu extends ScreenListener{
@@ -13,12 +15,18 @@ public class SimpleMenu extends ScreenListener{
     private BTGGame game;
     private ScaledBitmapFont font;
 
+    private Label highScoreLabel;
+
     public SimpleMenu(BTGGame game) {
         super(HEIGHT);
         this.game = game;
-        this.font = new ScaledBitmapFont("fonts/calibri.ttf", HEIGHT, 10);
+        this.font = new ScaledBitmapFont("fonts/calibri", HEIGHT, 10);
+        font.setColor(Color.CHARTREUSE);
 
         screen.setInputProcessor(inputProcessor);
+
+        highScoreLabel = new Label(manager, font);
+        highScoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
     }
 
     public void start() {
@@ -30,10 +38,13 @@ public class SimpleMenu extends ScreenListener{
     }
 
     @Override
+    public void update(float delta) {
+        highScoreLabel.setText(String.valueOf("HighScore : " + Score.getHighScore()));
+    }
+
+    @Override
     public void render(Batch batch, Camera cam) {
-        float x = screen.getWidth()/2;
-        float y = screen.getHeight()/2;
-        font.drawCenter(batch, "High score : " + String.valueOf(Score.getHighScore()), x, y);
+        highScoreLabel.draw(batch);
     }
 
     private InputProcessor inputProcessor = new InputAdapter() {

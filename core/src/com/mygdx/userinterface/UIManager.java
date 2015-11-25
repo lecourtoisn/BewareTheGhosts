@@ -1,5 +1,6 @@
 package com.mygdx.userinterface;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashSet;
@@ -23,5 +24,11 @@ public class UIManager {
             }
         }
         return null;
+    }
+
+    public void draw(Batch batch) {
+        for (IUIElement element : elements) {
+            element.draw(batch);
+        }
     }
 }

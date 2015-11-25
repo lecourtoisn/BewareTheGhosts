@@ -21,7 +21,7 @@ public class Garry extends Entity implements IMovingBehaviour {
         this.dead = false;
         movingStrategy = new TeleportBehaviour(this);
 
-        setPosition(getGrid().getCellCenterPosition(0, 0));
+        setPosition(getGrid().getCellCenterPosition(2, 2));
     }
 
     @Override
