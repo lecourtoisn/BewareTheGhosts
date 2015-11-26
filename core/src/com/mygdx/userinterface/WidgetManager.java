@@ -31,4 +31,8 @@ public class WidgetManager {
             element.draw(batch);
         }
     }
+
+    public void removeElement(Widget element) {
+        elements.remove(element);
+    }
 }

@@ -10,6 +10,7 @@ import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.Label;
 import com.mygdx.userinterface.PauseButton;
 import com.mygdx.userinterface.ScaledBitmapFont;
+import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
 
 public class GameSession extends ScreenListener {
@@ -19,12 +20,16 @@ public class GameSession extends ScreenListener {
     private BTGGame game;
     private World world;
 
-    private ScaledBitmapFont font;
+    private ScaledBitmapFont scoreFont;
+    private ScaledBitmapFont countDownFont;
+    private RelativeStopWatch stopWatch;
 
     // UI part
     private PauseButton pauseButton;
     private Label scoreLabel;
     private PauseMenu pauseMenu;
+    private Label countDownLabel;
+    private boolean countDownState;
 
     public GameSession(BTGGame game) {
         super(WORLD_HEIGHT);
@@ -32,20 +37,26 @@ public class GameSession extends ScreenListener {
         world = new World(screen.getWidth(), screen.getHeight());
         event = new EndlessSalvos(world);
         pauseMenu = new PauseMenu(game, this);
+        stopWatch = new RelativeStopWatch();
 
         screen.setInputProcessor(new GameSessionInputHandler(screen, world, manager));
         initializeUI();
     }
 
     private void initializeUI() {
-        /**/font = new ScaledBitmapFont("fonts/calibrib", WORLD_HEIGHT, 10);
-        /**/font.setColor(Color.BLACK);
+        scoreFont = new ScaledBitmapFont("fonts/calibrib", WORLD_HEIGHT, 10);
+        scoreFont.setColor(Color.BLACK);
+        countDownFont = new ScaledBitmapFont("fonts/calibrib", WORLD_HEIGHT, 50);
+        countDownFont.setColor(Color.BLACK);
         pauseButton = new PauseButton(this);
         pauseButton.setOrigin(pauseButton.getGraphicSize().x, pauseButton.getGraphicSize().y);
         pauseButton.setPosition(screen.getWidth(), screen.getHeight());
 
-        scoreLabel = new Label(font);
+        scoreLabel = new Label(scoreFont);
         scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
+
+        countDownLabel = new Label(countDownFont);
+        countDownLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
 
         manager.addElement(scoreLabel);
         manager.addElement(pauseButton);
@@ -57,26 +68,37 @@ public class GameSession extends ScreenListener {
     }
 
     @Override
+    public void show() {
+        stopWatch.start();
+        manager.addElement(countDownLabel);
+        countDownState = true;
+    }
+
+    @Override
     public void update(float delta) {
-        world.update(delta);
-        scoreLabel.setText(String.valueOf(getScore()));
-        if (event.isOver()) {
-            int highScore = Score.getHighScore();
-            int score = getScore();
-            if (score > highScore) {
-                Score.setHighScore(getScore());
+        stopWatch.update(delta);
+        if (!countDownState) {
+            world.update(delta);
+            scoreLabel.setText(String.valueOf(getScore()));
+            if (event.isOver()) {
+                handleScore();
+                game.launchSimpleMenu();
             }
-            game.launchSimpleMenu();
+        } else {
+
+            long count = 3-stopWatch.getSeconds();
+            if (count != 0) {
+                countDownLabel.setText(String.valueOf(count));
+            } else {
+                countDownState = false;
+                manager.removeElement(countDownLabel);
+            }
         }
     }
 
     @Override
     public void render(Batch batch, Camera cam) {
         world.render(batch, cam);
-        //font.draw(batch, String.valueOf(getScore()), 10, WORLD_HEIGHT - 10);
-        //scoreLabel.draw(batch);
-        //pauseButton.draw(batch);
-        //scoreLabel.draw(batch);
         manager.draw(batch);
     }
 
@@ -85,11 +107,18 @@ public class GameSession extends ScreenListener {
     }
 
     public void launchPauseMenu() {
-        // Since the screen will be changed no need to pause anything i think
         pauseMenu.start();
     }
 
     public void resumeGame() {
         game.setScreen(screen);
+    }
+
+    private void handleScore() {
+        int highScore = Score.getHighScore();
+        int score = getScore();
+        if (score > highScore) {
+            Score.setHighScore(score);
+        }
     }
 }

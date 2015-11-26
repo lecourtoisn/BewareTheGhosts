@@ -33,6 +33,7 @@ public class UnStretchedScreen extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(inputProcessor);
+        listener.show();
     }
 
     /**
@@ -41,6 +42,7 @@ public class UnStretchedScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         listener.update(delta);
+
         batch.begin();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         listener.render(batch, cam);
