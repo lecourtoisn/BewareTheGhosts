@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.Label;
-import com.mygdx.util.ScaledBitmapFont;
+import com.mygdx.userinterface.ScaledBitmapFont;
 
 public class SimpleMenu extends ScreenListener{
     private static final float HEIGHT = 100;

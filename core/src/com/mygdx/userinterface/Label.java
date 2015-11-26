@@ -5,14 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.EntityInfo;
-import com.mygdx.entity.Widget;
-import com.mygdx.util.ScaledBitmapFont;
 
 public class Label extends Widget {
     private ScaledBitmapFont font;
 
     public Label(ScaledBitmapFont font) {
-        super(EntityInfo.GHOST.getTexture(), new Vector2(10, 10));
+        super(EntityInfo.GHOST.getTexture(), new Vector2(1, 1));
         this.font = font;
     }
 
@@ -26,7 +24,6 @@ public class Label extends Widget {
         Rectangle bounds = new Rectangle(getGraphicBounds());
         float x = bounds.getX();
         float y = bounds.getY() + getGraphicSize().y;
-
         font.draw(batch, x, y);
     }
 

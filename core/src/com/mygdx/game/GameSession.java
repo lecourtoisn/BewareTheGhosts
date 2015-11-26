@@ -9,7 +9,7 @@ import com.mygdx.event.IEvent;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.Label;
 import com.mygdx.userinterface.PauseButton;
-import com.mygdx.util.ScaledBitmapFont;
+import com.mygdx.userinterface.ScaledBitmapFont;
 import com.mygdx.world.World;
 
 public class GameSession extends ScreenListener {

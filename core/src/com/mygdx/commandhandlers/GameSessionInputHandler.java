@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.entity.Garry;
-import com.mygdx.entity.Widget;
+import com.mygdx.userinterface.Widget;
 import com.mygdx.screen.UnStretchedScreen;
 import com.mygdx.userinterface.WidgetManager;
 import com.mygdx.util.Direction;

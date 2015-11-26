@@ -2,7 +2,6 @@ package com.mygdx.userinterface;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.entity.Widget;
 
 import java.util.HashSet;
 import java.util.Set;

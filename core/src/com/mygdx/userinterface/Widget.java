@@ -1,7 +1,8 @@
-package com.mygdx.entity;
+package com.mygdx.userinterface;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.entity.Entity;
 
 public abstract class Widget extends Entity {
     public Widget(Texture texture, Vector2 graphicSize) {

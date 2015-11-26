@@ -1,12 +1,11 @@
-package com.mygdx.util;
+package com.mygdx.userinterface;
 
 import com.mygdx.game.GameSession;
-import com.mygdx.userinterface.Label;
 
-public class Resume extends Label{
+public class ResumeLabel extends Label{
     private GameSession gameSession;
 
-    public Resume(ScaledBitmapFont font, GameSession gameSession) {
+    public ResumeLabel(ScaledBitmapFont font, GameSession gameSession) {
         super(font);
         this.gameSession = gameSession;
     }

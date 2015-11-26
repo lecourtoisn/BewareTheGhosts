@@ -8,14 +8,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.util.Position;
 
 public class Entity implements IEntity{
-    //protected Texture texture;
     protected Position position;
     protected Vector2 origin;
     protected Vector2 graphicSize;
     protected Sprite sprite;
 
     public Entity(Texture texture, Vector2 graphicSize) {
-        //this.texture = texture;
         this.graphicSize = graphicSize;
         this.position = new Position(0, 0);
         this.origin = new Vector2(graphicSize).scl(0.5f);

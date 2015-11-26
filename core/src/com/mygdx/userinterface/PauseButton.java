@@ -2,7 +2,6 @@ package com.mygdx.userinterface;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.entity.Widget;
 import com.mygdx.game.GameSession;
 
 public class PauseButton extends Widget {
