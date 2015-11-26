@@ -1,13 +1,13 @@
 package com.mygdx.movingbehaviour;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.entity.Entity;
-import com.mygdx.util.Position;
+import com.mygdx.entity.WorldEntity;
 import com.mygdx.util.Direction;
+import com.mygdx.util.Position;
 
 public class TeleportBehaviour extends MovingBehaviour {
 
-    public TeleportBehaviour(Entity entity) {
+    public TeleportBehaviour(WorldEntity entity) {
         super(entity);
     }
 

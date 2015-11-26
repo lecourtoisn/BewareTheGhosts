@@ -6,7 +6,7 @@ import com.mygdx.movingbehaviour.IMovingBehaviour;
 import com.mygdx.util.Direction;
 import com.mygdx.world.World;
 
-public class Enemy extends Entity implements IMovingBehaviour{
+public class Enemy extends WorldEntity implements IMovingBehaviour{
     private static final float VELOCITY = 15;
 
     private IMovingBehaviour movingBehaviour;

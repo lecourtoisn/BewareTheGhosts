@@ -1,7 +1,7 @@
 package com.mygdx.movingbehaviour;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.entity.Entity;
+import com.mygdx.entity.WorldEntity;
 import com.mygdx.util.Position;
 
 public class GlidingBehaviour extends MovingBehaviour {
@@ -12,7 +12,7 @@ public class GlidingBehaviour extends MovingBehaviour {
      * @param entity the moving entity
      * @param velocity in unit per second
      */
-    public GlidingBehaviour(Entity entity, float velocity) {
+    public GlidingBehaviour(WorldEntity entity, float velocity) {
         super(entity);
         this.velocity = velocity;
     }

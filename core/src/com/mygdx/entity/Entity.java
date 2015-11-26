@@ -1,47 +1,35 @@
 package com.mygdx.entity;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.util.Position;
-import com.mygdx.world.Grid;
-import com.mygdx.world.World;
 
-public abstract class Entity implements IEntity {
-    private Position position;
-    private Vector2 hitboxSize;
-    private Vector2 center;
-    protected EntityInfo entityInfo;
-
+public class Entity implements IEntity{
+    //protected Texture texture;
+    protected Position position;
+    protected Vector2 origin;
+    protected Vector2 graphicSize;
     protected Sprite sprite;
-    protected World world;
 
-    public Entity(World world,EntityInfo entityInfo) {
-        this.world = world;
-        this.center = entityInfo.getOrigin();
+    public Entity(Texture texture, Vector2 graphicSize) {
+        //this.texture = texture;
+        this.graphicSize = graphicSize;
         this.position = new Position(0, 0);
-        this.sprite = new Sprite(entityInfo.getTexture());
-        this.sprite.setSize(entityInfo.getSize().x, entityInfo.getSize().y);
-        this.hitboxSize = entityInfo.getHitbox();
-        this.entityInfo = entityInfo;
+        this.origin = new Vector2(graphicSize).scl(0.5f);
+        this.sprite = new Sprite(texture);
     }
 
     @Override
-    public void update(float delta) {
-        // Does nothing by default
+    public void setPosition(float x, float y) {
+        position = new Position(x, y);
     }
 
     @Override
-    public void draw(Batch batch) {
-        Vector2 spritePos = new Vector2(getPosition().getPosition());
-        spritePos.sub(center);
-        sprite.setPosition(spritePos.x, spritePos.y);
-        sprite.draw(batch);
-    }
-
-    public Grid getGrid() {
-        return world.getGrid();
+    public void setPosition(Position position) {
+        this.position = new Position(position);
     }
 
     @Override
@@ -50,36 +38,53 @@ public abstract class Entity implements IEntity {
     }
 
     @Override
-    public void setPosition(float x, float y) {
-        position.setPosition(x, y);
+    public void setOrigin(float x, float y) {
+        origin = new Vector2(x, y);
     }
 
     @Override
-    public void setPosition(Position position) {
-        setPosition(position.getX(), position.getY());
+    public Vector2 getOrigin() {
+        return origin;
     }
 
     @Override
-    public Rectangle getHitbox() {
-        Rectangle hitbox = new Rectangle();
-        hitbox.setSize(hitboxSize.x, hitboxSize.y);
-        hitbox.setCenter(position.getPosition());
-        return hitbox;
+    public void setGraphicSize(float x, float y) {
+        graphicSize.x = x;
+        graphicSize.y = y;
     }
 
-    public boolean couldBeAt(Position nextPos) {
-        return true;
+    @Override
+    public Vector2 getGraphicSize() {
+        return graphicSize;
     }
 
-
-    public boolean isVisibleOnGrid() {
-        Rectangle gridHitbox = getGrid().getBoundaries();
-        Rectangle spriteHitBox = sprite.getBoundingRectangle();
-        return gridHitbox.overlaps(spriteHitBox);
+    @Override
+    public void setTexture(Texture texture) {
+        sprite.setTexture(texture);
     }
 
+    @Override
+    public Rectangle getGraphicBounds() {
+        Vector2 graphPos = getGraphicBottomLeftPosition();
+        return new Rectangle(graphPos.x, graphPos.y, graphicSize.x, graphicSize.y);
+    }
 
-    public void whenCollidesWithGarry(Garry garry) {
+    @Override
+    public void draw(Batch batch) {
+        Rectangle bounds = getGraphicBounds();
+        sprite.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
+        sprite.draw(batch);
+    }
+
+    @Override
+    public void update(float delta) {
         // Does nothing by default
+    }
+
+    /** Private methods **/
+    private Vector2 getGraphicBottomLeftPosition() {
+        Vector2 pos = new Vector2(position.getPosition());
+        pos.sub(origin);
+        return pos;
     }
 }

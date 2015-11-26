@@ -6,7 +6,7 @@ import com.mygdx.util.Direction;
 import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
 
-public class Arrow extends Entity {
+public class Arrow extends WorldEntity {
     private static final long DISPLAYED = 300;
     private static final long HIDDEN = 100;
 

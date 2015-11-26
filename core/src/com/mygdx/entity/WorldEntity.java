@@ -6,10 +6,10 @@ import com.mygdx.util.Position;
 import com.mygdx.world.Grid;
 import com.mygdx.world.World;
 
-public class WorldEntity extends ClassicEntity {
+public class WorldEntity extends Entity {
     private Vector2 hitboxSize;
 
-    private World world;
+    protected World world;
     protected EntityInfo entityInfo;
 
     public WorldEntity(World world, EntityInfo entityInfo) {

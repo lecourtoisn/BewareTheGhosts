@@ -19,7 +19,7 @@ public class World {
     private Grid grid;
     private Garry garry;
 
-    private GenericHolder<Entity> entities;
+    private GenericHolder<WorldEntity> entities;
     private GenericHolder<IEvent> events;
 
     public World(float width, float height) {
@@ -28,7 +28,7 @@ public class World {
         this.grid = new Grid(GRIDSIZE, width, height);
         this.garry = new Garry(this);
 
-        this.entities = new GenericHolder<Entity>();
+        this.entities = new GenericHolder<WorldEntity>();
         this.events = new GenericHolder<IEvent>();
 
         entities.add(garry);
@@ -74,7 +74,7 @@ public class World {
         return grid;
     }
 
-    public GenericHolder<Entity> getEntities() {
+    public GenericHolder<WorldEntity> getEntities() {
         return entities;
     }
 
@@ -82,9 +82,9 @@ public class World {
         return events;
     }
 
-    public Set<Entity> getCollisions(IEntity entity) {
-        Set<Entity> colliding = new HashSet<Entity>();
-        for (Entity other : entities.getElements()) {
+    public Set<WorldEntity> getCollisions(WorldEntity entity) {
+        Set<WorldEntity> colliding = new HashSet<WorldEntity>();
+        for (WorldEntity other : entities.getElements()) {
             Rectangle entityHitbox = entity.getHitbox();
             Rectangle otherHitbox = other.getHitbox();
             if (!entity.equals(other) && entityHitbox.overlaps(otherHitbox)) {

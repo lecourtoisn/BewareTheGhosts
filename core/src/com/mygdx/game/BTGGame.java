@@ -1,29 +1,21 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.entity.TestNexEntity;
-import com.mygdx.entity.Widget;
-import com.mygdx.entity.WorldEntity;
-import com.mygdx.screen.ScreenListener;
-import com.mygdx.world.World;
 
 public class BTGGame extends Game {
     private SimpleMenu simpleMenu;
 
 	@Override
 	public void create() {
-        new ScreenListener(100) {
+        /*new ScreenListener(100) {
             public WorldEntity garry;
             public Widget pause;
 
             public void start() {
-                this.garry = new TestNexEntity(new World(screen.getWidth(), screen.getHeight()));
+                //this.garry = new TestNexEntity(new World(screen.getWidth(), screen.getHeight()));
+                this.garry = new Arrow(new World(screen.getWidth(), screen.getHeight()), Direction.DOWN);
                 this.pause = new Widget(new Texture("ghost.png"), new Vector2(10, 10));
-                garry.setPosition(3.1f, 4.5f);
+                garry.setPosition(5, 5);
 
                 pause.setOrigin(10, 10);
                 pause.setPosition(screen.getWidth(), screen.getHeight());
@@ -43,11 +35,11 @@ public class BTGGame extends Game {
                 garry.draw(batch);
                 pause.draw(batch);
             }
-        }.start();
+        }.start();*/
 
-        /*Score.setHighScore(0);
+        Score.setHighScore(0);
         simpleMenu = new SimpleMenu(this);
-        launchSimpleMenu();*/
+        launchSimpleMenu();
 	}
 
     public void startGameSession() {

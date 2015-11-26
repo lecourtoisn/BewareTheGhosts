@@ -1,5 +1,6 @@
 package com.mygdx.entity;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.world.World;
 
 public class TestNexEntity extends WorldEntity {
@@ -10,5 +11,6 @@ public class TestNexEntity extends WorldEntity {
         setHitboxSize(ei.getHitbox());
         setOrigin(ei.getOrigin().x, ei.getOrigin().y);
         setPosition(50, 50);
+        sprite.setColor(Color.MAGENTA);
     }
 }

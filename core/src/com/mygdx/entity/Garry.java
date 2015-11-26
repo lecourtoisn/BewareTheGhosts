@@ -9,7 +9,7 @@ import com.mygdx.world.World;
 
 import java.util.Set;
 
-public class Garry extends Entity implements IMovingBehaviour {
+public class Garry extends WorldEntity implements IMovingBehaviour {
 
     private IMovingBehaviour movingStrategy;
     private boolean dead;
@@ -27,9 +27,9 @@ public class Garry extends Entity implements IMovingBehaviour {
     @Override
     public void update(float delta) {
         if (!dead) {
-            Set<Entity> colliding = world.getCollisions(this);
+            Set<WorldEntity> colliding = world.getCollisions(this);
             if (!colliding.isEmpty()) {
-                for (Entity entity : colliding) {
+                for (WorldEntity entity : colliding) {
                     entity.whenCollidesWithGarry(this);
                 }
             }
