@@ -2,24 +2,18 @@ package com.mygdx.event;
 
 import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
+import com.mygdx.event.DifficultySchema.*;
 
 public class EndlessSalvos extends Event {
     private static final long DELAY_BETWEEN_SALVO = 2000;
     private IEvent currentSalvo;
-    private SalvoParameterTuple salvoParameterSet[];
+    private Difficulty salvoSet;
     private int cursor;
 
-    public EndlessSalvos(World world) {
+    public EndlessSalvos(World world, Difficulty difficulty) {
         super(world);
         this.stopWatch = new RelativeStopWatch();
-        salvoParameterSet = new SalvoParameterTuple[] {
-            new SalvoParameterTuple(1, true, 1000, 5, 4000),
-            new SalvoParameterTuple(3, true, 1000, 5, 4000),
-            new SalvoParameterTuple(3, false, 1000, 5, 4000),
-            new SalvoParameterTuple(2, false, 1000, 10, 2000),
-            new SalvoParameterTuple(3, false, 1000, 10, 2000),
-            new SalvoParameterTuple(3, false, 1000, 20, 1000),
-        };
+        salvoSet = difficulty;
         cursor = 0;
     }
 
@@ -48,7 +42,7 @@ public class EndlessSalvos extends Event {
     }
 
     private void incrementCursor() {
-        cursor += (cursor == (salvoParameterSet.length - 1)) ? 0 : 1;
+        cursor += (cursor == (salvoSet.getSize() - 1)) ? 0 : 1;
     }
 
     @Override
@@ -56,24 +50,9 @@ public class EndlessSalvos extends Event {
         return world.getGarry().isDead();
     }
 
-    public SalvoParameterTuple getCurrentParameter() {
-        return salvoParameterSet[cursor];
+    public DifficultySchema.SalvoParameterTuple getCurrentParameter() {
+        return salvoSet.get(cursor);
     }
 
-    /** Kind of a struct to simplify the event flow **/
-    private class SalvoParameterTuple {
-        public int nbGhost;
-        public boolean sameDirection;
-        public long arrowWarningDirection;
-        public int nbAttack;
-        public long delayBetweenAttack;
 
-        public SalvoParameterTuple(int nbGhost, boolean sameDirection, long arrowWarningDirection, int nbAttack, long delayBetweenAttack) {
-            this.nbGhost = nbGhost;
-            this.sameDirection = sameDirection;
-            this.arrowWarningDirection = arrowWarningDirection;
-            this.nbAttack = nbAttack;
-            this.delayBetweenAttack = delayBetweenAttack;
-        }
-    }
 }

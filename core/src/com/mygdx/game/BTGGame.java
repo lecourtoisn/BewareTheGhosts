@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.mygdx.event.DifficultySchema.*;
 
 public class BTGGame extends Game {
     private SimpleMenu simpleMenu;
@@ -12,7 +13,7 @@ public class BTGGame extends Game {
 	}
 
     public void startGameSession() {
-        GameSession gameSession = new GameSession(this);
+        GameSession gameSession = new GameSession(this, Difficulty.NORMAL);
         gameSession.start();
     }
 

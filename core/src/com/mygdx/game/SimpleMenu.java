@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.event.DifficultySchema.*;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.Label;
 import com.mygdx.userinterface.ScaledBitmapFont;
@@ -13,22 +14,29 @@ public class SimpleMenu extends ScreenListener{
     private static final float HEIGHT = 100;
 
     private BTGGame game;
-    private ScaledBitmapFont font;
+    private ScaledBitmapFont normalFont;
+    private ScaledBitmapFont hardFont;
 
-    private Label highScoreLabel;
+    private Label hsNormalLabel;
+    private Label hsHardLabel;
 
     public SimpleMenu(BTGGame game) {
         super(HEIGHT);
         this.game = game;
-        this.font = new ScaledBitmapFont("fonts/calibri", HEIGHT, 10);
-        font.setColor(Color.CHARTREUSE);
+        this.normalFont = new ScaledBitmapFont("fonts/calibri", HEIGHT, 10);
+        this.hardFont = new ScaledBitmapFont("fonts/calibri", HEIGHT, 10);
+        normalFont.setColor(Color.CHARTREUSE);
+        hardFont.setColor(Color.BLUE);
 
         screen.setInputProcessor(inputProcessor);
 
-        highScoreLabel = new Label(font);
-        highScoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
+        hsNormalLabel = new Label(normalFont);
+        hsHardLabel = new Label(hardFont);
+        hsNormalLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 + 7);
+        hsHardLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 - 7);
 
-        manager.addElement(highScoreLabel);
+        manager.addElement(hsNormalLabel);
+        manager.addElement(hsHardLabel);
     }
 
     public void start() {
@@ -41,7 +49,8 @@ public class SimpleMenu extends ScreenListener{
 
     @Override
     public void update(float delta) {
-        highScoreLabel.setText(String.valueOf("HighScore : " + Score.getHighScore()));
+        hsNormalLabel.setText(String.valueOf("Normal HighScore: " + Score.getHighScore(Difficulty.NORMAL)));
+        hsHardLabel.setText(String.valueOf("Hard HighScore : " + Score.getHighScore(Difficulty.HARD)));
     }
 
     @Override

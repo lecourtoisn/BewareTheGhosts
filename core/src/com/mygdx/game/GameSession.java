@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.commandhandlers.GameSessionInputHandler;
+import com.mygdx.event.DifficultySchema.*;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.screen.ScreenListener;
@@ -30,12 +31,14 @@ public class GameSession extends ScreenListener {
     private PauseMenu pauseMenu;
     private Label countDownLabel;
     private boolean countDownState;
+    private Difficulty difficulty;
 
-    public GameSession(BTGGame game) {
+    public GameSession(BTGGame game, Difficulty difficulty) {
         super(WORLD_HEIGHT);
         this.game = game;
+        this.difficulty = difficulty;
         world = new World(screen.getWidth(), screen.getHeight());
-        event = new EndlessSalvos(world);
+        event = new EndlessSalvos(world, difficulty);
         pauseMenu = new PauseMenu(game, this);
         stopWatch = new RelativeStopWatch();
 
@@ -115,10 +118,10 @@ public class GameSession extends ScreenListener {
     }
 
     private void handleScore() {
-        int highScore = Score.getHighScore();
+        int highScore = Score.getHighScore(difficulty);
         int score = getScore();
         if (score > highScore) {
-            Score.setHighScore(score);
+            Score.setHighScore(difficulty, score);
         }
     }
 }
