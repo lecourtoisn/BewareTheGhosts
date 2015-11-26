@@ -52,7 +52,7 @@ public enum EntityInfo {
         return size;
     }
 
-    public Vector2 getCenter() {
+    public Vector2 getOrigin() {
         return new Vector2(size.x/2f, size.y/2f);
     }
 

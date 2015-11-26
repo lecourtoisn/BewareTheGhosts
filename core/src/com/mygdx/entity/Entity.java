@@ -19,7 +19,7 @@ public abstract class Entity implements IEntity {
 
     public Entity(World world,EntityInfo entityInfo) {
         this.world = world;
-        this.center = entityInfo.getCenter();
+        this.center = entityInfo.getOrigin();
         this.position = new Position(0, 0);
         this.sprite = new Sprite(entityInfo.getTexture());
         this.sprite.setSize(entityInfo.getSize().x, entityInfo.getSize().y);
@@ -79,7 +79,7 @@ public abstract class Entity implements IEntity {
     }
 
 
-    public void collidesWithGarry(Garry garry) {
+    public void whenCollidesWithGarry(Garry garry) {
         // Does nothing by default
     }
 }

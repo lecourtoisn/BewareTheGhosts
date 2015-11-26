@@ -27,7 +27,7 @@ public class Enemy extends Entity implements IMovingBehaviour{
     }
 
     @Override
-    public void collidesWithGarry(Garry garry) {
+    public void whenCollidesWithGarry(Garry garry) {
         garry.getsHurt();
     }
 

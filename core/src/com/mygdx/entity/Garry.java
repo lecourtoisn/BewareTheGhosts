@@ -30,7 +30,7 @@ public class Garry extends Entity implements IMovingBehaviour {
             Set<Entity> colliding = world.getCollisions(this);
             if (!colliding.isEmpty()) {
                 for (Entity entity : colliding) {
-                    entity.collidesWithGarry(this);
+                    entity.whenCollidesWithGarry(this);
                 }
             }
             move(delta);
