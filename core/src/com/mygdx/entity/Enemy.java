@@ -37,6 +37,9 @@ public class Enemy extends WorldEntity implements IMovingBehaviour{
     @Override
     public void setMovingDirection(Direction direction) {
         movingBehaviour.setMovingDirection(direction);
+        if (direction.equals(Direction.RIGHT)) {
+            sprite.flip(true, false);
+        }
     }
 
     @Override
