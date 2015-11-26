@@ -93,4 +93,13 @@ public class World {
         }
         return colliding;
     }
+
+    public boolean enemyInPath(Rectangle pathRectangle) {
+        for (WorldEntity enemy : entities.getElements(Enemy.class)) {
+            if (enemy.getHitbox().overlaps(pathRectangle)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

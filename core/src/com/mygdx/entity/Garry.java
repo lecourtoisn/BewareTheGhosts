@@ -42,9 +42,18 @@ public class Garry extends WorldEntity implements IMovingBehaviour {
     public boolean couldBeAt(Position pos) {
         Rectangle gridHitbox = getGrid().getBoundaries();
         Rectangle entityHitbox = getHitbox();
-        entityHitbox.setCenter(pos.getPosition());
+        Rectangle nextEntityHitbox = new Rectangle(entityHitbox).setCenter(pos.getPosition());
 
-        return gridHitbox.contains(entityHitbox);
+        boolean pathFree = !world.enemyInPath(getPathRectangle(entityHitbox, nextEntityHitbox));
+        return gridHitbox.contains(nextEntityHitbox) && pathFree;
+    }
+
+    private Rectangle getPathRectangle(Rectangle r1, Rectangle r2) {
+        float pathMinX = Math.min(r1.x, r2.x);
+        float pathMinY = Math.min(r1.y, r2.y);
+        float pathMaxX = Math.max(r1.x, r2.x);
+        float pathMaxY = Math.max(r1.y, r2.y);
+        return new Rectangle(pathMinX, pathMinY, pathMaxX-pathMinX+r1.width, pathMaxY-pathMinY+r1.height);
     }
 
     /** Strategy pattern **/

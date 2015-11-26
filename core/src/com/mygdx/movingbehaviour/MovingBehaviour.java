@@ -20,11 +20,13 @@ public abstract class MovingBehaviour implements IMovingBehaviour{
 
     @Override
     public void move(float delta) {
-        Position nextPos = getNextPosition(delta);
-        if (entity.couldBeAt(nextPos)) {
-            entity.setPosition(nextPos);
+        if (movement != Direction.NONE) {
+            Position nextPos = getNextPosition(delta);
+            if (entity.couldBeAt(nextPos)) {
+                entity.setPosition(nextPos);
+            }
+            afterMovement();
         }
-        afterMovement();
     }
 
     protected void afterMovement() {
