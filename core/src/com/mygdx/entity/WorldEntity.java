@@ -19,12 +19,6 @@ public class WorldEntity extends ClassicEntity {
         hitboxSize = entityInfo.getHitbox();
     }
 
-    @Override
-    public void setGraphicSize(float x, float y) {
-        graphicSize.x = x;
-        graphicSize.y = y;
-    }
-
     public Rectangle getHitbox() {
         Rectangle hitbox = new Rectangle(0, 0, hitboxSize.x, hitboxSize.y);
         hitbox.setCenter(position.getX(), position.getY());

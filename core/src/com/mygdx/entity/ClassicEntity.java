@@ -41,10 +41,8 @@ public class ClassicEntity {
     }
 
     public void setGraphicSize(float x, float y) {
-        Vector2 oldSize = graphicSize;
-        graphicSize = new Vector2(x, y);
-        origin.x *= graphicSize.x / oldSize.x;
-        origin.y *= graphicSize.y / oldSize.y;
+        graphicSize.x = x;
+        graphicSize.y = y;
     }
 
     public Vector2 getGraphicSize() {
