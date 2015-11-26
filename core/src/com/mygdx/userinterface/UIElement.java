@@ -1,3 +1,4 @@
+/*
 package com.mygdx.userinterface;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -13,12 +14,12 @@ public abstract class UIElement implements IUIElement {
     private Vector2 center;
 
     protected boolean centered;
-    public UIElement(UIManager uiManager) {
+    public UIElement(WidgetManager widgetManager) {
         center = new Vector2();
         position = new Vector2();
         sprite = new Sprite();
         size = new Vector2();
-        uiManager.addElement(this);
+        widgetManager.addElement(this);
         setCentered(true);
     }
 
@@ -90,3 +91,4 @@ public abstract class UIElement implements IUIElement {
         return new Vector2(center);
     }
 }
+*/

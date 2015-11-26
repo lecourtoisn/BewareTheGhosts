@@ -25,8 +25,10 @@ public class SimpleMenu extends ScreenListener{
 
         screen.setInputProcessor(inputProcessor);
 
-        highScoreLabel = new Label(manager, font);
+        highScoreLabel = new Label(font);
         highScoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
+
+        manager.addElement(highScoreLabel);
     }
 
     public void start() {
@@ -44,7 +46,7 @@ public class SimpleMenu extends ScreenListener{
 
     @Override
     public void render(Batch batch, Camera cam) {
-        highScoreLabel.draw(batch);
+        manager.draw(batch);
     }
 
     private InputProcessor inputProcessor = new InputAdapter() {

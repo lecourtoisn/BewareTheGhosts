@@ -2,16 +2,16 @@ package com.mygdx.screen;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.mygdx.userinterface.UIManager;
+import com.mygdx.userinterface.WidgetManager;
 
 public class ScreenListener implements IScreenListener {
 
     protected UnStretchedScreen screen;
-    protected UIManager manager;
+    protected WidgetManager manager;
 
     public ScreenListener(float height) {
         screen = new UnStretchedScreen(this, height);
-        manager = new UIManager();
+        manager = new WidgetManager();
     }
 
     @Override

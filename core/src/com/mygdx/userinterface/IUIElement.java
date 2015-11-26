@@ -1,3 +1,4 @@
+/*
 package com.mygdx.userinterface;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,3 +16,4 @@ public interface IUIElement {
 
     void onTouched();
 }
+*/

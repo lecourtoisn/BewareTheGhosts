@@ -40,12 +40,15 @@ public class GameSession extends ScreenListener {
     private void initializeUI() {
         /**/font = new ScaledBitmapFont("fonts/calibrib", WORLD_HEIGHT, 10);
         /**/font.setColor(Color.BLACK);
-        pauseButton = new PauseButton(manager, this);
-        pauseButton.setSize(9, 9);
-        pauseButton.setPosition(screen.getWidth() - 5, screen.getHeight() - 5);
+        pauseButton = new PauseButton(this);
+        pauseButton.setOrigin(pauseButton.getGraphicSize().x, pauseButton.getGraphicSize().y);
+        pauseButton.setPosition(screen.getWidth(), screen.getHeight());
 
-        scoreLabel = new Label(manager, font);
+        scoreLabel = new Label(font);
         scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
+
+        manager.addElement(scoreLabel);
+        manager.addElement(pauseButton);
     }
 
     public void start() {
@@ -71,8 +74,10 @@ public class GameSession extends ScreenListener {
     public void render(Batch batch, Camera cam) {
         world.render(batch, cam);
         //font.draw(batch, String.valueOf(getScore()), 10, WORLD_HEIGHT - 10);
-        scoreLabel.draw(batch);
-        pauseButton.draw(batch);
+        //scoreLabel.draw(batch);
+        //pauseButton.draw(batch);
+        //scoreLabel.draw(batch);
+        manager.draw(batch);
     }
 
     public int getScore() {

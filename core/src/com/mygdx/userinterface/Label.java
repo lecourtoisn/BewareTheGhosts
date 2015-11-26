@@ -1,26 +1,37 @@
 package com.mygdx.userinterface;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.entity.EntityInfo;
+import com.mygdx.entity.Widget;
 import com.mygdx.util.ScaledBitmapFont;
 
-public class Label extends UIElement {
+public class Label extends Widget {
     private ScaledBitmapFont font;
 
-    public Label(UIManager uiManager, ScaledBitmapFont font) {
-        super(uiManager);
+    public Label(ScaledBitmapFont font) {
+        super(EntityInfo.GHOST.getTexture(), new Vector2(10, 10));
         this.font = font;
     }
 
     public void setText(String text) {
         font.setText(text);
-        setSize(font.getSize().x, font.getSize().y);
+        setGraphicSize(font.getSize().x, font.getSize().y);
     }
 
     @Override
     public void draw(Batch batch) {
-        Vector2 pos = getConcretePosition();
-        pos.y += getSize().y;
-        font.draw(batch, pos.x, pos.y);
+        Rectangle bounds = new Rectangle(getGraphicBounds());
+        float x = bounds.getX();
+        float y = bounds.getY() + getGraphicSize().y;
+
+        font.draw(batch, x, y);
     }
+
+
+    /** Irrelevant methods **/
+    @Override
+    public void setTexture(Texture texture) {}
 }
