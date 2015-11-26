@@ -1,13 +1,14 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.mygdx.event.DifficultySchema.*;
+import com.mygdx.event.DifficultySchema.Difficulty;
 
 public class BTGGame extends Game {
     private SimpleMenu simpleMenu;
 
 	@Override
 	public void create() {
+        Score.antiCheatRoutine();
         simpleMenu = new SimpleMenu(this);
         launchSimpleMenu();
 	}
