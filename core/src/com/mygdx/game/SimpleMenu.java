@@ -30,7 +30,7 @@ public class SimpleMenu extends ScreenListener{
 
         hsHardLabel = new Label(Font.CALIBRI, HEIGHT, 10);
         hsHardLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 - 7);
-        hsNormalLabel.setColor(Color.BLUE);
+        hsHardLabel.setColor(Color.BLUE);
 
         manager.addElement(hsNormalLabel);
         manager.addElement(hsHardLabel);
@@ -38,10 +38,6 @@ public class SimpleMenu extends ScreenListener{
 
     public void start() {
         game.setScreen(screen);
-    }
-
-    public void startGameSession() {
-        game.startGameSession();
     }
 
     @Override
@@ -58,14 +54,14 @@ public class SimpleMenu extends ScreenListener{
     private InputProcessor inputProcessor = new InputAdapter() {
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            startGameSession();
+            game.launchMainMenu();
             return true;
         }
 
         @Override
         public boolean keyTyped(char character) {
             if (character == ' ') {
-                startGameSession();
+                game.launchMainMenu();
             }
             return true;
         }

@@ -41,6 +41,16 @@ public class Entity implements IEntity{
     }
 
     @Override
+    public void setOriginX(float x) {
+        origin.x = x;
+    }
+
+    @Override
+    public void setOriginY(float y) {
+        origin.y = y;
+    }
+
+    @Override
     public Vector2 getOrigin() {
         return origin;
     }

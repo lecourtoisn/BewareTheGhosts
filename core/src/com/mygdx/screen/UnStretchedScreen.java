@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class UnStretchedScreen extends ScreenAdapter {
     private IScreenListener listener;
@@ -63,5 +65,10 @@ public class UnStretchedScreen extends ScreenAdapter {
 
     public Camera getCamera() {
         return cam;
+    }
+
+    public Vector2 unProject(float screenX, float screenY) {
+        Vector3 tp = getCamera().unproject(new Vector3(screenX, screenY, 0));
+        return new Vector2(tp.x, tp.y);
     }
 }

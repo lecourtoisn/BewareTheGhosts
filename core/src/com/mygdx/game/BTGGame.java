@@ -12,16 +12,19 @@ public class BTGGame extends Game {
         Score.antiCheatRoutine();
         simpleMenu = new SimpleMenu(this);
         mainMenu = new MainMenu(this);
-        launchSimpleMenu();
+        launchMainMenu();
 	}
 
-    public void startGameSession() {
-        GameSession gameSession = new GameSession(this, Difficulty.NORMAL);
+    public void startGameSession(Difficulty difficulty) {
+        GameSession gameSession = new GameSession(this, difficulty);
         gameSession.start();
     }
 
     public void launchSimpleMenu() {
         simpleMenu.start();
-        //mainMenu.start();
+    }
+
+    public void launchMainMenu() {
+        mainMenu.start();
     }
 }

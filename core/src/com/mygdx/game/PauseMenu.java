@@ -3,10 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.mygdx.userinterface.*;
 import com.mygdx.screen.ScreenListener;
+import com.mygdx.userinterface.Font;
+import com.mygdx.userinterface.Label;
+import com.mygdx.userinterface.ResumeLabel;
+import com.mygdx.userinterface.Widget;
 
 public class PauseMenu extends ScreenListener {
     private final static float HEIGHT = 100;
@@ -30,14 +31,14 @@ public class PauseMenu extends ScreenListener {
 
         screen.setInputProcessor(new InputAdapter() {
             @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                Vector3 tp = screen.getCamera().unproject(new Vector3(screenX, screenY, 0));
-                Vector2 worldPosition = new Vector2(tp.x, tp.y);
-                Widget touched = manager.getElementAt(worldPosition);
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+//                Vector3 tp = screen.getCamera().unproject(new Vector3(screenX, screenY, 0));
+//                Vector2 worldPosition = new Vector2(tp.x, tp.y);
+                Widget touched = manager.getElementAt(screen.unProject(screenX, screenY));
                 if (touched != null) {
                     touched.onTouched();
                 }
-                return true;
+                return false;
             }
         });
     }
