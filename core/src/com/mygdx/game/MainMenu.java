@@ -5,19 +5,21 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.entity.EntityInfo;
 import com.mygdx.event.DifficultySchema;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.Font;
 import com.mygdx.userinterface.Label;
-import com.mygdx.userinterface.MainBackground;
 import com.mygdx.userinterface.Widget;
+import com.mygdx.world.Background;
 
 public class MainMenu extends ScreenListener {
     private final static int LBL_SIZE = 10;
     private final static FileHandle LBL_FONT = Font.KENVECTOR;
     private final static FileHandle TITLE_FONT = Font.KENVECTORBOLD;
     private BTGGame game;
-    private Widget background;
+    private Widget background = new Background(screen.getWidth(), screen.getHeight());
 
     private Label normalButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
         @Override
@@ -37,44 +39,46 @@ public class MainMenu extends ScreenListener {
             game.launchSimpleMenu();
         }
     };
-    private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE);
+    private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
+    private Widget garry = new Widget(EntityInfo.GARRY.getTexture(), new Vector2(EntityInfo.GARRY.getSize()).scl(3));
 
     public MainMenu(BTGGame game) {
         super(100);
         this.game = game;
-        this.background = new MainBackground(screen.getWidth(), screen.getHeight());
 
         float gap = LBL_SIZE*1.5f;
         Color color = Color.CORAL;
-//        float middleWidth = screen.getWidth() / 2 - 10;
-//        float middleHeight = screen.getHeight() / 2;
+
         float widthPosition = 10;
-        float heightPosition = 10;
+        float heightPosition = widthPosition;
         normalButton.setOrigin(0, 0);
         hardButton.setOrigin(0, 0);
         highScoreButton.setOrigin(0, 0);
         btgLbl.setOrigin(0, btgLbl.getGraphicSize().y);
+        garry.setOrigin(garry.getGraphicSize().x, 0);
 
-        normalButton.setPosition(widthPosition, heightPosition + 2*gap);
+        normalButton.setPosition(widthPosition, heightPosition + 2 * gap);
         hardButton.setPosition(widthPosition, heightPosition + gap);
         highScoreButton.setPosition(widthPosition, heightPosition);
         btgLbl.setPosition(widthPosition, screen.getHeight() - heightPosition);
+        garry.setPosition(screen.getWidth()-4*widthPosition, heightPosition/**3*/);
 
         normalButton.setColor(color);
         hardButton.setColor(color);
         highScoreButton.setColor(color);
-        btgLbl.setColor(Color.FIREBRICK);
+        btgLbl.setColor(Color.FOREST);
 
 
         normalButton.setText("Normal");
         hardButton.setText("Hard");
         highScoreButton.setText("High Scores");
-        btgLbl.setText("Beware the ghosts !");
+        btgLbl.setText("Slipping Gary !");
 
         manager.addElement(normalButton);
         manager.addElement(hardButton);
         manager.addElement(highScoreButton);
         manager.addElement(btgLbl);
+        manager.addElement(garry);
 
         screen.setInputProcessor(new InputAdapter() {
             @Override
