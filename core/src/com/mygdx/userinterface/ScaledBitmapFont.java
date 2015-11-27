@@ -1,6 +1,7 @@
 package com.mygdx.userinterface;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,10 +14,9 @@ public class ScaledBitmapFont {
     private BitmapFont bitmapFont;
     private GlyphLayout glyphLayout;
 
-    public ScaledBitmapFont(String path, float viewportHeight, float fontSize) {
+    public ScaledBitmapFont(FileHandle font, float viewportHeight, float fontSize) {
         float scale = Gdx.graphics.getHeight() / viewportHeight;
-        path = path.concat(".ttf");
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal(path));
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(font);
 
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = (int) (fontSize * scale);
@@ -37,14 +37,6 @@ public class ScaledBitmapFont {
     public void draw(Batch batch, float x, float y) {
         bitmapFont.draw(batch, glyphLayout, x, y);
     }
-
-/*
-    public void drawCenter(Batch batch,  float x, float y) {
-        Vector2 center = new Vector2(x, y);
-        center.sub(glyphLayout.width/2, glyphLayout.height/-2);
-        bitmapFont.draw(batch, glyphLayout, center.x, center.y);
-    }
-*/
 
     public void setColor(Color color) {
         bitmapFont.setColor(color);

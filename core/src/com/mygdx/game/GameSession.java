@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.commandhandlers.GameSessionInputHandler;
-import com.mygdx.event.DifficultySchema.*;
+import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.screen.ScreenListener;
+import com.mygdx.userinterface.Font;
 import com.mygdx.userinterface.Label;
 import com.mygdx.userinterface.PauseButton;
-import com.mygdx.userinterface.ScaledBitmapFont;
 import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
 
@@ -21,8 +21,6 @@ public class GameSession extends ScreenListener {
     private BTGGame game;
     private World world;
 
-    private ScaledBitmapFont scoreFont;
-    private ScaledBitmapFont countDownFont;
     private RelativeStopWatch stopWatch;
 
     // UI part
@@ -47,19 +45,17 @@ public class GameSession extends ScreenListener {
     }
 
     private void initializeUI() {
-        scoreFont = new ScaledBitmapFont("fonts/calibrib", WORLD_HEIGHT, 10);
-        scoreFont.setColor(Color.BLACK);
-        countDownFont = new ScaledBitmapFont("fonts/calibrib", WORLD_HEIGHT, 50);
-        countDownFont.setColor(Color.BLACK);
         pauseButton = new PauseButton(this);
         pauseButton.setOrigin(pauseButton.getGraphicSize().x, pauseButton.getGraphicSize().y);
         pauseButton.setPosition(screen.getWidth(), screen.getHeight());
 
-        scoreLabel = new Label(scoreFont);
+        scoreLabel = new Label(Font.CALIBRIBOLD, WORLD_HEIGHT, 10);
         scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
+        scoreLabel.setColor(Color.BLACK);
 
-        countDownLabel = new Label(countDownFont);
+        countDownLabel = new Label(Font.CALIBRIBOLD, WORLD_HEIGHT, 50);
         countDownLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
+        countDownLabel.setColor(Color.BLACK);
 
         manager.addElement(scoreLabel);
         manager.addElement(pauseButton);

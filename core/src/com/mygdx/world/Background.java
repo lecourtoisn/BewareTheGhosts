@@ -1,19 +1,16 @@
 package com.mygdx.world;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.userinterface.Widget;
 
-public class Background {
-    private Sprite sprite;
+public class Background extends Widget {
+
+
+    private static final Texture TEXTURE = new Texture("background.png");
 
     public Background(float width, float height) {
-        sprite = new Sprite(new Texture("background.png"));
-        sprite.setSize(width, height);
-        sprite.setPosition(0, 0);
-    }
-
-    public void draw(Batch batch) {
-        sprite.draw(batch);
+        super(TEXTURE, new Vector2(width, height));
+        setOrigin(0, 0);
     }
 }
