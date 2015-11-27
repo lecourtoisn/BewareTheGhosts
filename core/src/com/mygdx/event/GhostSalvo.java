@@ -12,13 +12,13 @@ public class GhostSalvo extends Event {
 
     private long delayBetweenAttacks;
 
-    public GhostSalvo(World world, int nbGhost, boolean sameDirection, long arrowWarningDuration, int nbAttack, long delayBetweenAttacks) {
+    public GhostSalvo(World world, int nbGhost, boolean sameDirection, int nbArrowBlink, long arrowCycleDuration, int nbAttack, long delayBetweenAttacks) {
         super(world);
         attacks = new ArrayList<Event>(nbAttack);
         this.delayBetweenAttacks = delayBetweenAttacks;
 
         for (int i = 0; i < nbAttack; i++) {
-            attacks.add(new GhostAttack(world, nbGhost, sameDirection, arrowWarningDuration));
+            attacks.add(new GhostAttack(world, nbGhost, sameDirection, nbArrowBlink, arrowCycleDuration));
         }
     }
 

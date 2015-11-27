@@ -24,7 +24,7 @@ public class EndlessSalvos extends Event {
 
     private void startNextSalvo() {
         SalvoParameterTuple p = getCurrentParameter();
-        currentSalvo = new GhostSalvo(world, p.nbGhost, p.sameDirection, p.arrowWarningDirection, p.nbAttack, p.delayBetweenAttack);
+        currentSalvo = new GhostSalvo(world, p.nbGhost, p.sameDirection, p.nbArrowBlink, p.arrowCycleDuration, p.nbAttack, p.delayBetweenAttack);
         currentSalvo.start();
     }
 

@@ -16,18 +16,15 @@ import java.util.Set;
 
 
 public class GhostAttack extends Event {
-    private float arrowWarningDuration;
-
     private boolean arrowPhase;
     private boolean ghostsHasShown;
 
     private Map<Enemy, ArrowDirectionPair> ghosts;
     private boolean someGhostsAreVisible;
 
-    public GhostAttack(World world, int nbGhost, boolean sameDirection, float arrowWarningDuration) {
+    public GhostAttack(World world, int nbGhost, boolean sameDirection, int nbArrowBlink, long arrowCycleDuration) {
         super(world);
         nbGhost = nbGhost == 0 ? 1 : nbGhost;
-        this.arrowWarningDuration = arrowWarningDuration;
         this.ghosts = new HashMap<Enemy, ArrowDirectionPair>();
 
         Grid grid = world.getGrid();
@@ -44,7 +41,7 @@ public class GhostAttack extends Event {
             Position startingPosition = new Position(grid.getCellCenterPosition(Math.round(position.x), Math.round(position.y)));
 
             Enemy ghost = new Enemy(world, EntityInfo.GHOST);
-            Arrow arrow = new Arrow(world, direction);
+            Arrow arrow = new Arrow(world, direction, nbArrowBlink, arrowCycleDuration);
 
             ghost.setMovingDirection(direction);
 
@@ -68,7 +65,7 @@ public class GhostAttack extends Event {
         if (!ghostsHasShown && someGhostsAreVisible) {
             this.ghostsHasShown = true;
         }
-        if (arrowPhase && stopWatch.getMilliseconds() > arrowWarningDuration) {
+        if (arrowPhase && arrowsStopBlinking()) {
             endArrowPhase();
             startGhostPhase();
         }
@@ -100,6 +97,15 @@ public class GhostAttack extends Event {
             }
         }
         return ghostsAreVisible;
+    }
+
+    private boolean arrowsStopBlinking() {
+        for (Arrow arrow : getArrows()) {
+            if (arrow.stoppedBlinking()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void startGhostPhase() {
