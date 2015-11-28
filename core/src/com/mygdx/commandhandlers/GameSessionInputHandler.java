@@ -2,11 +2,10 @@ package com.mygdx.commandhandlers;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.entity.Garry;
-import com.mygdx.userinterface.Widget;
+import com.mygdx.game.CountDown;
 import com.mygdx.screen.UnStretchedScreen;
+import com.mygdx.userinterface.Widget;
 import com.mygdx.userinterface.WidgetManager;
 import com.mygdx.util.Direction;
 import com.mygdx.world.World;
@@ -16,11 +15,13 @@ public class GameSessionInputHandler extends InputAdapter{
     private UnStretchedScreen screen;
     private WidgetManager widgetManager;
     private World world;
+    private CountDown countDown;
 
-    public GameSessionInputHandler(UnStretchedScreen screen, World world, WidgetManager widgetManager) {
+    public GameSessionInputHandler(UnStretchedScreen screen, World world, WidgetManager widgetManager, CountDown countDown) {
         this.world = world;
         this.widgetManager = widgetManager;
         this.screen = screen;
+        this.countDown = countDown;
     }
 
     @Override
@@ -40,7 +41,9 @@ public class GameSessionInputHandler extends InputAdapter{
                 garry.setMovingDirection(Direction.LEFT);
                 break;
             case Input.Keys.SPACE:
-                garry.setDead(false);
+                if (!countDown.isOver() && !countDown.isRunning()) {
+                    countDown.start();
+                }
                 break;
             default:
                 return false;
@@ -50,12 +53,12 @@ public class GameSessionInputHandler extends InputAdapter{
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        Vector3 tp = screen.getCamera().unproject(new Vector3(screenX, screenY, 0));
-        Vector2 worldPosition = new Vector2(tp.x, tp.y);
-        Widget touched = widgetManager.getElementAt(worldPosition);
+        Widget touched = widgetManager.getElementAt(screen.unProject(screenX, screenY));
         if (touched != null) {
             touched.onTouched();
         }
         return true;
     }
+
+
 }

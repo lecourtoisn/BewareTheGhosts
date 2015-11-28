@@ -11,7 +11,6 @@ import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.Font;
 import com.mygdx.userinterface.Label;
 import com.mygdx.userinterface.PauseButton;
-import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
 
 public class GameSession extends ScreenListener {
@@ -21,15 +20,13 @@ public class GameSession extends ScreenListener {
     private BTGGame game;
     private World world;
 
-    private RelativeStopWatch stopWatch;
-
     // UI part
     private PauseButton pauseButton;
     private Label scoreLabel;
     private PauseMenu pauseMenu;
     private Label countDownLabel;
-    private boolean countDownState;
     private Difficulty difficulty;
+    private CountDown countDown;
 
     public GameSession(BTGGame game, Difficulty difficulty) {
         super(WORLD_HEIGHT);
@@ -38,9 +35,9 @@ public class GameSession extends ScreenListener {
         world = new World(screen.getWidth(), screen.getHeight());
         event = new EndlessSalvos(world, difficulty);
         pauseMenu = new PauseMenu(game, this);
-        stopWatch = new RelativeStopWatch();
+        countDown = new CountDown(3);
 
-        screen.setInputProcessor(new GameSessionInputHandler(screen, world, manager));
+        screen.setInputProcessor(new GameSessionInputHandler(screen, world, manager, countDown));
         initializeUI();
     }
 
@@ -68,15 +65,15 @@ public class GameSession extends ScreenListener {
 
     @Override
     public void show() {
-        stopWatch.start();
         manager.addElement(countDownLabel);
-        countDownState = true;
+        countDown.reset();
     }
 
     @Override
     public void update(float delta) {
-        stopWatch.update(delta);
-        if (!countDownState) {
+        countDown.update(delta);
+        if (countDown.isOver()) {
+            manager.removeElement(countDownLabel);
             world.update(delta);
             scoreLabel.setText(String.valueOf(getScore()));
             if (event.isOver()) {
@@ -84,13 +81,10 @@ public class GameSession extends ScreenListener {
                 game.launchSimpleMenu();
             }
         } else {
-
-            long count = 3-stopWatch.getSeconds();
-            if (count != 0) {
-                countDownLabel.setText(String.valueOf(count));
+            if (countDown.isRunning()) {
+                countDownLabel.setText(countDown.getSecondStr());
             } else {
-                countDownState = false;
-                manager.removeElement(countDownLabel);
+                countDownLabel.setText("Touch !");
             }
         }
     }

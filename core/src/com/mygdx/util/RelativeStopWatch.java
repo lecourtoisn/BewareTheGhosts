@@ -3,6 +3,7 @@ package com.mygdx.util;
 public class RelativeStopWatch {
     private long elapsedTime;
     private boolean hasStarted = false;
+    private long initialDelay = 0;
 
     public void update(float deltaInSecond) {
         elapsedTime += deltaInSecond*1000;
@@ -15,6 +16,7 @@ public class RelativeStopWatch {
     public void start(long delay) {
         elapsedTime = delay;
         hasStarted = true;
+        initialDelay = delay;
     }
 
     private long getElapsedTime() {
@@ -42,5 +44,9 @@ public class RelativeStopWatch {
 
     public boolean isRunning() {
         return hasStarted;
+    }
+
+    public void reset() {
+        elapsedTime = initialDelay;
     }
 }
