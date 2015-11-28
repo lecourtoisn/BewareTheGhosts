@@ -1,14 +1,13 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.commandhandlers.CustomInputHandler;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.game.BTGGame;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
-import com.mygdx.userinterface.elements.Widget;
 import com.mygdx.util.International;
 
 import static com.mygdx.util.International.Label.*;
@@ -55,16 +54,7 @@ public class EndOfGameView extends ScreenListener {
         manager.addElement(againBtn);
         manager.addElement(menuBtn);
 
-        screen.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                Widget widget = manager.getElementAt(screen.unProject(screenX, screenY));
-                if (widget != null) {
-                    widget.onTouched();
-                }
-                return false;
-            }
-        });
+        screen.setInputProcessor(new CustomInputHandler(screen, manager).getDetector());
     }
 
     @Override

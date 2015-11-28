@@ -3,7 +3,7 @@ package com.mygdx.views;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.mygdx.commandhandlers.GameSessionInputHandler;
+import com.mygdx.commandhandlers.GameViewInput;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
@@ -43,7 +43,7 @@ public class GameView extends ScreenListener {
         pauseView = new PauseView(game, this);
         countDown = new CountDown(3);
 
-        screen.setInputProcessor(new GameSessionInputHandler(screen, world, manager, countDown));
+        screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
         initializeUI();
     }
 

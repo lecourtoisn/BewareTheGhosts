@@ -1,11 +1,10 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.commandhandlers.CustomInputHandler;
 import com.mygdx.game.BTGGame;
 import com.mygdx.game.Score;
 import com.mygdx.screen.ScreenListener;
@@ -63,8 +62,8 @@ public class HighScoreView extends ScreenListener {
         hardLbl.setPosition(MARGIN, MARGIN);
         titleLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
         float scoresMargin = Math.max(normalLbl.getGSizeX(), hardScore.getGSizeX()) + MARGIN;
-        normalScore.setPosition(scoresMargin+20, normalLbl.getPosition().getY());
-        hardScore.setPosition(scoresMargin+20, hardLbl.getPosition().getY());
+        normalScore.setPosition(scoresMargin + 20, normalLbl.getPosition().getY());
+        hardScore.setPosition(scoresMargin + 20, hardLbl.getPosition().getY());
 
         manager.addElement(normalLbl);
         manager.addElement(hardLbl);
@@ -72,21 +71,13 @@ public class HighScoreView extends ScreenListener {
         manager.addElement(normalScore);
         manager.addElement(hardScore);
 
-        screen.setInputProcessor(new InputAdapter() {
+        screen.setInputProcessor(new CustomInputHandler() {
             @Override
-            public boolean keyUp(int keycode) {
-                if (Input.Keys.ESCAPE == keycode) {
-                    game.launchMainView();
-                }
-                return false;
-            }
-
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            public void onTap(float x, float y, int count, int button) {
                 game.launchMainView();
-                return false;
             }
-        });
+        }.getDetector());
+
     }
 
     public void start() {

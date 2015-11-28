@@ -1,14 +1,13 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.commandhandlers.CustomInputHandler;
 import com.mygdx.game.BTGGame;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.ResumeLabel;
-import com.mygdx.userinterface.elements.Widget;
 import com.mygdx.util.International;
 
 import static com.mygdx.util.International.Label.PAUSE;
@@ -34,16 +33,7 @@ public class PauseView extends ScreenListener {
         manager.addElement(pauseLbl);
         manager.addElement(resumeLbl);
 
-        screen.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                Widget touched = manager.getElementAt(screen.unProject(screenX, screenY));
-                if (touched != null) {
-                    touched.onTouched();
-                }
-                return false;
-            }
-        });
+        screen.setInputProcessor(new CustomInputHandler(screen, manager).getDetector());
     }
 
     @Override
