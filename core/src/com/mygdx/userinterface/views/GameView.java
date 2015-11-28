@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.userinterface.views;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -7,13 +7,16 @@ import com.mygdx.commandhandlers.GameSessionInputHandler;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
+import com.mygdx.game.BTGGame;
+import com.mygdx.util.CountDown;
+import com.mygdx.game.Score;
 import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.Font;
-import com.mygdx.userinterface.Label;
-import com.mygdx.userinterface.PauseButton;
+import com.mygdx.userinterface.elements.Font;
+import com.mygdx.userinterface.elements.Label;
+import com.mygdx.userinterface.elements.PauseButton;
 import com.mygdx.world.World;
 
-public class GameSession extends ScreenListener {
+public class GameView extends ScreenListener {
     private static final float WORLD_HEIGHT = 100;
 
     private IEvent event;
@@ -23,18 +26,18 @@ public class GameSession extends ScreenListener {
     // UI part
     private PauseButton pauseButton;
     private Label scoreLabel;
-    private PauseMenu pauseMenu;
+    private PauseView pauseView;
     private Label countDownLabel;
     private Difficulty difficulty;
     private CountDown countDown;
 
-    public GameSession(BTGGame game, Difficulty difficulty) {
+    public GameView(BTGGame game, Difficulty difficulty) {
         super(WORLD_HEIGHT);
         this.game = game;
         this.difficulty = difficulty;
         world = new World(screen.getWidth(), screen.getHeight());
         event = new EndlessSalvos(world, difficulty);
-        pauseMenu = new PauseMenu(game, this);
+        pauseView = new PauseView(game, this);
         countDown = new CountDown(3);
 
         screen.setInputProcessor(new GameSessionInputHandler(screen, world, manager, countDown));
@@ -100,7 +103,7 @@ public class GameSession extends ScreenListener {
     }
 
     public void launchPauseMenu() {
-        pauseMenu.start();
+        pauseView.start();
     }
 
     public void resumeGame() {

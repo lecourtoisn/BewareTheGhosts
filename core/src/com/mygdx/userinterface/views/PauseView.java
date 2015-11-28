@@ -1,26 +1,27 @@
-package com.mygdx.game;
+package com.mygdx.userinterface.views;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.game.BTGGame;
 import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.Font;
-import com.mygdx.userinterface.Label;
-import com.mygdx.userinterface.ResumeLabel;
-import com.mygdx.userinterface.Widget;
+import com.mygdx.userinterface.elements.Font;
+import com.mygdx.userinterface.elements.Label;
+import com.mygdx.userinterface.elements.ResumeLabel;
+import com.mygdx.userinterface.elements.Widget;
 
-public class PauseMenu extends ScreenListener {
+public class PauseView extends ScreenListener {
     private final static float HEIGHT = 100;
 
     private Label pauseLbl;
     private ResumeLabel resumeLbl;
     private BTGGame game;
 
-    public PauseMenu(BTGGame game, final GameSession gameSession) {
+    public PauseView(BTGGame game, final GameView gameView) {
         super(HEIGHT);
         this.game = game;
         pauseLbl = new Label(Font.CALIBRI, screen.getHeight(), 30);
-        resumeLbl = new ResumeLabel(gameSession, screen.getHeight());
+        resumeLbl = new ResumeLabel(gameView, screen.getHeight());
         pauseLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 + 25);
         resumeLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 - 10);
         pauseLbl.setText("Pause");

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.userinterface.views;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.event.DifficultySchema.Difficulty;
+import com.mygdx.game.BTGGame;
+import com.mygdx.game.Score;
 import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.Font;
-import com.mygdx.userinterface.Label;
+import com.mygdx.userinterface.elements.Font;
+import com.mygdx.userinterface.elements.Label;
 
 public class SimpleMenu extends ScreenListener{
     private static final float HEIGHT = 100;

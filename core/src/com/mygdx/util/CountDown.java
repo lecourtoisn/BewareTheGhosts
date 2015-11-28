@@ -1,6 +1,4 @@
-package com.mygdx.game;
-
-import com.mygdx.util.RelativeStopWatch;
+package com.mygdx.util;
 
 public class CountDown {
     private boolean isRunning;

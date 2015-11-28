@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.userinterface.views;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.files.FileHandle;
@@ -8,13 +8,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.EntityInfo;
 import com.mygdx.event.DifficultySchema;
+import com.mygdx.game.BTGGame;
 import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.Font;
-import com.mygdx.userinterface.Label;
-import com.mygdx.userinterface.Widget;
-import com.mygdx.world.Background;
+import com.mygdx.userinterface.elements.Font;
+import com.mygdx.userinterface.elements.Label;
+import com.mygdx.userinterface.elements.Widget;
+import com.mygdx.userinterface.elements.Background;
 
-public class MainMenu extends ScreenListener {
+public class MainView extends ScreenListener {
     private final static int LBL_SIZE = 10;
     private final static FileHandle LBL_FONT = Font.KENVECTOR;
     private final static FileHandle TITLE_FONT = Font.KENVECTORBOLD;
@@ -42,7 +43,7 @@ public class MainMenu extends ScreenListener {
     private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
     private Widget garry = new Widget(EntityInfo.GARRY.getTexture(), new Vector2(EntityInfo.GARRY.getSize()).scl(3));
 
-    public MainMenu(BTGGame game) {
+    public MainView(BTGGame game) {
         super(100);
         this.game = game;
 

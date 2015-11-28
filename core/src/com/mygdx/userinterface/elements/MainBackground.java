@@ -1,4 +1,4 @@
-package com.mygdx.userinterface;
+package com.mygdx.userinterface.elements;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;

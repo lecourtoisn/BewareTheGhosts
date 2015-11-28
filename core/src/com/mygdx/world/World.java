@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.mygdx.entity.*;
 import com.mygdx.event.IEvent;
+import com.mygdx.userinterface.elements.Background;
 import com.mygdx.util.GenericHolder;
 
 import java.util.HashSet;
