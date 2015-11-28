@@ -9,6 +9,10 @@ import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.ResumeLabel;
 import com.mygdx.userinterface.elements.Widget;
+import com.mygdx.util.International;
+
+import static com.mygdx.util.International.Label.PAUSE;
+import static com.mygdx.util.International.Label.RESUME;
 
 public class PauseView extends ScreenListener {
     private final static float HEIGHT = 100;
@@ -24,8 +28,8 @@ public class PauseView extends ScreenListener {
         resumeLbl = new ResumeLabel(gameView, screen.getHeight());
         pauseLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 + 25);
         resumeLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 - 10);
-        pauseLbl.setText("Pause");
-        resumeLbl.setText("Resume");
+        pauseLbl.setText(International.get(PAUSE));
+        resumeLbl.setText(International.get(RESUME));
 
         manager.addElement(pauseLbl);
         manager.addElement(resumeLbl);
@@ -33,8 +37,6 @@ public class PauseView extends ScreenListener {
         screen.setInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//                Vector3 tp = screen.getCamera().unproject(new Vector3(screenX, screenY, 0));
-//                Vector2 worldPosition = new Vector2(tp.x, tp.y);
                 Widget touched = manager.getElementAt(screen.unProject(screenX, screenY));
                 if (touched != null) {
                     touched.onTouched();

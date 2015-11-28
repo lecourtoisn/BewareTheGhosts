@@ -6,7 +6,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.mygdx.event.DifficultySchema;
 import com.mygdx.game.BTGGame;
 import com.mygdx.game.Score;
 import com.mygdx.screen.ScreenListener;
@@ -14,6 +13,11 @@ import com.mygdx.userinterface.elements.Background;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.Widget;
+import com.mygdx.util.International;
+
+import static com.mygdx.event.DifficultySchema.Difficulty.HARD;
+import static com.mygdx.event.DifficultySchema.Difficulty.NORMAL;
+import static com.mygdx.util.International.Label.*;
 
 public class HighScoreView extends ScreenListener {
     private final static int LBL_SIZE = 10;
@@ -51,11 +55,11 @@ public class HighScoreView extends ScreenListener {
         normalScore.setColor(TITLE_COLOR);
         hardScore.setColor(TITLE_COLOR);
 
-        normalLbl.setText("Normal");
-        hardLbl.setText("Hard");
-        titleLbl.setText("High Scores");
-        normalScore.setText(String.valueOf(Score.getHighScore(DifficultySchema.Difficulty.NORMAL)));
-        hardScore.setText(String.valueOf(Score.getHighScore(DifficultySchema.Difficulty.HARD)));
+        normalLbl.setText(International.get(NORMALLBL));
+        hardLbl.setText(International.get(HARDLBL));
+        titleLbl.setText(International.get(HIGHSCORE));
+        normalScore.setText(String.valueOf(Score.getHighScore(NORMAL)));
+        hardScore.setText(String.valueOf(Score.getHighScore(HARD)));
 
         normalLbl.setPosition(MARGIN, MARGIN + GAP);
         hardLbl.setPosition(MARGIN, MARGIN);

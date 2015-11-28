@@ -14,6 +14,9 @@ import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.Widget;
 import com.mygdx.userinterface.elements.Background;
+import com.mygdx.util.International;
+
+import static com.mygdx.util.International.Label.*;
 
 public class MainView extends ScreenListener {
     private final static int LBL_SIZE = 10;
@@ -70,10 +73,10 @@ public class MainView extends ScreenListener {
         btgLbl.setColor(TITLE_COLOR);
 
 
-        normalButton.setText("Normal");
-        hardButton.setText("Hard");
-        highScoreButton.setText("High Scores");
-        btgLbl.setText("Slipping Gary !");
+        normalButton.setText(International.get(NORMALLBL));
+        hardButton.setText(International.get(HARDLBL));
+        highScoreButton.setText(International.get(HIGHSCORE));
+        btgLbl.setText(International.get(TITLE));
 
         manager.addElement(normalButton);
         manager.addElement(hardButton);

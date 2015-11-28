@@ -8,13 +8,16 @@ import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.game.BTGGame;
-import com.mygdx.util.CountDown;
 import com.mygdx.game.Score;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.PauseButton;
+import com.mygdx.util.CountDown;
+import com.mygdx.util.International;
 import com.mygdx.world.World;
+
+import static com.mygdx.util.International.Label.TOUCH;
 
 public class GameView extends ScreenListener {
     private static final float WORLD_HEIGHT = 100;
@@ -87,7 +90,7 @@ public class GameView extends ScreenListener {
             if (countDown.isRunning()) {
                 countDownLabel.setText(countDown.getSecondStr());
             } else {
-                countDownLabel.setText("Touch !");
+                countDownLabel.setText(International.get(TOUCH));
             }
         }
     }
