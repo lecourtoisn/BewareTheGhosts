@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.TokenManager;
 
 public class UnStretchedScreen extends ScreenAdapter {
     private IScreenListener listener;
@@ -43,6 +44,7 @@ public class UnStretchedScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
+        TokenManager.routine();
         listener.update(delta);
 
         batch.begin();

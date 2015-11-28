@@ -14,7 +14,8 @@ public class BTGGame extends Game {
 
     @Override
 	public void create() {
-        Score.antiCheatRoutine();
+        TokenManager.initialize();
+        ScoreManager.antiCheatRoutine();
         highScoreView = new HighScoreView(this);
         mainView = new MainView(this);
         endOfGameView = new EndOfGameView(this);
@@ -22,8 +23,13 @@ public class BTGGame extends Game {
 	}
 
     public void startGameSession(Difficulty difficulty) {
-        GameView gameView = new GameView(this, difficulty);
-        gameView.start();
+        if (TokenManager.hasToken()) {
+            GameView gameView = new GameView(this, difficulty);
+            gameView.start();
+            TokenManager.decrementToken();
+        } else {
+            System.out.println("Vous n'avez pas assez de token");
+        }
     }
 
     public void launchScoreView() {
@@ -36,5 +42,10 @@ public class BTGGame extends Game {
 
     public void launchEndOfGameView(Difficulty difficulty, Integer score, Boolean isHighScore) {
         endOfGameView.start(difficulty, score, isHighScore);
+    }
+
+    @Override
+    public void dispose() {
+        // TokenManager.save();
     }
 }

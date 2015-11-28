@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.game.BTGGame;
-import com.mygdx.game.Score;
+import com.mygdx.game.ScoreManager;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
@@ -44,8 +44,8 @@ public class SimpleMenu extends ScreenListener{
 
     @Override
     public void update(float delta) {
-        hsNormalLabel.setText(String.valueOf("Normal HighScore: " + Score.getHighScore(Difficulty.NORMAL)));
-        hsHardLabel.setText(String.valueOf("Hard HighScore : " + Score.getHighScore(Difficulty.HARD)));
+        hsNormalLabel.setText(String.valueOf("Normal HighScore: " + ScoreManager.getHighScore(Difficulty.NORMAL)));
+        hsHardLabel.setText(String.valueOf("Hard HighScore : " + ScoreManager.getHighScore(Difficulty.HARD)));
     }
 
     @Override

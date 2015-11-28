@@ -9,11 +9,13 @@ import com.mygdx.commandhandlers.CustomInputHandler;
 import com.mygdx.entity.EntityInfo;
 import com.mygdx.event.DifficultySchema;
 import com.mygdx.game.BTGGame;
+import com.mygdx.game.TokenManager;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Background;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.Widget;
+import com.mygdx.util.CountDown;
 import com.mygdx.util.International;
 
 import static com.mygdx.util.International.Label.*;
@@ -50,10 +52,12 @@ public class MainView extends ScreenListener {
     };
     private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
     private Widget garry = new Widget(EntityInfo.GARRY.getTexture(), new Vector2(EntityInfo.GARRY.getSize()).scl(3));
+    private CountDown countDown = new CountDown(1);
 
     public MainView(BTGGame game) {
         super(100);
         this.game = game;
+        countDown.start();
 
         normalButton.setOrigin(0, 0);
         hardButton.setOrigin(0, 0);
@@ -89,6 +93,16 @@ public class MainView extends ScreenListener {
 
     public void start() {
         game.setScreen(screen);
+    }
+
+    @Override
+    public void update(float delta) {
+        countDown.update(delta);
+        if (countDown.isOver()) {
+            System.out.println(TokenManager.getRemainingSeconds());
+            countDown.reset();
+            countDown.start();
+        }
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.commandhandlers.CustomInputHandler;
 import com.mygdx.game.BTGGame;
-import com.mygdx.game.Score;
+import com.mygdx.game.ScoreManager;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Background;
 import com.mygdx.userinterface.elements.Font;
@@ -86,8 +86,8 @@ public class HighScoreView extends ScreenListener {
     }
 
     private void refresh() {
-        normalScore.setText(String.valueOf(Score.getHighScore(NORMAL)));
-        hardScore.setText(String.valueOf(Score.getHighScore(HARD)));
+        normalScore.setText(String.valueOf(ScoreManager.getHighScore(NORMAL)));
+        hardScore.setText(String.valueOf(ScoreManager.getHighScore(HARD)));
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.game.BTGGame;
-import com.mygdx.game.Score;
+import com.mygdx.game.ScoreManager;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
@@ -83,7 +83,7 @@ public class GameView extends ScreenListener {
             world.update(delta);
             scoreLabel.setText(String.valueOf(getScore()));
             if (event.isOver()) {
-                int highScore = Score.getHighScore(difficulty);
+                int highScore = ScoreManager.getHighScore(difficulty);
                 int score = getScore();
                 boolean isHighScore = score > highScore;
                 handleScore(score, isHighScore);
@@ -118,7 +118,7 @@ public class GameView extends ScreenListener {
 
     private void handleScore(int score, boolean isHighScore) {
         if (isHighScore) {
-            Score.setHighScore(difficulty, score);
+            ScoreManager.setHighScore(difficulty, score);
         }
     }
 }
