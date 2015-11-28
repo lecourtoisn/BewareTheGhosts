@@ -83,8 +83,11 @@ public class GameView extends ScreenListener {
             world.update(delta);
             scoreLabel.setText(String.valueOf(getScore()));
             if (event.isOver()) {
-                handleScore();
-                game.launchScoreView();
+                int highScore = Score.getHighScore(difficulty);
+                int score = getScore();
+                boolean isHighScore = score > highScore;
+                handleScore(score, isHighScore);
+                game.launchEndOfGameView(difficulty, score, isHighScore);
             }
         } else {
             if (countDown.isRunning()) {
@@ -113,10 +116,8 @@ public class GameView extends ScreenListener {
         game.setScreen(screen);
     }
 
-    private void handleScore() {
-        int highScore = Score.getHighScore(difficulty);
-        int score = getScore();
-        if (score > highScore) {
+    private void handleScore(int score, boolean isHighScore) {
+        if (isHighScore) {
             Score.setHighScore(difficulty, score);
         }
     }

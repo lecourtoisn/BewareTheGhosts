@@ -58,15 +58,13 @@ public class HighScoreView extends ScreenListener {
         normalLbl.setText(International.get(NORMALLBL));
         hardLbl.setText(International.get(HARDLBL));
         titleLbl.setText(International.get(HIGHSCORE));
-        normalScore.setText(String.valueOf(Score.getHighScore(NORMAL)));
-        hardScore.setText(String.valueOf(Score.getHighScore(HARD)));
 
         normalLbl.setPosition(MARGIN, MARGIN + GAP);
         hardLbl.setPosition(MARGIN, MARGIN);
         titleLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
         float scoresMargin = Math.max(normalLbl.getGSizeX(), hardScore.getGSizeX()) + MARGIN;
-        normalScore.setPosition(scoresMargin+10, normalLbl.getPosition().getY());
-        hardScore.setPosition(scoresMargin+10, hardLbl.getPosition().getY());
+        normalScore.setPosition(scoresMargin+20, normalLbl.getPosition().getY());
+        hardScore.setPosition(scoresMargin+20, hardLbl.getPosition().getY());
 
         manager.addElement(normalLbl);
         manager.addElement(hardLbl);
@@ -82,11 +80,23 @@ public class HighScoreView extends ScreenListener {
                 }
                 return false;
             }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                game.launchMainView();
+                return false;
+            }
         });
     }
 
     public void start() {
+        refresh();
         game.setScreen(screen);
+    }
+
+    private void refresh() {
+        normalScore.setText(String.valueOf(Score.getHighScore(NORMAL)));
+        hardScore.setText(String.valueOf(Score.getHighScore(HARD)));
     }
 
     @Override

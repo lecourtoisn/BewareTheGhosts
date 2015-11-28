@@ -16,7 +16,11 @@ public class International {
         HIGHSCORE("High Score", "Meilleur Score"),
         PAUSE("Pause", "Pause"),
         RESUME("Resume", "Reprendre"),
-        TOUCH("Touch!", "Touch!");
+        TOUCH("Touch!", "Touch!"),
+        NEWHIGHSCORE("High Score", "Record"),
+        SCORE("Score", "Score"),
+        PLAYAGAIN("Play again", "Rejouer"),
+        MENU("Menu", "Menu");
 
         private String fr;
         private String en;
