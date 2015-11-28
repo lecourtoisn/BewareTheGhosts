@@ -2,9 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.mygdx.event.DifficultySchema.Difficulty;
-import com.mygdx.userinterface.views.GameView;
-import com.mygdx.userinterface.views.MainView;
-import com.mygdx.userinterface.views.SimpleMenu;
+import com.mygdx.views.GameView;
+import com.mygdx.views.MainView;
+import com.mygdx.views.SimpleMenu;
 
 public class BTGGame extends Game {
     private SimpleMenu simpleMenu;

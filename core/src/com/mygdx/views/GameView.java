@@ -1,4 +1,4 @@
-package com.mygdx.userinterface.views;
+package com.mygdx.views;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;

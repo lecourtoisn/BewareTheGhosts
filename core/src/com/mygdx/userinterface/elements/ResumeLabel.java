@@ -1,6 +1,6 @@
 package com.mygdx.userinterface.elements;
 
-import com.mygdx.userinterface.views.GameView;
+import com.mygdx.views.GameView;
 
 public class ResumeLabel extends Label{
     private GameView gameView;

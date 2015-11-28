@@ -1,4 +1,4 @@
-package com.mygdx.userinterface.views;
+package com.mygdx.views;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.files.FileHandle;
@@ -62,7 +62,7 @@ public class MainView extends ScreenListener {
         hardButton.setPosition(widthPosition, heightPosition + gap);
         highScoreButton.setPosition(widthPosition, heightPosition);
         btgLbl.setPosition(widthPosition, screen.getHeight() - heightPosition);
-        garry.setPosition(screen.getWidth()-4*widthPosition, heightPosition/**3*/);
+        garry.setPosition(screen.getWidth()-4*widthPosition, heightPosition);
 
         normalButton.setColor(color);
         hardButton.setColor(color);

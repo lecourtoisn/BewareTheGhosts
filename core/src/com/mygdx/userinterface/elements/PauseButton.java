@@ -2,7 +2,7 @@ package com.mygdx.userinterface.elements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.userinterface.views.GameView;
+import com.mygdx.views.GameView;
 
 public class PauseButton extends Widget {
     private static final Texture TEXTURE = new Texture("UI/pause.png");

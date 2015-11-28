@@ -1,4 +1,4 @@
-package com.mygdx.userinterface.views;
+package com.mygdx.views;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
