@@ -44,13 +44,31 @@ public class UnStretchedScreen extends ScreenAdapter {
      */
     @Override
     public void render(float delta) {
-        TokenManager.routine();
+        TokenManager.routine(delta);
         listener.update(delta);
 
         batch.begin();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         listener.render(batch, cam);
         batch.end();
+    }
+
+    @Override
+    public void dispose() {
+        listener.dispose();
+//        System.out.println("disposeTest");
+    }
+
+    @Override
+    public void pause() {
+        listener.pause();
+//        System.out.println("pauseTest");
+    }
+
+    @Override
+    public void hide() {
+        listener.hide();
+//        System.out.println("hideTest");
     }
 
     public float getHeight() {

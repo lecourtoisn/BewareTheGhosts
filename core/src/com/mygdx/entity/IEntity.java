@@ -14,6 +14,8 @@ public interface IEntity {
     void setPosition(float x, float y);
     void setPosition(Position position);
     Position getPosition();
+    float getPosX();
+    float getPosY();
     void setOrigin(float x, float y);
     void setOriginX(float x);
     void setOriginY(float y);
@@ -24,4 +26,6 @@ public interface IEntity {
     float getGSizeY();
     void setTexture(Texture texture);
     Rectangle getGraphicBounds();
+    float getGPosX();
+    float getGPosY();
 }

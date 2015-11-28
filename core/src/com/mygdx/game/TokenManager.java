@@ -5,28 +5,28 @@ import com.badlogic.gdx.Preferences;
 import com.mygdx.util.Hasher;
 
 public class TokenManager {
-    private static final int NB_TOKEN_MAX = 30;
+    public static final int NB_TOKEN_MAX = 15;
     private static Preferences prefs = Gdx.app.getPreferences("token");
     private static long lastGain;
-    private static int period = 30 * 1000;
-//    private static int period = 5 * 60 * 1000;
+//    private static int period = 20 * 1000;
+    private static int period = 5 * 60 * 1000;
     private static int nbToken;
     private static boolean paused;
 
+    private static long pauseSaving;
 
     public static void initialize() {
-        long defaultLg = System.currentTimeMillis();
+        long defaultLg = 0;
         int defaultToken = 0;
         lastGain = prefs.getLong("lastGain", defaultLg);
         nbToken = prefs.getInteger("nbToken", defaultToken);
+
         validate(Hasher.hash(defaultLg), Hasher.hash(defaultToken));
     }
 
-    public static void routine() {
+    public static void routine(float delta) {
         long currentTime = System.currentTimeMillis();
-        if (isPaused()) {
-            lastGain = currentTime;
-        } else {
+        if (!isPaused()) {
             int nbNewToken = (int) ((currentTime - lastGain)/period);
             if (nbNewToken > 0) {
                 incrementToken(nbNewToken);
@@ -39,7 +39,6 @@ public class TokenManager {
             nbToken += nbNewToken;
             nbToken = nbToken > NB_TOKEN_MAX ? NB_TOKEN_MAX : nbToken;
             lastGain = System.currentTimeMillis();
-            System.out.println("J'ai " + nbToken + " tokens");
         }
     }
 
@@ -62,19 +61,20 @@ public class TokenManager {
         }
     }
 
-    public static int getRemainingSeconds() {
-        return (int) ((lastGain+period-System.currentTimeMillis())/1000);
-    }
-
-    private static void save() {
+    public static void save() {
         prefs.putLong("lastGain", lastGain);
         prefs.putLong("lastGain?", Hasher.hash(lastGain));
         prefs.putInteger("nbToken", nbToken);
         prefs.putLong("nbToken?", Hasher.hash(nbToken));
+        prefs.flush();
     }
 
     public static boolean hasMaxToken() {
         return NB_TOKEN_MAX <= nbToken;
+    }
+
+    public static int getNbToken() {
+        return nbToken;
     }
 
     public static boolean isPaused() {
@@ -83,5 +83,32 @@ public class TokenManager {
 
     public static void setPaused(boolean paused) {
         TokenManager.paused = paused;
+        if (paused) {
+            pauseSaving = getRemainingMilliseconds();
+        } else {
+            setRemainingMilliseconds(pauseSaving);
+        }
+    }
+
+    public static long getRemainingMilliseconds() {
+        return lastGain+period-System.currentTimeMillis();
+    }
+
+    public static int getRemainingSeconds() {
+        return (int) (getRemainingMilliseconds()/1000);
+    }
+
+    public static String getRemainingSecondsStr() {
+        if (hasMaxToken()) {
+            return " ";
+        }
+        long remaining = getRemainingSeconds()+1;
+        int minutes = (int) remaining / 60;
+        int seconds = (int) remaining % 60;
+        return minutes + ":" + seconds;
+    }
+
+    public static void setRemainingMilliseconds(long remainingMilliseconds) {
+        lastGain = System.currentTimeMillis() - period + remainingMilliseconds;
     }
 }

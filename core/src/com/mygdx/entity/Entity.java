@@ -36,6 +36,16 @@ public class Entity implements IEntity{
     }
 
     @Override
+    public float getPosX() {
+        return position.getX();
+    }
+
+    @Override
+    public float getPosY() {
+        return position.getY();
+    }
+
+    @Override
     public void setOrigin(float x, float y) {
         origin = new Vector2(x, y);
     }
@@ -85,6 +95,15 @@ public class Entity implements IEntity{
     public Rectangle getGraphicBounds() {
         Vector2 graphPos = getGraphicBottomLeftPosition();
         return new Rectangle(graphPos.x, graphPos.y, graphicSize.x, graphicSize.y);
+    }
+
+    @Override
+    public float getGPosX() {
+        return getGraphicBottomLeftPosition().x;
+    }
+    @Override
+    public float getGPosY() {
+        return getGraphicBottomLeftPosition().y;
     }
 
     @Override

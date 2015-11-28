@@ -9,6 +9,7 @@ import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.game.BTGGame;
 import com.mygdx.game.ScoreManager;
+import com.mygdx.game.TokenManager;
 import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
@@ -73,6 +74,17 @@ public class GameView extends ScreenListener {
     public void show() {
         manager.addElement(countDownLabel);
         countDown.reset();
+        TokenManager.setPaused(true);
+    }
+
+    @Override
+    public void hide() {
+        TokenManager.setPaused(false);
+    }
+
+    @Override
+    public void pause() {
+        pauseButton.onTouched();
     }
 
     @Override

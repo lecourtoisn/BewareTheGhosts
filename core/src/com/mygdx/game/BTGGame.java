@@ -46,6 +46,6 @@ public class BTGGame extends Game {
 
     @Override
     public void dispose() {
-        // TokenManager.save();
+        TokenManager.save();
     }
 }

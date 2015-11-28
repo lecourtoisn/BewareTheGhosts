@@ -51,6 +51,9 @@ public class MainView extends ScreenListener {
         }
     };
     private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
+    private Label tokenQuantity = new Label(Font.KENVECTOR, screen.getHeight(), 7);
+    private Label tokenCountDown = new Label(Font.KENVECTOR, screen.getHeight(), 3);
+    //private Widget tokenImg = new Widget(new Texture("token.png"), new Vector2(5, 4.2452283019f));
     private Widget garry = new Widget(EntityInfo.GARRY.getTexture(), new Vector2(EntityInfo.GARRY.getSize()).scl(3));
     private CountDown countDown = new CountDown(1);
 
@@ -64,29 +67,40 @@ public class MainView extends ScreenListener {
         highScoreButton.setOrigin(0, 0);
         btgLbl.setOrigin(0, btgLbl.getGSizeY());
         garry.setOrigin(garry.getGSizeX(), 0);
+        //tokenImg.setOriginX(tokenImg.getGSizeX());
+        tokenQuantity.setOrigin(tokenQuantity.getGSizeX(), 0);
+        tokenCountDown.setOrigin(tokenCountDown.getGSizeX(), tokenCountDown.getGSizeY());
 
-        normalButton.setPosition(MARGIN, MARGIN + 2 * GAP);
-        hardButton.setPosition(MARGIN, MARGIN + GAP);
-        highScoreButton.setPosition(MARGIN, MARGIN);
-        btgLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
-        garry.setPosition(screen.getWidth()-4*MARGIN, MARGIN);
 
         normalButton.setColor(LBL_COLOR);
         hardButton.setColor(LBL_COLOR);
         highScoreButton.setColor(LBL_COLOR);
         btgLbl.setColor(TITLE_COLOR);
-
+        tokenCountDown.setColor(LBL_COLOR);
+        tokenQuantity.setColor(LBL_COLOR);
 
         normalButton.setText(International.get(NORMALLBL));
         hardButton.setText(International.get(HARDLBL));
         highScoreButton.setText(International.get(HIGHSCORE));
         btgLbl.setText(International.get(TITLE));
 
+        normalButton.setPosition(MARGIN, MARGIN + 2 * GAP);
+        hardButton.setPosition(MARGIN, MARGIN + GAP);
+        highScoreButton.setPosition(MARGIN, MARGIN);
+        btgLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
+        garry.setPosition(screen.getWidth() - 4 * MARGIN, MARGIN);
+        //tokenImg.setPosition(screen.getWidth()-MARGIN, screen.getHeight() - MARGIN);
+        tokenQuantity.setPosition(screen.getWidth()-MARGIN, btgLbl.getGPosY());
+        tokenCountDown.setPosition(tokenQuantity.getPosX(), tokenQuantity.getPosY() - 2);
+
         manager.addElement(normalButton);
         manager.addElement(hardButton);
         manager.addElement(highScoreButton);
         manager.addElement(btgLbl);
         manager.addElement(garry);
+        manager.addElement(tokenCountDown);
+        //manager.addElement(tokenImg);
+        manager.addElement(tokenQuantity);
 
         screen.setInputProcessor(new CustomInputHandler(screen, manager).getDetector());
     }
@@ -97,12 +111,8 @@ public class MainView extends ScreenListener {
 
     @Override
     public void update(float delta) {
-        countDown.update(delta);
-        if (countDown.isOver()) {
-            System.out.println(TokenManager.getRemainingSeconds());
-            countDown.reset();
-            countDown.start();
-        }
+        tokenCountDown.setText(TokenManager.getRemainingSecondsStr());
+        tokenQuantity.setText(TokenManager.getNbToken() + "/" + TokenManager.NB_TOKEN_MAX);
     }
 
     @Override
