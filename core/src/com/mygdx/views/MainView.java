@@ -17,8 +17,13 @@ import com.mygdx.userinterface.elements.Background;
 
 public class MainView extends ScreenListener {
     private final static int LBL_SIZE = 10;
-    private final static FileHandle LBL_FONT = Font.KENVECTOR;
+    private static final float GAP = 1.5f * LBL_SIZE;
+    private static final float MARGIN = 10;
+    private static final Color TITLE_COLOR = Color.FOREST;
+    private static final Color LBL_COLOR = Color.CORAL;
     private final static FileHandle TITLE_FONT = Font.KENVECTORBOLD;
+    private final static FileHandle LBL_FONT = Font.KENVECTOR;
+
     private BTGGame game;
     private Widget background = new Background(screen.getWidth(), screen.getHeight());
 
@@ -37,7 +42,7 @@ public class MainView extends ScreenListener {
     private Label highScoreButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
         @Override
         public void onTouched() {
-            game.launchSimpleMenu();
+            game.launchScoreView();
         }
     };
     private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
@@ -47,27 +52,22 @@ public class MainView extends ScreenListener {
         super(100);
         this.game = game;
 
-        float gap = LBL_SIZE*1.5f;
-        Color color = Color.CORAL;
-
-        float widthPosition = 10;
-        float heightPosition = widthPosition;
         normalButton.setOrigin(0, 0);
         hardButton.setOrigin(0, 0);
         highScoreButton.setOrigin(0, 0);
-        btgLbl.setOrigin(0, btgLbl.getGraphicSize().y);
-        garry.setOrigin(garry.getGraphicSize().x, 0);
+        btgLbl.setOrigin(0, btgLbl.getGSizeY());
+        garry.setOrigin(garry.getGSizeX(), 0);
 
-        normalButton.setPosition(widthPosition, heightPosition + 2 * gap);
-        hardButton.setPosition(widthPosition, heightPosition + gap);
-        highScoreButton.setPosition(widthPosition, heightPosition);
-        btgLbl.setPosition(widthPosition, screen.getHeight() - heightPosition);
-        garry.setPosition(screen.getWidth()-4*widthPosition, heightPosition);
+        normalButton.setPosition(MARGIN, MARGIN + 2 * GAP);
+        hardButton.setPosition(MARGIN, MARGIN + GAP);
+        highScoreButton.setPosition(MARGIN, MARGIN);
+        btgLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
+        garry.setPosition(screen.getWidth()-4*MARGIN, MARGIN);
 
-        normalButton.setColor(color);
-        hardButton.setColor(color);
-        highScoreButton.setColor(color);
-        btgLbl.setColor(Color.FOREST);
+        normalButton.setColor(LBL_COLOR);
+        hardButton.setColor(LBL_COLOR);
+        highScoreButton.setColor(LBL_COLOR);
+        btgLbl.setColor(TITLE_COLOR);
 
 
         normalButton.setText("Normal");

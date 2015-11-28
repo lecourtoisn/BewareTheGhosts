@@ -67,6 +67,16 @@ public class Entity implements IEntity{
     }
 
     @Override
+    public float getGSizeX() {
+        return graphicSize.x;
+    }
+
+    @Override
+    public float getGSizeY() {
+        return graphicSize.y;
+    }
+
+    @Override
     public void setTexture(Texture texture) {
         sprite.setTexture(texture);
     }

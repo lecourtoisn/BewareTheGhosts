@@ -81,7 +81,7 @@ public class GameView extends ScreenListener {
             scoreLabel.setText(String.valueOf(getScore()));
             if (event.isOver()) {
                 handleScore();
-                game.launchSimpleMenu();
+                game.launchScoreView();
             }
         } else {
             if (countDown.isRunning()) {

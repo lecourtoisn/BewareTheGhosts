@@ -3,19 +3,19 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.views.GameView;
+import com.mygdx.views.HighScoreView;
 import com.mygdx.views.MainView;
-import com.mygdx.views.SimpleMenu;
 
 public class BTGGame extends Game {
-    private SimpleMenu simpleMenu;
+    private HighScoreView highScoreView;
     private MainView mainView;
 
 	@Override
 	public void create() {
         Score.antiCheatRoutine();
-        simpleMenu = new SimpleMenu(this);
+        highScoreView = new HighScoreView(this);
         mainView = new MainView(this);
-        launchMainMenu();
+        launchMainView();
 	}
 
     public void startGameSession(Difficulty difficulty) {
@@ -23,11 +23,11 @@ public class BTGGame extends Game {
         gameView.start();
     }
 
-    public void launchSimpleMenu() {
-        simpleMenu.start();
+    public void launchScoreView() {
+        highScoreView.start();
     }
 
-    public void launchMainMenu() {
+    public void launchMainView() {
         mainView.start();
     }
 }

@@ -20,6 +20,8 @@ public interface IEntity {
     Vector2 getOrigin();
     void setGraphicSize(float x, float y);
     Vector2 getGraphicSize();
+    float getGSizeX();
+    float getGSizeY();
     void setTexture(Texture texture);
     Rectangle getGraphicBounds();
 }

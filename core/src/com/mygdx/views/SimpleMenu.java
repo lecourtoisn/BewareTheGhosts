@@ -56,14 +56,14 @@ public class SimpleMenu extends ScreenListener{
     private InputProcessor inputProcessor = new InputAdapter() {
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            game.launchMainMenu();
+            game.launchMainView();
             return true;
         }
 
         @Override
         public boolean keyTyped(char character) {
             if (character == ' ') {
-                game.launchMainMenu();
+                game.launchMainView();
             }
             return true;
         }
