@@ -9,7 +9,7 @@ public class BTGGame extends Game {
     private HighScoreView highScoreView;
     private MainView mainView;
     private EndOfGameView endOfGameView;
-    private GameView currentGameView;
+    private GameView gameView;
     private PauseView pauseView;
 
     @Override
@@ -20,19 +20,33 @@ public class BTGGame extends Game {
         mainView = new MainView(this);
         endOfGameView = new EndOfGameView(this);
         pauseView = new PauseView(this);
+        gameView = new GameView(this);
         launchMainView();
 	}
 
+    @Override
+    public void pause() {
+        super.pause();
+        TokenManager.save();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        for (EntityInfo entityInfo : EntityInfo.values()) {
+            entityInfo.getTexture().dispose();
+        }
+    }
+
     public void startGameSession(Difficulty difficulty) {
-        long aaa = System.currentTimeMillis();
+        //long aaa = System.currentTimeMillis();
         if (TokenManager.hasToken()) {
-            currentGameView = new GameView(this, difficulty);
-            currentGameView.start();
+            gameView.start(difficulty);
             TokenManager.decrementToken();
         } else {
             // Run the poll
         }
-        System.out.println(System.currentTimeMillis() - aaa);
+        //System.out.println(System.currentTimeMillis() - aaa);
     }
 
     public void launchScoreView() {
@@ -47,21 +61,8 @@ public class BTGGame extends Game {
         endOfGameView.start(difficulty, score, isHighScore);
     }
 
-    @Override
-    public void pause() {
-        super.pause();
-        TokenManager.save();
-    }
-
-    @Override
-    public void dispose() {
-        for (EntityInfo entityInfo : EntityInfo.values()) {
-            entityInfo.getTexture().dispose();
-        }
-    }
-
     public void resumeGame() {
-        currentGameView.resumeGame();
+        gameView.resumeGame();
     }
 
     public void launchPauseMenu() {

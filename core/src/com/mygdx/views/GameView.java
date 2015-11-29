@@ -37,15 +37,10 @@ public class GameView extends ScreenListener {
     private Difficulty difficulty;
     private CountDown countDown;
 
-    public GameView(BTGGame game, Difficulty difficulty) {
+    public GameView(BTGGame game) {
         super(WORLD_HEIGHT);
         this.game = game;
-        this.difficulty = difficulty;
-        world = new World(screen.getWidth(), screen.getHeight());
-        event = new EndlessSalvos(world, difficulty);
-        countDown = new CountDown(3);
 
-        screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
         initializeUI();
     }
 
@@ -67,9 +62,18 @@ public class GameView extends ScreenListener {
         manager.addElement(pauseButton);
     }
 
-    public void start() {
+    public void start(Difficulty difficulty) {
+        initialize(difficulty);
         game.setScreen(screen);
         event.start();
+    }
+
+    private void initialize(Difficulty difficulty) {
+        this.difficulty = difficulty;
+        world = new World(screen.getWidth(), screen.getHeight());
+        event = new EndlessSalvos(world, difficulty);
+        countDown = new CountDown(3);
+        screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
     }
 
     @Override

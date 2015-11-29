@@ -67,7 +67,6 @@ public class MainView extends ScreenListener {
         highScoreButton.setOrigin(0, 0);
         btgLbl.setOrigin(0, btgLbl.getGSizeY());
         garry.setOrigin(garry.getGSizeX(), 0);
-        //tokenImg.setOriginX(tokenImg.getGSizeX());
         tokenQuantity.setOrigin(tokenQuantity.getGSizeX(), 0);
         tokenCountDown.setOrigin(tokenCountDown.getGSizeX(), tokenCountDown.getGSizeY());
 
@@ -89,7 +88,6 @@ public class MainView extends ScreenListener {
         highScoreButton.setPosition(MARGIN, MARGIN);
         btgLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
         garry.setPosition(screen.getWidth() - 4 * MARGIN, MARGIN);
-        //tokenImg.setPosition(screen.getWidth()-MARGIN, screen.getHeight() - MARGIN);
         tokenQuantity.setPosition(screen.getWidth()-MARGIN, btgLbl.getGPosY());
         tokenCountDown.setPosition(tokenQuantity.getPosX(), tokenQuantity.getPosY() - 2);
 
@@ -99,7 +97,6 @@ public class MainView extends ScreenListener {
         manager.addElement(btgLbl);
         manager.addElement(garry);
         manager.addElement(tokenCountDown);
-        //manager.addElement(tokenImg);
         manager.addElement(tokenQuantity);
 
         screen.setInputProcessor(new CustomInputHandler(screen, manager).getDetector());
