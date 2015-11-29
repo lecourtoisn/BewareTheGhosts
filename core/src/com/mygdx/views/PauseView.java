@@ -20,11 +20,11 @@ public class PauseView extends ScreenListener {
     private ResumeLabel resumeLbl;
     private BTGGame game;
 
-    public PauseView(BTGGame game, final GameView gameView) {
+    public PauseView(BTGGame game) {
         super(HEIGHT);
         this.game = game;
         pauseLbl = new Label(Font.CALIBRI, screen.getHeight(), 30);
-        resumeLbl = new ResumeLabel(gameView, screen.getHeight());
+        resumeLbl = new ResumeLabel(game, screen.getHeight());
         pauseLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 + 25);
         resumeLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 - 10);
         pauseLbl.setText(International.get(PAUSE));

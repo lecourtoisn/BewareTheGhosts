@@ -46,7 +46,6 @@ public class CustomInputHandler extends GestureDetector.GestureAdapter {
         return false;
     }
 
-
     /** Input Redirection **/
     public GestureDetector getDetector() {
         return detector;

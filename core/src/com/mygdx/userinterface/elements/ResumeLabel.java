@@ -1,17 +1,18 @@
 package com.mygdx.userinterface.elements;
 
+import com.mygdx.game.BTGGame;
 import com.mygdx.views.GameView;
 
 public class ResumeLabel extends Label{
-    private GameView gameView;
+    private BTGGame game;
 
-    public ResumeLabel(GameView gameView, float viewportHeight) {
+    public ResumeLabel(BTGGame game, float viewportHeight) {
         super(Font.CALIBRI, viewportHeight, 10);
-        this.gameView = gameView;
+        this.game = game;
     }
 
     @Override
     public void onTouched() {
-        gameView.resumeGame();
+        game.resumeGame();
     }
 }

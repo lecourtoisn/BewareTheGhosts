@@ -13,8 +13,12 @@ public class Label extends Widget {
 
     public Label(FileHandle font, float viewportHeight, int fontSize) {
         super(EntityInfo.GHOST.getTexture(), new Vector2(1, 1));
-        //Texture test = new Texture(new Pixmap(new byte[]{}, 0, 0));
         this.font = new ScaledBitmapFont(font, viewportHeight, fontSize);
+    }
+
+    public Label(ScaledBitmapFont font) {
+        super(EntityInfo.GHOST.getTexture(), new Vector2(1, 1));
+        this.font = font;
     }
 
     public void setText(String text) {

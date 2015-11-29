@@ -15,7 +15,8 @@ public enum EntityInfo {
     SUN(new Texture("sun1.png"), 9, 9, 3, 3),
     SPIDER(new Texture("spider.png"), 9, 5.7f),
     MOUSE(new Texture("mouse.png"), 9, 5.3f),
-    SPIKEMAN(new Texture("spikeMan_stand.png"), 5.3f, 9);
+    SPIKEMAN(new Texture("spikeMan_stand.png"), 5.3f, 9),
+    CLEAR(new Texture("clear.png"), 1, 1);
 
     static {
         float defaultHitbox = 4.5f;

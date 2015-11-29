@@ -14,6 +14,7 @@ import com.mygdx.screen.ScreenListener;
 import com.mygdx.userinterface.elements.Font;
 import com.mygdx.userinterface.elements.Label;
 import com.mygdx.userinterface.elements.PauseButton;
+import com.mygdx.userinterface.elements.ScaledBitmapFont;
 import com.mygdx.util.CountDown;
 import com.mygdx.util.International;
 import com.mygdx.world.World;
@@ -22,6 +23,8 @@ import static com.mygdx.util.International.Label.TOUCH;
 
 public class GameView extends ScreenListener {
     private static final float WORLD_HEIGHT = 100;
+    private static ScaledBitmapFont CALIBOLD_SCORE = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 10);
+    private static ScaledBitmapFont CALIBOLD_COUNDOWN = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 50);
 
     private IEvent event;
     private BTGGame game;
@@ -30,34 +33,36 @@ public class GameView extends ScreenListener {
     // UI part
     private PauseButton pauseButton;
     private Label scoreLabel;
-    private PauseView pauseView;
+    //private PauseView pauseView;
     private Label countDownLabel;
     private Difficulty difficulty;
     private CountDown countDown;
 
     public GameView(BTGGame game, Difficulty difficulty) {
         super(WORLD_HEIGHT);
+        System.out.println("Debut constr " + System.currentTimeMillis() % 1000000);
         this.game = game;
         this.difficulty = difficulty;
         world = new World(screen.getWidth(), screen.getHeight());
         event = new EndlessSalvos(world, difficulty);
-        pauseView = new PauseView(game, this);
         countDown = new CountDown(3);
 
         screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
+        System.out.println("Avant UI " + System.currentTimeMillis() % 1000000);
         initializeUI();
+        System.out.println("Apres UI " + System.currentTimeMillis() % 1000000);
     }
 
     private void initializeUI() {
-        pauseButton = new PauseButton(this);
+        pauseButton = new PauseButton(game);
         pauseButton.setOrigin(pauseButton.getGraphicSize().x, pauseButton.getGraphicSize().y);
         pauseButton.setPosition(screen.getWidth(), screen.getHeight());
 
-        scoreLabel = new Label(Font.CALIBRIBOLD, WORLD_HEIGHT, 10);
+        scoreLabel = new Label(CALIBOLD_SCORE);
         scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
         scoreLabel.setColor(Color.BLACK);
 
-        countDownLabel = new Label(Font.CALIBRIBOLD, WORLD_HEIGHT, 50);
+        countDownLabel = new Label(CALIBOLD_COUNDOWN);
         countDownLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
         countDownLabel.setColor(Color.BLACK);
 
@@ -118,10 +123,6 @@ public class GameView extends ScreenListener {
 
     public int getScore() {
         return world.getGarry().getAttackAvoided();
-    }
-
-    public void launchPauseMenu() {
-        pauseView.start();
     }
 
     public void resumeGame() {
