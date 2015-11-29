@@ -23,8 +23,8 @@ import static com.mygdx.util.International.Label.TOUCH;
 
 public class GameView extends ScreenListener {
     private static final float WORLD_HEIGHT = 100;
-    private static ScaledBitmapFont CALIBOLD_SCORE = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 10);
-    private static ScaledBitmapFont CALIBOLD_COUNDOWN = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 50);
+    private static final ScaledBitmapFont CALIBOLD_SCORE = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 10);
+    private static final ScaledBitmapFont CALIBOLD_COUNDOWN = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 50);
 
     private IEvent event;
     private BTGGame game;
@@ -33,14 +33,12 @@ public class GameView extends ScreenListener {
     // UI part
     private PauseButton pauseButton;
     private Label scoreLabel;
-    //private PauseView pauseView;
     private Label countDownLabel;
     private Difficulty difficulty;
     private CountDown countDown;
 
     public GameView(BTGGame game, Difficulty difficulty) {
         super(WORLD_HEIGHT);
-        System.out.println("Debut constr " + System.currentTimeMillis() % 1000000);
         this.game = game;
         this.difficulty = difficulty;
         world = new World(screen.getWidth(), screen.getHeight());
@@ -48,9 +46,7 @@ public class GameView extends ScreenListener {
         countDown = new CountDown(3);
 
         screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
-        System.out.println("Avant UI " + System.currentTimeMillis() % 1000000);
         initializeUI();
-        System.out.println("Apres UI " + System.currentTimeMillis() % 1000000);
     }
 
     private void initializeUI() {
@@ -61,6 +57,7 @@ public class GameView extends ScreenListener {
         scoreLabel = new Label(CALIBOLD_SCORE);
         scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
         scoreLabel.setColor(Color.BLACK);
+        scoreLabel.setText(" ");
 
         countDownLabel = new Label(CALIBOLD_COUNDOWN);
         countDownLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);

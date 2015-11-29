@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.mygdx.entity.EntityInfo;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.views.*;
 
@@ -23,13 +24,15 @@ public class BTGGame extends Game {
 	}
 
     public void startGameSession(Difficulty difficulty) {
+        long aaa = System.currentTimeMillis();
         if (TokenManager.hasToken()) {
             currentGameView = new GameView(this, difficulty);
             currentGameView.start();
             TokenManager.decrementToken();
         } else {
-            System.out.println("Vous n'avez pas assez de token");
+            // Run the poll
         }
+        System.out.println(System.currentTimeMillis() - aaa);
     }
 
     public void launchScoreView() {
@@ -45,8 +48,16 @@ public class BTGGame extends Game {
     }
 
     @Override
-    public void dispose() {
+    public void pause() {
+        super.pause();
         TokenManager.save();
+    }
+
+    @Override
+    public void dispose() {
+        for (EntityInfo entityInfo : EntityInfo.values()) {
+            entityInfo.getTexture().dispose();
+        }
     }
 
     public void resumeGame() {
