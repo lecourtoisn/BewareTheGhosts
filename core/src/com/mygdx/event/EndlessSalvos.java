@@ -5,7 +5,7 @@ import com.mygdx.world.World;
 import com.mygdx.event.DifficultySchema.*;
 
 public class EndlessSalvos extends Event {
-    private static final long DELAY_BETWEEN_SALVO = 2000;
+    private static final long DELAY_BETWEEN_SALVO = 0;
     private IEvent currentSalvo;
     private Difficulty salvoSet;
     private int cursor;

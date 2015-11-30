@@ -7,7 +7,7 @@ import com.mygdx.util.RelativeStopWatch;
 import com.mygdx.world.World;
 
 public class Arrow extends WorldEntity {
-    private static final float DISPLAYED_RATIO = 2/3f;
+    private static final float DISPLAYED_RATIO = 1/2f;
 
     private RelativeStopWatch stopWatch;
     private boolean visible;

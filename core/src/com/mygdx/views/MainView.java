@@ -95,7 +95,7 @@ public class MainView extends ScreenListener {
         manager.addElement(hardButton);
         manager.addElement(highScoreButton);
         manager.addElement(btgLbl);
-        manager.addElement(garry);
+        //manager.addElement(garry);
         manager.addElement(tokenCountDown);
         manager.addElement(tokenQuantity);
 
@@ -115,6 +115,7 @@ public class MainView extends ScreenListener {
     @Override
     public void render(Batch batch, Camera cam) {
         background.draw(batch);
+        garry.draw(batch);
         manager.draw(batch);
     }
 }

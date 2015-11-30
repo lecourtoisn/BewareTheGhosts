@@ -52,7 +52,6 @@ public class GameView extends ScreenListener {
         scoreLabel = new Label(CALIBOLD_SCORE);
         scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
         scoreLabel.setColor(Color.BLACK);
-        scoreLabel.setText(" ");
 
         countDownLabel = new Label(CALIBOLD_COUNDOWN);
         countDownLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
@@ -73,6 +72,7 @@ public class GameView extends ScreenListener {
         world = new World(screen.getWidth(), screen.getHeight());
         event = new EndlessSalvos(world, difficulty);
         countDown = new CountDown(3);
+        scoreLabel.setText(" ");
         screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
     }
 

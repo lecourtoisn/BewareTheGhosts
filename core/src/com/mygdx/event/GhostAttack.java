@@ -22,9 +22,9 @@ public class GhostAttack extends Event {
     private Map<Enemy, ArrowDirectionPair> ghosts;
     private boolean someGhostsAreVisible;
 
-    public GhostAttack(World world, int nbGhost, boolean sameDirection, int nbArrowBlink, long arrowCycleDuration) {
+    public GhostAttack(World world, int nbGhostMax, boolean sameDirection, int nbArrowBlink, long arrowCycleDuration) {
         super(world);
-        nbGhost = nbGhost == 0 ? 1 : nbGhost;
+        int nbGhost = Randomizer.getIntCentered(nbGhostMax)+1;
         this.ghosts = new HashMap<Enemy, ArrowDirectionPair>();
 
         Grid grid = world.getGrid();

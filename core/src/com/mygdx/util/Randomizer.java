@@ -11,6 +11,13 @@ public class Randomizer {
         return random.nextInt(exclusiveBound);
     }
 
+    public static int getIntCentered(int exclusiveBound) {
+        int max = exclusiveBound+1;
+        int first = getInt(max /2);
+        int second =  getInt(max - max /2);
+        return first+second;
+    }
+
     /**
      * Excluding "NONE"
      * @return a random direction
