@@ -35,7 +35,13 @@ public class MainGame extends Game {
     }
 
     public void startGameSession(Difficulty difficulty) {
-        gameView.start(difficulty);
+        if (TokenManager.hasToken()) {
+            gameView.start(difficulty);
+            TokenManager.decrementToken();
+        } else {
+            // Handle poll
+//            /**/TokenManager.incrementToken(1);
+        }
     }
 
     public void launchPauseView() {
