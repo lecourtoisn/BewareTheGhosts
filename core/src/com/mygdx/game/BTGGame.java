@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.mygdx.userinterface.elements.FontParam;
 
 public class BTGGame implements ApplicationListener {
     public static final AssetManager assets = new AssetManager();
@@ -19,6 +20,7 @@ public class BTGGame implements ApplicationListener {
 
     @Override
     public void create() {
+        FontParam.ratio = Gdx.graphics.getHeight()/100f;
         InternalFileHandleResolver resolver = new InternalFileHandleResolver();
         assets.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         assets.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));

@@ -29,7 +29,7 @@ public class LoadingScreen extends ScreenAdapter {
     public LoadingScreen() {
         oMap = new ObjectMap<String, Object>();
         stage = new Stage(new ScreenViewport());
-        assets.load("loadingFont.ttf", BitmapFont.class, FontParam.build(Font.KENVECTORBOLD, 100, Color.WHITE));
+        assets.load("loadingFont.ttf", BitmapFont.class, FontParam.build(Font.KENVECTORBOLD, 18, Color.WHITE));
         assets.finishLoading();
         oMap.put("loadingFont", assets.get("loadingFont.ttf"));
         assets.load("loadingScreen/loading.json", Skin.class, new SkinParameter(oMap));
@@ -57,16 +57,16 @@ public class LoadingScreen extends ScreenAdapter {
         if (assets.update()) {
             switch (step) {
                 case PRELOAD:
-                    assets.load("menuTitle.ttf", BitmapFont.class, FontParam.build(Font.KENVECTORBOLD, 70, Color.FOREST));
-                    assets.load("menuButtons.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 65, Color.CORAL));
-                    assets.load("menuButtonsForest.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 65, Color.FOREST));
-                    assets.load("tokenQuantity.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 30, Color.CORAL));
-                    assets.load("tokenCountdown.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 15, Color.CORAL));
-                    assets.load("scoreLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRI, 100, Color.BLACK));
-                    assets.load("countdownLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 300, Color.BLACK));
-                    assets.load("pauseLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 200, Color.WHITE));
-                    assets.load("resumeLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 80, Color.WHITE));
-                    assets.load("finalScoreLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 150, Color.WHITE));
+                    assets.load("menuTitle.ttf", BitmapFont.class, FontParam.build(Font.KENVECTORBOLD, 12, Color.FOREST));
+                    assets.load("menuButtons.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 12, Color.CORAL));
+                    assets.load("menuButtonsForest.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 12, Color.FOREST));
+                    assets.load("tokenQuantity.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 5, Color.CORAL));
+                    assets.load("tokenCountdown.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 3, Color.CORAL));
+                    assets.load("scoreLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRI, 18, Color.BLACK));
+                    assets.load("countdownLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 53, Color.BLACK));
+                    assets.load("pauseLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 36, Color.WHITE));
+                    assets.load("resumeLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 14, Color.WHITE));
+                    assets.load("finalScoreLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 27, Color.WHITE));
                     step = STEP.FONTGEN;
                     break;
                 case FONTGEN:
