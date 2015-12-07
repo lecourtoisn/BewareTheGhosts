@@ -6,7 +6,9 @@
     	tokenQuantity: { font: tokenQuantity },
     	tokenCountdown: { font: tokenCountdown },
     	scoreLabel: { font: scoreLabelFont },
-    	countdownLabel: { font: countdownLabelFont },    	
+    	countdownLabel: { font: countdownLabelFont },
+        pauseLabel: { font: pauseLabel },
+        resumeLabel: { font: resumeLabel },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		pauseButton: { up: pause },

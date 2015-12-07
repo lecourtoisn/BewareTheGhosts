@@ -48,6 +48,7 @@ public class BTGGame implements ApplicationListener {
 
     @Override
     public void pause() {
+        TokenManager.save();
         game.pause();
     }
 

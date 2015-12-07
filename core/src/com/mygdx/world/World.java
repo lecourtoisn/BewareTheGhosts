@@ -100,8 +100,4 @@ public class World {
         }
         return false;
     }
-
-    public void resize(float width, float height) {
-        // Handle grid position
-    }
 }

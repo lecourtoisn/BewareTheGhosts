@@ -6,10 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -19,6 +16,7 @@ import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
 import com.mygdx.game.ScoreManager;
+import com.mygdx.game.TokenManager;
 import com.mygdx.util.CountDown;
 import com.mygdx.util.International;
 import com.mygdx.world.World;
@@ -47,35 +45,38 @@ public class GameView extends ScreenAdapter {
 
         /* UI settings */
         Skin skin = assets.get("textures/textures.json");
-        Table root = new Table();
+        Stack root = new Stack();
         root.setFillParent(true);
-        root.setSkin(skin);
-        //root.setBackground("background");
+        root.setDebug(true);
+        Table firstLayer = new Table();
+        Container<Label> countdownCnt = new Container<Label>();
+        firstLayer.setSkin(skin);
 
         scoreLabel = new Label("0", skin, "scoreLabel");
         countdownLabel = new Label("TOUCH", skin, "countdownLabel");
         Button pauseButton = new Button(skin, "pauseButton");
 
+        firstLayer.row().expand();
+        firstLayer.add(scoreLabel).top().left().padLeft(50);
+        firstLayer.add(pauseButton).top().right();
 
-        root.row().expand();
-        root.add(scoreLabel).top().left();
-        root.add(pauseButton).top().right();
-        root.row();
-        root.add(countdownLabel).bottom().left();
-
+        root.add(firstLayer);
+        countdownCnt.setActor(countdownLabel);
+        countdownCnt.center();
+        root.add(countdownCnt);
 
         ui.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!countDown.isOver() && !countDown.isRunning()) {
-                    countDown.start();
-                }
+            if (!countDown.isOver() && !countDown.isRunning()) {
+                countDown.start();
+            }
             }
         });
         pauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // Go to pause view
+                game.launchPauseView();
             }
         });
         ui.addActor(root);
@@ -84,6 +85,14 @@ public class GameView extends ScreenAdapter {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(multiplexer);
+        countdownLabel.setVisible(true);
+        countDown.reset();
+        TokenManager.setPaused(true);
+    }
+
+    @Override
+    public void hide() {
+        TokenManager.setPaused(false);
     }
 
     @Override
@@ -94,18 +103,17 @@ public class GameView extends ScreenAdapter {
     }
 
     public void start (Difficulty difficulty) {
+        countDown = new CountDown(3);
         game.setScreen(this);
-        initialize(difficulty);
+        this.difficulty = difficulty;
+        world = new World(viewport.getWorldWidth(), viewport.getWorldHeight());
+        event = new EndlessSalvos(world, difficulty);
+        scoreLabel.setText(" ");
         event.start();
     }
 
     private void initialize(Difficulty difficulty) {
-        this.difficulty = difficulty;
-        world = new World(viewport.getWorldWidth(), viewport.getWorldHeight());
-        event = new EndlessSalvos(world, difficulty);
-        countDown = new CountDown(3);
-        scoreLabel.setText(" ");
-        countdownLabel.setVisible(true);
+
         //screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
 
     }
@@ -135,9 +143,7 @@ public class GameView extends ScreenAdapter {
         }
 
         /* RENDER */
-        viewport.apply(true);
         spriteBatch.begin();
-
         world.render(spriteBatch, viewport.getCamera());
         spriteBatch.end();
         ui.draw();
@@ -156,6 +162,10 @@ public class GameView extends ScreenAdapter {
     @Override
     public void dispose() {
         ui.dispose();
+    }
+
+    public void resumeGame() {
+        game.setScreen(this);
     }
 }
 

@@ -60,8 +60,10 @@ public class LoadingScreen extends ScreenAdapter {
                     assets.load("menuButtonsForest.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 65, Color.FOREST));
                     assets.load("tokenQuantity.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 30, Color.CORAL));
                     assets.load("tokenCountdown.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 15, Color.CORAL));
-                    assets.load("scoreLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRI, 50, Color.BLACK));
-                    assets.load("countdownLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRI, 50, Color.BLACK));
+                    assets.load("scoreLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRI, 100, Color.BLACK));
+                    assets.load("countdownLabelFont.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 300, Color.BLACK));
+                    assets.load("pauseLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 200, Color.WHITE));
+                    assets.load("resumeLabel.ttf", BitmapFont.class, FontParam.build(Font.CALIBRIBOLD, 100, Color.WHITE));
                     step = STEP.FONTGEN;
                     break;
                 case FONTGEN:
@@ -72,6 +74,8 @@ public class LoadingScreen extends ScreenAdapter {
                     oMap.put("tokenCountdown", assets.get("tokenCountdown.ttf"));
                     oMap.put("scoreLabelFont", assets.get("scoreLabelFont.ttf"));
                     oMap.put("countdownLabelFont", assets.get("countdownLabelFont.ttf"));
+                    oMap.put("pauseLabel", assets.get("pauseLabel.ttf"));
+                    oMap.put("resumeLabel", assets.get("resumeLabel.ttf"));
                     assets.load("textures/textures.json", Skin.class, new SkinParameter("textures/textures.atlas", oMap));
                     step = STEP.SKINLOAD;
                     break;
