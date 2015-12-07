@@ -1,7 +1,6 @@
 package refact;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import com.mygdx.game.TokenManager;
 
 import static com.mygdx.event.DifficultySchema.Difficulty;
@@ -10,7 +9,8 @@ public class MainGame extends Game {
     private MainView mainView;
     private HighScoreView highScoreView;
     private GameView gameView;
-    private Screen pauseView;
+    private PauseView pauseView;
+    private EndOfGameView endOfGameView;
 
     @Override
     public void create() {
@@ -22,6 +22,7 @@ public class MainGame extends Game {
         highScoreView = new HighScoreView();
         gameView = new GameView();
         pauseView = new PauseView();
+        endOfGameView = new EndOfGameView();
     }
 
     public void launchMainView() {
@@ -43,5 +44,9 @@ public class MainGame extends Game {
 
     public void resumeGame() {
         gameView.resumeGame();
+    }
+
+    public void launchEndOfGameView(Difficulty difficulty, Integer score, Boolean isHighScore) {
+        endOfGameView.start(difficulty, score, isHighScore);
     }
 }

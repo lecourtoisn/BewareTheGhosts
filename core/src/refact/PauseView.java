@@ -19,6 +19,7 @@ public class PauseView extends ScreenAdapter {
 
     public PauseView() {
         stage = new Stage(new ScreenViewport());
+
         Table root = new Table();
         root.setFillParent(true);
         Skin skin = BTGGame.assets.get("textures/textures.json");
@@ -32,7 +33,6 @@ public class PauseView extends ScreenAdapter {
         resume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Yeah");
                 BTGGame.game.resumeGame();
             }
         });

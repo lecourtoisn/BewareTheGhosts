@@ -123,7 +123,6 @@ public class GameView extends ScreenAdapter {
         /* UPDATE */
         countDown.update(delta);
         if (countDown.isOver()) {
-            //manager.removeElement(countdownLabel);
             countdownLabel.setVisible(false);
             world.update(delta);
             scoreLabel.setText(String.valueOf(getScore()));
@@ -132,7 +131,7 @@ public class GameView extends ScreenAdapter {
                 int score = getScore();
                 boolean isHighScore = score > highScore;
                 handleScore(score, isHighScore);
-//                game.launchEndOfGameView(difficulty, score, isHighScore);
+                game.launchEndOfGameView(difficulty, score, isHighScore);
             }
         } else {
             if (countDown.isRunning()) {

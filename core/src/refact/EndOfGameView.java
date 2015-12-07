@@ -1,0 +1,81 @@
+package refact;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.util.International;
+
+import static com.mygdx.event.DifficultySchema.Difficulty;
+import static com.mygdx.util.International.Label.*;
+
+public class EndOfGameView extends ScreenAdapter {
+    Stage stage;
+    private Difficulty difficulty;
+    private Label scoreLabel;
+
+    public EndOfGameView() {
+        stage = new Stage(new ScreenViewport());
+        Table root = new Table();
+        root.setFillParent(true);
+        Skin skin = BTGGame.assets.get("textures/textures.json");
+        scoreLabel = new Label("", skin, "pauseLabel");
+        Label playAgain = new Label(International.get(PLAYAGAIN), skin, "resumeLabel");
+        Label menu = new Label(International.get(MENU), skin, "resumeLabel");
+
+        root.add(scoreLabel).colspan(2);
+        root.row();
+        root.add(playAgain);
+        root.add(menu);
+
+        playAgain.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                BTGGame.game.startGameSession(difficulty);
+            }
+        });
+        menu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                BTGGame.game.launchMainView();
+            }
+        });
+
+        stage.addActor(root);
+
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height);
+    }
+
+    @Override
+    public void render(float delta) {
+        stage.draw();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
+
+    public void start(Difficulty difficulty, Integer score, Boolean isHighScore) {
+        BTGGame.game.setScreen(this);
+        this.difficulty = difficulty;
+        String text = isHighScore ? International.get(NEWHIGHSCORE) : International.get(SCORE);
+        text += " : " + score;
+        text += isHighScore ? "!" : "";
+        scoreLabel.setText(text);
+    }
+}
