@@ -38,6 +38,7 @@ public class GameView extends ScreenAdapter {
 
     private Label scoreLabel;
     private Label countdownLabel;
+    private Button pauseButton;
 
     public GameView() {
         viewport = new ExtendViewport(WORLD_HEIGHT, WORLD_HEIGHT);
@@ -56,11 +57,14 @@ public class GameView extends ScreenAdapter {
 
         scoreLabel = new Label("0", skin, "scoreLabel");
         countdownLabel = new Label("TOUCH", skin, "countdownLabel");
-        Button pauseButton = new Button(skin, "pauseButton");
+        pauseButton = new Button(skin, "pauseButton");
+
+        float pauseButtonSize = 0.09f*Gdx.graphics.getHeight();
+        //pauseButton.setSize(pauseButtonSize, pauseButtonSize);
 
         firstLayer.row().expand();
         firstLayer.add(scoreLabel).top().left().padLeft(50);
-        firstLayer.add(pauseButton).top().right();
+        firstLayer.add(pauseButton).top().right().width(pauseButtonSize).height(pauseButtonSize);
 
         root.add(firstLayer);
         countdownCnt.setActor(countdownLabel);
@@ -92,6 +96,12 @@ public class GameView extends ScreenAdapter {
         TokenManager.setPaused(true);
     }
 
+
+    @Override
+    public void pause() {
+        game.launchPauseView();
+    }
+
     @Override
     public void hide() {
         TokenManager.setPaused(false);
@@ -102,6 +112,7 @@ public class GameView extends ScreenAdapter {
         viewport.update(width, height, true);
         ui.getViewport().update(width, height, true);
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+
     }
 
     public void start (Difficulty difficulty) {

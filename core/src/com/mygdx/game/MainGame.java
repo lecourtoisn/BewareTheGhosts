@@ -40,7 +40,7 @@ public class MainGame extends Game {
             TokenManager.decrementToken();
         } else {
             // Handle poll
-//            /**/TokenManager.incrementToken(1);
+            /**/TokenManager.incrementToken(1);
         }
     }
 
