@@ -1,0 +1,19 @@
+{
+    com.badlogic.gdx.graphics.g2d.BitmapFont: {
+    	arial-15: {
+			file: com/badlogic/gdx/utils/arial-15.fnt
+        }
+    },
+    com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+    	textButton: {
+    		up: buttonLong_blue,
+    		down: buttonLong_blue_pressed,
+    		font: arial-15
+    	},
+    	textButton2: {
+    		up: buttonLong_beige,
+    		down: buttonLong_beige_pressed,
+    		font: myfont
+    	}
+    },
+}

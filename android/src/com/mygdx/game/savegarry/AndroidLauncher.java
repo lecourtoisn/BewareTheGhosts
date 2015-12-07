@@ -1,7 +1,6 @@
 package com.mygdx.game.savegarry;
 
 import android.os.Bundle;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.mygdx.game.BTGGame;
@@ -13,5 +12,6 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useImmersiveMode = true;
 		initialize(new BTGGame(), config);
+		//initialize(new refact.BTGGame(), config);
 	}
 }

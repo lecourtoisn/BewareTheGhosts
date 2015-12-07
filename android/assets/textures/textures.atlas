@@ -1,0 +1,47 @@
+
+textures.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrow
+  rotate: false
+  xy: 2, 77
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 179
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+garry
+  rotate: false
+  xy: 804, 567
+  size: 66, 92
+  orig: 66, 92
+  offset: 0, 0
+  index: -1
+ghost
+  rotate: false
+  xy: 2, 2
+  size: 51, 73
+  orig: 51, 73
+  offset: 0, 0
+  index: -1
+
+textures2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+grid
+  rotate: false
+  xy: 2, 2
+  size: 586, 586
+  orig: 586, 586
+  offset: 0, 0
+  index: -1
