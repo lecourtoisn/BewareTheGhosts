@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.TokenManager;
 import com.mygdx.util.International;
 
+import static com.mygdx.event.DifficultySchema.Difficulty;
 import static refact.BTGGame.assets;
 import static refact.BTGGame.game;
 
@@ -58,6 +59,18 @@ public class MainView extends ScreenAdapter {
         bottomLeft.addActor(hard);
         bottomLeft.addActor(highScore);
 
+        normal.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.startGameSession(Difficulty.NORMAL);
+            }
+        });
+        hard.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.startGameSession(Difficulty.HARD);
+            }
+        });
         highScore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

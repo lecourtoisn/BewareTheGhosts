@@ -32,6 +32,13 @@ ghost
   orig: 51, 73
   offset: 0, 0
   index: -1
+pause
+  rotate: false
+  xy: 104, 127
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
 
 textures2.png
 size: 1024,1024

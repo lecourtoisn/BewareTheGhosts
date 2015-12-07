@@ -1,18 +1,19 @@
 package com.mygdx.world;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.util.Position;
+import com.mygdx.entity.EntityInfo;
 import com.mygdx.util.Direction;
+import com.mygdx.util.Position;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Grid {
 
-    private final static Texture TEXTURE = new Texture("grid.png");
+    private TextureRegion texture;
     private final static int CELLPEREDGE = 6;
     private Position position;
     private float size;
@@ -21,6 +22,7 @@ public class Grid {
 
     public Grid(float size, float worldWidth, float worldHeight) {
         this.size = size;
+        this.texture = EntityInfo.GRID.getTexture();
 
         Vector2 vPosition = new Vector2(worldWidth - size, worldHeight - size).scl(0.5f);
         position = new Position(vPosition.x, vPosition.y);
@@ -32,11 +34,11 @@ public class Grid {
     }
 
     private float getRatio() {
-        return size / TEXTURE.getHeight();
+        return size / texture.getRegionHeight();
     }
 
     public void draw(Batch batch) {
-        batch.draw(TEXTURE, position.getX(), position.getY(), size, size);
+        batch.draw(texture, position.getX(), position.getY(), size, size);
     }
 
     public float getCellUnit() {

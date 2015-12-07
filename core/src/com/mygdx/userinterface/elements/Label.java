@@ -2,8 +2,8 @@ package com.mygdx.userinterface.elements;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.EntityInfo;
@@ -39,7 +39,8 @@ public class Label extends Widget {
     }
 
 
-    /** Irrelevant methods **/
+    /** Irrelevant methods
+     * @param texture**/
     @Override
-    public void setTexture(Texture texture) {}
+    public void setTexture(TextureRegion texture) {}
 }

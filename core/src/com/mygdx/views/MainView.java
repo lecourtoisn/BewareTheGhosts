@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.commandhandlers.CustomInputHandler;
 import com.mygdx.entity.EntityInfo;
-import com.mygdx.event.DifficultySchema;
 import com.mygdx.game.BTGGame;
 import com.mygdx.game.TokenManager;
 import com.mygdx.screen.ScreenListener;
@@ -18,6 +17,7 @@ import com.mygdx.userinterface.elements.Widget;
 import com.mygdx.util.CountDown;
 import com.mygdx.util.International;
 
+import static com.mygdx.event.DifficultySchema.Difficulty;
 import static com.mygdx.util.International.Label.*;
 
 public class MainView extends ScreenListener {
@@ -35,13 +35,13 @@ public class MainView extends ScreenListener {
     private Label normalButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
         @Override
         public void onTouched() {
-            game.startGameSession(DifficultySchema.Difficulty.NORMAL);
+            game.startGameSession(Difficulty.NORMAL);
         }
     };
     private Label hardButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
         @Override
         public void onTouched() {
-            game.startGameSession(DifficultySchema.Difficulty.HARD);
+            game.startGameSession(Difficulty.HARD);
         }
     };
     private Label highScoreButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
@@ -53,7 +53,6 @@ public class MainView extends ScreenListener {
     private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
     private Label tokenQuantity = new Label(Font.KENVECTOR, screen.getHeight(), 7);
     private Label tokenCountDown = new Label(Font.KENVECTOR, screen.getHeight(), 3);
-    //private Widget tokenImg = new Widget(new Texture("token.png"), new Vector2(5, 4.2452283019f));
     private Widget garry = new Widget(EntityInfo.GARRY.getTexture(), new Vector2(EntityInfo.GARRY.getSize()).scl(3));
     private CountDown countDown = new CountDown(1);
 

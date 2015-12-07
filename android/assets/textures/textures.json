@@ -5,5 +5,10 @@
     	scoresStyle: { font: menuButtonsForest },
     	tokenQuantity: { font: tokenQuantity },
     	tokenCountdown: { font: tokenCountdown },
+    	scoreLabel: { font: scoreLabelFont },
+    	countdownLabel: { font: countdownLabelFont },    	
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+		pauseButton: { up: pause },
 	}
 }

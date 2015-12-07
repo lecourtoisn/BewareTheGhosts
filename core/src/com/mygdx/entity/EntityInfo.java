@@ -1,18 +1,23 @@
 package com.mygdx.entity;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.util.Randomizer;
+import refact.BTGGame;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public enum EntityInfo {
-    GARRY(new Texture("garry.png"), 6.2f, 9),
-    ARROW(new Texture("arrow.png"), 10, 10),
-    GHOST(new Texture("ghost.png"), 6.2f, 9),
-    CLEAR(new Texture("clear.png"), 1, 1);
+    GARRY("garry", 6.2f, 9),
+    ARROW("arrow", 10, 10),
+    GHOST("ghost", 6.2f, 9),
+    CLEAR("clear", 1, 1),
+    PAUSEBUTTON("pause", 10, 10),
+    BACKGROUND("background", 1, 1),
+    GRID("grid", 1, 1);
 
     static {
         float defaultHitbox = 4.5f;
@@ -22,17 +27,17 @@ public enum EntityInfo {
         }
     }
 
-    private Texture texture;
+    private String texture;
     private Vector2 size;
     private Vector2 hitbox;
 
-    EntityInfo(Texture texture, float sizeW, float sizeH, float hbW, float hbH) {
+    EntityInfo(String texture, float sizeW, float sizeH, float hbW, float hbH) {
         this.texture = texture;
         this.size = new Vector2(sizeW, sizeH);
         this.hitbox = new Vector2(hbW, hbH);
     }
 
-    EntityInfo(Texture texture, float sizeW, float sizeH) {
+    EntityInfo(String texture, float sizeW, float sizeH) {
         this(texture, sizeW, sizeH, sizeW, sizeH);
     }
 
@@ -41,8 +46,9 @@ public enum EntityInfo {
         return values[Randomizer.getInt(values.length)];
     }
 
-    public Texture getTexture() {
-        return texture;
+    public TextureRegion getTexture() {
+        Skin skin = BTGGame.assets.get("textures/textures.json");
+        return skin.getRegion(texture);
     }
 
     public Vector2 getSize() {

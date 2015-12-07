@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.mygdx.entity.EntityInfo;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.views.*;
 
@@ -32,10 +31,12 @@ public class BTGGame extends Game {
 
     @Override
     public void dispose() {
+/*
         super.dispose();
         for (EntityInfo entityInfo : EntityInfo.values()) {
             entityInfo.getTexture().dispose();
         }
+*/
     }
 
     public void startGameSession(Difficulty difficulty) {

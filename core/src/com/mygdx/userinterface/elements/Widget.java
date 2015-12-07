@@ -1,11 +1,11 @@
 package com.mygdx.userinterface.elements;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.entity.Entity;
 
 public class Widget extends Entity {
-    public Widget(Texture texture, Vector2 graphicSize) {
+    public Widget(TextureRegion texture, Vector2 graphicSize) {
         super(texture, graphicSize);
     }
 

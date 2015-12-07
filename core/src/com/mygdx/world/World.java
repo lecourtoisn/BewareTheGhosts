@@ -13,9 +13,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class World {
-    //public static final float WIDTH = 100;
-    //public static final float HEIGHT = 100;
-
     private Background background;
     private Grid grid;
     private Garry garry;
@@ -102,5 +99,9 @@ public class World {
             }
         }
         return false;
+    }
+
+    public void resize(float width, float height) {
+        // Handle grid position
     }
 }

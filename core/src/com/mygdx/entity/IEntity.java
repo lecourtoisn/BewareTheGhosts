@@ -2,6 +2,7 @@ package com.mygdx.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.util.Position;
@@ -24,7 +25,7 @@ public interface IEntity {
     Vector2 getGraphicSize();
     float getGSizeX();
     float getGSizeY();
-    void setTexture(Texture texture);
+    void setTexture(TextureRegion texture);
     Rectangle getGraphicBounds();
     float getGPosX();
     float getGPosY();

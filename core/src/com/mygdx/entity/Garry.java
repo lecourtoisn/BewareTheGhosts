@@ -20,7 +20,6 @@ public class Garry extends WorldEntity implements IMovingBehaviour {
         this.attackAvoided = 0;
         this.dead = false;
         movingStrategy = new TeleportBehaviour(this);
-
         setPosition(getGrid().getCellCenterPosition(2, 2));
     }
 
