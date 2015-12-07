@@ -2,26 +2,19 @@ package com.mygdx.commandhandlers;
 
 import com.badlogic.gdx.Input;
 import com.mygdx.entity.Garry;
-import com.mygdx.screen.UnStretchedScreen;
-import com.mygdx.userinterface.WidgetManager;
-import com.mygdx.util.CountDown;
 import com.mygdx.util.Direction;
 import com.mygdx.world.World;
 
 public class GameViewInput extends CustomInputHandler {
+
     private static final float LIMIT = 35;
-    private final UnStretchedScreen screen;
-    private final World world;
-    private final WidgetManager widgetManager;
-    private final CountDown countDown;
+    private World world;
+    private float fdy = 0;
+    private float fdx = 0;
     private Direction lastMove;
 
-    public GameViewInput(UnStretchedScreen screen, World world, WidgetManager widgetManager, CountDown countDown) {
-        super(screen, widgetManager);
-        this.screen = screen;
+    public void setWorld(World world) {
         this.world = world;
-        this.widgetManager = widgetManager;
-        this.countDown = countDown;
     }
 
     @Override
@@ -42,16 +35,6 @@ public class GameViewInput extends CustomInputHandler {
                 break;
         }
     }
-
-    @Override
-    public void onTap(float x, float y, int count, int button) {
-        if (!countDown.isOver() && !countDown.isRunning()) {
-            countDown.start();
-        }
-    }
-
-    private float fdx = 0;
-    private float fdy = 0;
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
@@ -80,23 +63,4 @@ public class GameViewInput extends CustomInputHandler {
         fdy = 0;
         return super.panStop(x, y, pointer, button);
     }
-
-    /*@Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        Garry garry = world.getGarry();
-        if(Math.abs(velocityX)>Math.abs(velocityY)){
-            if(velocityX>0){
-                garry.setMovingDirection(Direction.RIGHT);
-            }else{
-                garry.setMovingDirection(Direction.LEFT);
-            }
-        }else{
-            if(velocityY>0){
-                garry.setMovingDirection(Direction.DOWN);
-            }else{
-                garry.setMovingDirection(Direction.UP);
-            }
-        }
-        return super.fling(velocityX, velocityY, button);
-    }*/
 }

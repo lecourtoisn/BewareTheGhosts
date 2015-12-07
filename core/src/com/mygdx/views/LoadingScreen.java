@@ -1,4 +1,4 @@
-package refact;
+package com.mygdx.views;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -10,10 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.userinterface.elements.Font;
+import com.mygdx.userinterface.elements.FontParam;
 
 import static com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
-import static refact.BTGGame.assets;
-import static refact.BTGGame.game;
+import static com.mygdx.game.BTGGame.assets;
+import static com.mygdx.game.BTGGame.game;
 
 public class LoadingScreen extends ScreenAdapter {
     private enum STEP {

@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.util.Randomizer;
-import refact.BTGGame;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mygdx.game.BTGGame.assets;
+
 public enum EntityInfo {
     GARRY("garry", 6.2f, 9),
     ARROW("arrow", 10, 10),
     GHOST("ghost", 6.2f, 9),
-    CLEAR("clear", 1, 1),
-    PAUSEBUTTON("pause", 10, 10),
+    PAUSE("pause", 10, 10),
     BACKGROUND("background", 1, 1),
     GRID("grid", 1, 1);
 
@@ -47,7 +47,7 @@ public enum EntityInfo {
     }
 
     public TextureRegion getTexture() {
-        Skin skin = BTGGame.assets.get("textures/textures.json");
+        Skin skin = assets.get("textures/textures.json");
         return skin.getRegion(texture);
     }
 

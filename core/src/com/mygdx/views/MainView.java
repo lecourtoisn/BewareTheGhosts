@@ -1,120 +1,105 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.commandhandlers.CustomInputHandler;
-import com.mygdx.entity.EntityInfo;
-import com.mygdx.game.BTGGame;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.TokenManager;
-import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.elements.Background;
-import com.mygdx.userinterface.elements.Font;
-import com.mygdx.userinterface.elements.Label;
-import com.mygdx.userinterface.elements.Widget;
-import com.mygdx.util.CountDown;
 import com.mygdx.util.International;
 
 import static com.mygdx.event.DifficultySchema.Difficulty;
-import static com.mygdx.util.International.Label.*;
+import static com.mygdx.game.BTGGame.assets;
+import static com.mygdx.game.BTGGame.game;
 
-public class MainView extends ScreenListener {
-    private final static int LBL_SIZE = 10;
-    private static final float GAP = 1.5f * LBL_SIZE;
-    private static final float MARGIN = 10;
-    private static final Color TITLE_COLOR = Color.FOREST;
-    private static final Color LBL_COLOR = Color.CORAL;
-    private final static FileHandle TITLE_FONT = Font.KENVECTORBOLD;
-    private final static FileHandle LBL_FONT = Font.KENVECTOR;
+public class MainView extends ScreenAdapter {
+    private Stage stage;
+    private Label tokenQuantity;
+    private Label tokenCountdown;
 
-    private BTGGame game;
-    private Widget background = new Background(screen.getWidth(), screen.getHeight());
+    public MainView() {
+//        stage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+//        stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        stage = new Stage(new ScreenViewport());
 
-    private Label normalButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
-        @Override
-        public void onTouched() {
-            game.startGameSession(Difficulty.NORMAL);
-        }
-    };
-    private Label hardButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
-        @Override
-        public void onTouched() {
-            game.startGameSession(Difficulty.HARD);
-        }
-    };
-    private Label highScoreButton = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE) {
-        @Override
-        public void onTouched() {
-            game.launchScoreView();
-        }
-    };
-    private Label btgLbl = new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE+2);
-    private Label tokenQuantity = new Label(Font.KENVECTOR, screen.getHeight(), 7);
-    private Label tokenCountDown = new Label(Font.KENVECTOR, screen.getHeight(), 3);
-    private Widget garry = new Widget(EntityInfo.GARRY.getTexture(), new Vector2(EntityInfo.GARRY.getSize()).scl(3));
-    private CountDown countDown = new CountDown(1);
-
-    public MainView(BTGGame game) {
-        super(100);
-        this.game = game;
-        countDown.start();
-
-        normalButton.setOrigin(0, 0);
-        hardButton.setOrigin(0, 0);
-        highScoreButton.setOrigin(0, 0);
-        btgLbl.setOrigin(0, btgLbl.getGSizeY());
-        garry.setOrigin(garry.getGSizeX(), 0);
-        tokenQuantity.setOrigin(tokenQuantity.getGSizeX(), 0);
-        tokenCountDown.setOrigin(tokenCountDown.getGSizeX(), tokenCountDown.getGSizeY());
+        Skin skin = assets.get("textures/textures.json");
 
 
-        normalButton.setColor(LBL_COLOR);
-        hardButton.setColor(LBL_COLOR);
-        highScoreButton.setColor(LBL_COLOR);
-        btgLbl.setColor(TITLE_COLOR);
-        tokenCountDown.setColor(LBL_COLOR);
-        tokenQuantity.setColor(LBL_COLOR);
+        int pad = 50;
 
-        normalButton.setText(International.get(NORMALLBL));
-        hardButton.setText(International.get(HARDLBL));
-        highScoreButton.setText(International.get(HIGHSCORE));
-        btgLbl.setText(International.get(TITLE));
+        Label title = new Label(International.get(International.Label.TITLE), skin, "title");
+        Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "buttonStyle");
+        Label hard = new Label(International.get(International.Label.HARDLBL), skin, "buttonStyle");
+        Label highScore = new Label(International.get(International.Label.HIGHSCORE), skin, "buttonStyle");
+        tokenQuantity = new Label("30/30", skin, "tokenQuantity");
+        tokenCountdown = new Label("2:57", skin, "tokenCountdown");
+        Image garry = new Image(skin.getDrawable("garry"));
 
-        normalButton.setPosition(MARGIN, MARGIN + 2 * GAP);
-        hardButton.setPosition(MARGIN, MARGIN + GAP);
-        highScoreButton.setPosition(MARGIN, MARGIN);
-        btgLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
-        garry.setPosition(screen.getWidth() - 4 * MARGIN, MARGIN);
-        tokenQuantity.setPosition(screen.getWidth()-MARGIN, btgLbl.getGPosY());
-        tokenCountDown.setPosition(tokenQuantity.getPosX(), tokenQuantity.getPosY() - 2);
+        final Table root = new Table();
+        VerticalGroup topRight = new VerticalGroup();
+        VerticalGroup bottomLeft = new VerticalGroup().left();
+        root.setSkin(skin);
+        root.setFillParent(true);
+        root.setBackground("background");
 
-        manager.addElement(normalButton);
-        manager.addElement(hardButton);
-        manager.addElement(highScoreButton);
-        manager.addElement(btgLbl);
-        //manager.addElement(garry);
-        manager.addElement(tokenCountDown);
-        manager.addElement(tokenQuantity);
+        root.pad(pad);
 
-        screen.setInputProcessor(new CustomInputHandler(screen, manager).getDetector());
-    }
+        root.add(title).top().left();
+        root.add(topRight).center().right().expandX();
+        root.row().expandY();
+        root.add(bottomLeft).bottom().left().padRight(10);
+        root.add(garry).bottom().left();
 
-    public void start() {
-        game.setScreen(screen);
+        topRight.addActor(tokenQuantity);
+        topRight.addActor(tokenCountdown);
+
+        bottomLeft.addActor(normal);
+        bottomLeft.addActor(hard);
+        bottomLeft.addActor(highScore);
+
+        normal.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.startGameSession(Difficulty.NORMAL);
+            }
+        });
+        hard.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.startGameSession(Difficulty.HARD);
+            }
+        });
+        highScore.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.launchHighScoreView();
+            }
+        });
+
+        stage.addActor(root);
     }
 
     @Override
-    public void update(float delta) {
-        tokenCountDown.setText(TokenManager.getRemainingSecondsStr());
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void render(float delta) {
+        stage.draw();
+        tokenCountdown.setText(TokenManager.getRemainingSecondsStr());
         tokenQuantity.setText(TokenManager.getNbToken() + "/" + TokenManager.NB_TOKEN_MAX);
     }
 
     @Override
-    public void render(Batch batch, Camera cam) {
-        background.draw(batch);
-        garry.draw(batch);
-        manager.draw(batch);
+    public void dispose() {
+        stage.dispose();
     }
 }

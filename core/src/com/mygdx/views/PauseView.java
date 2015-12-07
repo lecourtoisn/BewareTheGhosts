@@ -1,47 +1,63 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.mygdx.commandhandlers.CustomInputHandler;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.BTGGame;
-import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.elements.Font;
-import com.mygdx.userinterface.elements.Label;
-import com.mygdx.userinterface.elements.ResumeLabel;
 import com.mygdx.util.International;
 
 import static com.mygdx.util.International.Label.PAUSE;
 import static com.mygdx.util.International.Label.RESUME;
 
-public class PauseView extends ScreenListener {
-    private final static float HEIGHT = 100;
+public class PauseView extends ScreenAdapter {
+    private Stage stage;
 
-    private Label pauseLbl;
-    private ResumeLabel resumeLbl;
-    private BTGGame game;
+    public PauseView() {
+        stage = new Stage(new ScreenViewport());
 
-    public PauseView(BTGGame game) {
-        super(HEIGHT);
-        this.game = game;
-        pauseLbl = new Label(Font.CALIBRI, screen.getHeight(), 30);
-        resumeLbl = new ResumeLabel(game, screen.getHeight());
-        pauseLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 + 25);
-        resumeLbl.setPosition(screen.getWidth() / 2, screen.getHeight() / 2 - 10);
-        pauseLbl.setText(International.get(PAUSE));
-        resumeLbl.setText(International.get(RESUME));
+        Table root = new Table();
+        root.setFillParent(true);
+        Skin skin = BTGGame.assets.get("textures/textures.json");
+        Label pause = new Label(International.get(PAUSE), skin, "pauseLabel");
+        Label resume = new Label(International.get(RESUME), skin, "resumeLabel");
 
-        manager.addElement(pauseLbl);
-        manager.addElement(resumeLbl);
+        root.add(pause);
+        root.row();
+        root.add(resume);
 
-        screen.setInputProcessor(new CustomInputHandler(screen, manager).getDetector());
+        resume.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                BTGGame.game.resumeGame();
+            }
+        });
+
+        stage.addActor(root);
     }
 
     @Override
-    public void render(Batch batch, Camera cam) {
-        manager.draw(batch);
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
     }
 
-    public void start() {
-        game.setScreen(screen);
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height);
+    }
+
+    @Override
+    public void render(float delta) {
+        stage.draw();
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }

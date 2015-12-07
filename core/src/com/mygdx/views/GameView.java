@@ -1,84 +1,93 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.commandhandlers.GameViewInput;
 import com.mygdx.event.DifficultySchema.Difficulty;
 import com.mygdx.event.EndlessSalvos;
 import com.mygdx.event.IEvent;
-import com.mygdx.game.BTGGame;
 import com.mygdx.game.ScoreManager;
 import com.mygdx.game.TokenManager;
-import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.elements.Font;
-import com.mygdx.userinterface.elements.Label;
-import com.mygdx.userinterface.elements.PauseButton;
-import com.mygdx.userinterface.elements.ScaledBitmapFont;
 import com.mygdx.util.CountDown;
 import com.mygdx.util.International;
 import com.mygdx.world.World;
 
+import static com.mygdx.game.BTGGame.*;
 import static com.mygdx.util.International.Label.TOUCH;
 
-public class GameView extends ScreenListener {
-    private static final float WORLD_HEIGHT = 100;
-    private static final ScaledBitmapFont CALIBOLD_SCORE = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 10);
-    private static final ScaledBitmapFont CALIBOLD_COUNDOWN = new ScaledBitmapFont(Font.CALIBRIBOLD, 100, 50);
-
+public class GameView extends ScreenAdapter {
+    private final float WORLD_HEIGHT = 100;
     private IEvent event;
-    private BTGGame game;
-    private World world;
-
-    // UI part
-    private PauseButton pauseButton;
-    private Label scoreLabel;
-    private Label countDownLabel;
     private Difficulty difficulty;
+    private World world;
+    private Viewport viewport;
+    private Stage ui;
+    private InputMultiplexer multiplexer;
     private CountDown countDown;
+    private GameViewInput gameInput;
 
-    public GameView(BTGGame game) {
-        super(WORLD_HEIGHT);
-        this.game = game;
+    private Label scoreLabel;
+    private Label countdownLabel;
 
-        initializeUI();
-    }
+    public GameView() {
+        viewport = new ExtendViewport(WORLD_HEIGHT, WORLD_HEIGHT);
+        ui = new Stage(new ScreenViewport());
+        gameInput = new GameViewInput();
+        multiplexer = new InputMultiplexer(ui, gameInput.getDetector());
 
-    private void initializeUI() {
-        pauseButton = new PauseButton(game);
-        pauseButton.setOrigin(pauseButton.getGraphicSize().x, pauseButton.getGraphicSize().y);
-        pauseButton.setPosition(screen.getWidth(), screen.getHeight());
+        /* UI settings */
+        Skin skin = assets.get("textures/textures.json");
+        Stack root = new Stack();
+        root.setFillParent(true);
+        root.setDebug(true);
+        Table firstLayer = new Table();
+        Container<Label> countdownCnt = new Container<Label>();
+        firstLayer.setSkin(skin);
 
-        scoreLabel = new Label(CALIBOLD_SCORE);
-        scoreLabel.setPosition(screen.getWidth() / 2, screen.getHeight() - 5);
-        scoreLabel.setColor(Color.BLACK);
+        scoreLabel = new Label("0", skin, "scoreLabel");
+        countdownLabel = new Label("TOUCH", skin, "countdownLabel");
+        Button pauseButton = new Button(skin, "pauseButton");
 
-        countDownLabel = new Label(CALIBOLD_COUNDOWN);
-        countDownLabel.setPosition(screen.getWidth() / 2, screen.getHeight() / 2);
-        countDownLabel.setColor(Color.BLACK);
+        firstLayer.row().expand();
+        firstLayer.add(scoreLabel).top().left().padLeft(50);
+        firstLayer.add(pauseButton).top().right();
 
-        manager.addElement(scoreLabel);
-        manager.addElement(pauseButton);
-    }
+        root.add(firstLayer);
+        countdownCnt.setActor(countdownLabel);
+        countdownCnt.center();
+        root.add(countdownCnt);
 
-    public void start(Difficulty difficulty) {
-        initialize(difficulty);
-        game.setScreen(screen);
-        event.start();
-    }
-
-    private void initialize(Difficulty difficulty) {
-        this.difficulty = difficulty;
-        world = new World(screen.getWidth(), screen.getHeight());
-        event = new EndlessSalvos(world, difficulty);
-        countDown = new CountDown(3);
-        scoreLabel.setText(" ");
-        screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
+        ui.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            if (!countDown.isOver() && !countDown.isRunning()) {
+                countDown.start();
+            }
+            }
+        });
+        pauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.launchPauseView();
+            }
+        });
+        ui.addActor(root);
     }
 
     @Override
     public void show() {
-        manager.addElement(countDownLabel);
+        Gdx.input.setInputProcessor(multiplexer);
+        countdownLabel.setVisible(true);
         countDown.reset();
         TokenManager.setPaused(true);
     }
@@ -89,15 +98,35 @@ public class GameView extends ScreenListener {
     }
 
     @Override
-    public void pause() {
-        pauseButton.onTouched();
+    public void resize(int width, int height) {
+        viewport.update(width, height, true);
+        ui.getViewport().update(width, height, true);
+        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+    }
+
+    public void start (Difficulty difficulty) {
+        countDown = new CountDown(3);
+        game.setScreen(this);
+        this.difficulty = difficulty;
+        world = new World(viewport.getWorldWidth(), viewport.getWorldHeight());
+        gameInput.setWorld(world);
+        event = new EndlessSalvos(world, difficulty);
+        scoreLabel.setText(" ");
+        event.start();
+    }
+
+    private void initialize(Difficulty difficulty) {
+
+        //screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
+
     }
 
     @Override
-    public void update(float delta) {
+    public void render(float delta) {
+        /* UPDATE */
         countDown.update(delta);
         if (countDown.isOver()) {
-            manager.removeElement(countDownLabel);
+            countdownLabel.setVisible(false);
             world.update(delta);
             scoreLabel.setText(String.valueOf(getScore()));
             if (event.isOver()) {
@@ -109,25 +138,17 @@ public class GameView extends ScreenListener {
             }
         } else {
             if (countDown.isRunning()) {
-                countDownLabel.setText(countDown.getSecondStr());
+                countdownLabel.setText(countDown.getSecondStr());
             } else {
-                countDownLabel.setText(International.get(TOUCH));
+                countdownLabel.setText(International.get(TOUCH));
             }
         }
-    }
 
-    @Override
-    public void render(Batch batch, Camera cam) {
-        world.render(batch, cam);
-        manager.draw(batch);
-    }
-
-    public int getScore() {
-        return world.getGarry().getAttackAvoided();
-    }
-
-    public void resumeGame() {
-        game.setScreen(screen);
+        /* RENDER */
+        spriteBatch.begin();
+        world.render(spriteBatch, viewport.getCamera());
+        spriteBatch.end();
+        ui.draw();
     }
 
     private void handleScore(int score, boolean isHighScore) {
@@ -135,4 +156,19 @@ public class GameView extends ScreenListener {
             ScoreManager.setHighScore(difficulty, score);
         }
     }
+
+    public int getScore() {
+        return world.getGarry().getAttackAvoided();
+    }
+
+    @Override
+    public void dispose() {
+        ui.dispose();
+    }
+
+    public void resumeGame() {
+        game.setScreen(this);
+    }
 }
+
+

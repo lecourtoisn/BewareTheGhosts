@@ -1,72 +1,62 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Game;
-import com.mygdx.event.DifficultySchema.Difficulty;
-import com.mygdx.views.*;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 
-public class BTGGame extends Game {
-    private HighScoreView highScoreView;
-    private MainView mainView;
-    private EndOfGameView endOfGameView;
-    private GameView gameView;
-    private PauseView pauseView;
+public class BTGGame implements ApplicationListener {
+    public static final AssetManager assets = new AssetManager();
+    public static SpriteBatch spriteBatch;
+    public static final MainGame game = new MainGame();
 
     @Override
-	public void create() {
+    public void create() {
+        InternalFileHandleResolver resolver = new InternalFileHandleResolver();
+        assets.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        assets.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+        Texture.setAssetManager(assets);
+
+        spriteBatch = new SpriteBatch();
+
         TokenManager.initialize();
         ScoreManager.antiCheatRoutine();
-        highScoreView = new HighScoreView(this);
-        mainView = new MainView(this);
-        endOfGameView = new EndOfGameView(this);
-        pauseView = new PauseView(this);
-        gameView = new GameView(this);
-        launchMainView();
-	}
+
+        game.create();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        game.resize(width, height);
+    }
+
+    @Override
+    public void render() {
+        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        TokenManager.routine(Gdx.graphics.getDeltaTime());
+        game.render();
+    }
 
     @Override
     public void pause() {
-        super.pause();
         TokenManager.save();
+        game.pause();
+    }
+
+    @Override
+    public void resume() {
+        game.resume();
     }
 
     @Override
     public void dispose() {
-/*
-        super.dispose();
-        for (EntityInfo entityInfo : EntityInfo.values()) {
-            entityInfo.getTexture().dispose();
-        }
-*/
-    }
-
-    public void startGameSession(Difficulty difficulty) {
-        //long aaa = System.currentTimeMillis();
-        if (TokenManager.hasToken()) {
-            gameView.start(difficulty);
-            TokenManager.decrementToken();
-        } else {
-            // Run the poll
-        }
-        //System.out.println(System.currentTimeMillis() - aaa);
-    }
-
-    public void launchScoreView() {
-        highScoreView.start();
-    }
-
-    public void launchMainView() {
-        mainView.start();
-    }
-
-    public void launchEndOfGameView(Difficulty difficulty, Integer score, Boolean isHighScore) {
-        endOfGameView.start(difficulty, score, isHighScore);
-    }
-
-    public void resumeGame() {
-        gameView.resumeGame();
-    }
-
-    public void launchPauseMenu() {
-        pauseView.start();
+        game.dispose();
     }
 }

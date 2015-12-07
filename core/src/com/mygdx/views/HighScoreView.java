@@ -1,98 +1,86 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.mygdx.commandhandlers.CustomInputHandler;
-import com.mygdx.game.BTGGame;
-import com.mygdx.game.ScoreManager;
-import com.mygdx.screen.ScreenListener;
-import com.mygdx.userinterface.elements.Background;
-import com.mygdx.userinterface.elements.Font;
-import com.mygdx.userinterface.elements.Label;
-import com.mygdx.userinterface.elements.Widget;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.util.International;
 
 import static com.mygdx.event.DifficultySchema.Difficulty.HARD;
 import static com.mygdx.event.DifficultySchema.Difficulty.NORMAL;
-import static com.mygdx.util.International.Label.*;
+import static com.mygdx.game.BTGGame.assets;
+import static com.mygdx.game.BTGGame.game;
+import static com.mygdx.game.ScoreManager.getHighScore;
 
-public class HighScoreView extends ScreenListener {
-    private final static int LBL_SIZE = 10;
-    private static final float GAP = 1.5f * LBL_SIZE;
-    private static final float MARGIN = 10;
-    private static final Color TITLE_COLOR = Color.FOREST;
-    private static final Color LBL_COLOR = Color.CORAL;
-    private final static FileHandle TITLE_FONT = Font.KENVECTORBOLD;
-    private final static FileHandle LBL_FONT = Font.KENVECTOR;
+public class HighScoreView extends ScreenAdapter{
+    private Stage stage;
+    private Label normalScore;
+    private Label hardScore;
+    public HighScoreView() {
+        stage = new Stage(new ScreenViewport());
+        Skin skin = assets.get("textures/textures.json");
 
-    private BTGGame game;
+        Table root = new Table();
+        root.setSkin(skin);
+        root.setFillParent(true);
+        root.setBackground("background");
+        Table bottomLeft = new Table();
 
-    private Widget background = new Background(screen.getWidth(), screen.getHeight());
+        int pad = 50;
 
-    private Label titleLbl= new Label(TITLE_FONT, screen.getHeight(), LBL_SIZE);
-    private Label normalLbl = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE);
-    private Label hardLbl= new Label(LBL_FONT, screen.getHeight(), LBL_SIZE);
+        Label title = new Label(International.get(International.Label.HIGHSCORE), skin, "title");
+        Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "buttonStyle");
+        Label hard = new Label(International.get(International.Label.HARDLBL), skin, "buttonStyle");
+        normalScore = new Label("0", skin, "scoresStyle");
+        hardScore = new Label("0", skin, "scoresStyle");
 
-    private Label normalScore = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE);
-    private Label hardScore = new Label(LBL_FONT, screen.getHeight(), LBL_SIZE);
+        root.pad(pad);
 
-    public HighScoreView(final BTGGame game) {
-        super(100);
-        this.game = game;
+        root.row().expandX();
+        root.add(title).top().left();
+        root.row().expandY();
+        root.add(bottomLeft).bottom().left();
 
-        normalLbl.setOrigin(0, 0);
-        hardLbl.setOrigin(0, 0);
-        titleLbl.setOrigin(0, titleLbl.getGSizeY());
-        hardScore.setOrigin(0, 0);
-        normalScore.setOrigin(0, 0);
+        bottomLeft.row().left();
+        bottomLeft.add(normal);
+        bottomLeft.add(normalScore).spaceLeft(20);
+        bottomLeft.row().left();
+        bottomLeft.add(hard);
+        bottomLeft.add(hardScore).spaceLeft(20);
 
-        normalLbl.setColor(LBL_COLOR);
-        hardLbl.setColor(LBL_COLOR);
-        titleLbl.setColor(TITLE_COLOR);
-        normalScore.setColor(TITLE_COLOR);
-        hardScore.setColor(TITLE_COLOR);
-
-        normalLbl.setText(International.get(NORMALLBL));
-        hardLbl.setText(International.get(HARDLBL));
-        titleLbl.setText(International.get(HIGHSCORE));
-
-        normalLbl.setPosition(MARGIN, MARGIN + GAP);
-        hardLbl.setPosition(MARGIN, MARGIN);
-        titleLbl.setPosition(MARGIN, screen.getHeight() - MARGIN);
-        float scoresMargin = Math.max(normalLbl.getGSizeX(), hardScore.getGSizeX()) + MARGIN;
-        normalScore.setPosition(scoresMargin + 20, normalLbl.getPosition().getY());
-        hardScore.setPosition(scoresMargin + 20, hardLbl.getPosition().getY());
-
-        manager.addElement(normalLbl);
-        manager.addElement(hardLbl);
-        manager.addElement(titleLbl);
-        manager.addElement(normalScore);
-        manager.addElement(hardScore);
-
-        screen.setInputProcessor(new CustomInputHandler() {
+        stage.addListener(new ClickListener() {
             @Override
-            public void onTap(float x, float y, int count, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.launchMainView();
             }
-        }.getDetector());
-
-    }
-
-    public void start() {
-        refresh();
-        game.setScreen(screen);
-    }
-
-    private void refresh() {
-        normalScore.setText(String.valueOf(ScoreManager.getHighScore(NORMAL)));
-        hardScore.setText(String.valueOf(ScoreManager.getHighScore(HARD)));
+        });
+        stage.addActor(root);
     }
 
     @Override
-    public void render(Batch batch, Camera cam) {
-        background.draw(batch);
-        manager.draw(batch);
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void render(float delta) {
+        stage.draw();
+        normalScore.setText(String.valueOf(getHighScore(NORMAL)));
+        hardScore.setText(String.valueOf(getHighScore(HARD)));
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }

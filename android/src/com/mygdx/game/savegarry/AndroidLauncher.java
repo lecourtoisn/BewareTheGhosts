@@ -12,6 +12,5 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useImmersiveMode = true;
 		initialize(new BTGGame(), config);
-		//initialize(new refact.BTGGame(), config);
 	}
 }

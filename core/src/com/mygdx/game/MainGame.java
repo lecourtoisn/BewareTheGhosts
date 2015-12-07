@@ -1,7 +1,7 @@
-package refact;
+package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.mygdx.game.TokenManager;
+import com.mygdx.views.*;
 
 import static com.mygdx.event.DifficultySchema.Difficulty;
 

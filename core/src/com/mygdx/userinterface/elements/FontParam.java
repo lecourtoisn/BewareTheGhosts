@@ -1,4 +1,4 @@
-package refact;
+package com.mygdx.userinterface.elements;
 
 import com.badlogic.gdx.graphics.Color;
 
