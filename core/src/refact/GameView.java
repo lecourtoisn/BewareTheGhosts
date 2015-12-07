@@ -33,6 +33,7 @@ public class GameView extends ScreenAdapter {
     private Stage ui;
     private InputMultiplexer multiplexer;
     private CountDown countDown;
+    private GameViewInput gameInput;
 
     private Label scoreLabel;
     private Label countdownLabel;
@@ -40,8 +41,8 @@ public class GameView extends ScreenAdapter {
     public GameView() {
         viewport = new ExtendViewport(WORLD_HEIGHT, WORLD_HEIGHT);
         ui = new Stage(new ScreenViewport());
-
-        multiplexer = new InputMultiplexer(ui);
+        gameInput = new GameViewInput();
+        multiplexer = new InputMultiplexer(ui, gameInput.getDetector());
 
         /* UI settings */
         Skin skin = assets.get("textures/textures.json");
@@ -107,6 +108,7 @@ public class GameView extends ScreenAdapter {
         game.setScreen(this);
         this.difficulty = difficulty;
         world = new World(viewport.getWorldWidth(), viewport.getWorldHeight());
+        gameInput.setWorld(world);
         event = new EndlessSalvos(world, difficulty);
         scoreLabel.setText(" ");
         event.start();

@@ -9,6 +9,7 @@
     	countdownLabel: { font: countdownLabelFont },
         pauseLabel: { font: pauseLabel },
         resumeLabel: { font: resumeLabel },
+        finalScoreLabel: { font: finalScoreLabel },
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		pauseButton: { up: pause },

@@ -24,14 +24,15 @@ public class EndOfGameView extends ScreenAdapter {
         Table root = new Table();
         root.setFillParent(true);
         Skin skin = BTGGame.assets.get("textures/textures.json");
-        scoreLabel = new Label("", skin, "pauseLabel");
+        scoreLabel = new Label("", skin, "finalScoreLabel");
         Label playAgain = new Label(International.get(PLAYAGAIN), skin, "resumeLabel");
         Label menu = new Label(International.get(MENU), skin, "resumeLabel");
 
-        root.add(scoreLabel).colspan(2);
+        root.add(scoreLabel).colspan(3);
         root.row();
-        root.add(playAgain);
-        root.add(menu);
+        root.add(playAgain).right();
+        root.add().space(0, 20, 0, 20);
+        root.add(menu).left();
 
         playAgain.addListener(new ClickListener() {
             @Override
