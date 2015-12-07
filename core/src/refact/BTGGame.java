@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.mygdx.game.ScoreManager;
+import com.mygdx.game.TokenManager;
 
 public class BTGGame implements ApplicationListener {
     public static final AssetManager assets = new AssetManager();
@@ -26,6 +28,9 @@ public class BTGGame implements ApplicationListener {
 
         spriteBatch = new SpriteBatch();
 
+        TokenManager.initialize();
+        ScoreManager.antiCheatRoutine();
+
         game.create();
     }
 
@@ -37,6 +42,7 @@ public class BTGGame implements ApplicationListener {
     @Override
     public void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        TokenManager.routine(Gdx.graphics.getDeltaTime());
         game.render();
     }
 

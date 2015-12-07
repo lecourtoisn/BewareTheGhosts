@@ -27,41 +27,37 @@ public class HighScoreView extends ScreenAdapter{
         root.setSkin(skin);
         root.setFillParent(true);
         root.setBackground("background");
+        Table bottomLeft = new Table();
 
         int pad = 50;
 
         Label title = new Label(International.get(International.Label.HIGHSCORE), skin, "title");
         Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "buttonStyle");
         Label hard = new Label(International.get(International.Label.HARDLBL), skin, "buttonStyle");
-        normalScore = new Label("0", skin, "buttonStyle");
-        hardScore = new Label("0", skin, "buttonStyle");
+        normalScore = new Label("0", skin, "scoresStyle");
+        hardScore = new Label("0", skin, "scoresStyle");
 
-        Container<Label> titleCnt = new Container<Label>(title).top().left();
-        root.add(titleCnt).expand().top().left().pad(pad, pad, 0, 0);
+        root.pad(pad);
 
-        VerticalGroup labels = new VerticalGroup().left().padRight(20);
-        labels.addActor(normal);
-        labels.addActor(hard);
+        root.row().expandX();
+        root.add(title).top().left();
+        root.row().expandY();
+        root.add(bottomLeft).bottom().left();
 
-        VerticalGroup scores = new VerticalGroup().left();
-        scores.addActor(normalScore);
-        scores.addActor(hardScore);
+        bottomLeft.row().left();
+        bottomLeft.add(normal);
+        bottomLeft.add(normalScore).spaceLeft(20);
+        bottomLeft.row().left();
+        bottomLeft.add(hard);
+        bottomLeft.add(hardScore).spaceLeft(20);
 
-        root.row();
-
-        HorizontalGroup hg = new HorizontalGroup().bottom().pad(0, pad, pad, 0);
-        hg.addActor(labels);
-        hg.addActor(scores);
-
-        root.add(hg).left();
-
-        stage.addActor(root);
         stage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.launchMainView();
             }
         });
+        stage.addActor(root);
     }
 
     @Override

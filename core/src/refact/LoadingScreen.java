@@ -57,18 +57,23 @@ public class LoadingScreen extends ScreenAdapter {
                 case PRELOAD:
                     assets.load("menuTitle.ttf", BitmapFont.class, FontParam.build(Font.KENVECTORBOLD, 70, Color.FOREST));
                     assets.load("menuButtons.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 65, Color.CORAL));
+                    assets.load("menuButtonsForest.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 65, Color.FOREST));
+                    assets.load("tokenQuantity.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 30, Color.CORAL));
+                    assets.load("tokenCountdown.ttf", BitmapFont.class, FontParam.build(Font.KENVECTOR, 15, Color.CORAL));
                     step = STEP.FONTGEN;
                     break;
                 case FONTGEN:
                     oMap.put("menuTitle", assets.get("menuTitle.ttf"));
                     oMap.put("menuButtons", assets.get("menuButtons.ttf"));
+                    oMap.put("menuButtonsForest", assets.get("menuButtonsForest.ttf"));
+                    oMap.put("tokenQuantity", assets.get("tokenQuantity.ttf"));
+                    oMap.put("tokenCountdown", assets.get("tokenCountdown.ttf"));
                     assets.load("textures/textures.json", Skin.class, new SkinParameter("textures/textures.atlas", oMap));
                     step = STEP.SKINLOAD;
                     break;
                 case SKINLOAD:
                     // Everything has been loaded
-                    game.instanciateViews();
-
+                    game.instantiateViews();
                     game.launchMainView();
                     break;
             }

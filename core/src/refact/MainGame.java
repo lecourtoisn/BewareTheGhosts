@@ -11,7 +11,7 @@ public class MainGame extends Game {
         setScreen(new LoadingScreen());
     }
 
-    public void instanciateViews() {
+    public void instantiateViews() {
         mainView = new MainView();
         highScoreView = new HighScoreView();
     }

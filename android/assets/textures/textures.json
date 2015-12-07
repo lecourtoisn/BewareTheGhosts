@@ -2,5 +2,8 @@
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
     	title: { font: menuTitle },
     	buttonStyle: { font: menuButtons },
+    	scoresStyle: { font: menuButtonsForest },
+    	tokenQuantity: { font: tokenQuantity },
+    	tokenCountdown: { font: tokenCountdown },
 	}
 }
