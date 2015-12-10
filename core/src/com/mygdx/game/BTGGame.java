@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.mygdx.userinterface.elements.FontParam;
+import com.mygdx.util.writer.FontCreation;
 
 public class BTGGame implements ApplicationListener {
     public static final AssetManager assets = new AssetManager();

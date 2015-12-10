@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.BTGGame;
 import com.mygdx.util.International;
 
-import static com.mygdx.util.International.Label.PAUSE;
 import static com.mygdx.util.International.Label.RESUME;
 
 public class PauseView extends ScreenAdapter {
@@ -24,11 +23,11 @@ public class PauseView extends ScreenAdapter {
         Table root = new Table();
         root.setFillParent(true);
         Skin skin = BTGGame.assets.get("textures/textures.json");
-        Label pause = new Label(International.get(PAUSE), skin, "secMenuLabel");
+//        Label pause = new Label(International.get(PAUSE), skin, "secMenuLabel");
         Label resume = new Label(International.get(RESUME), skin, "secMenuLabel");
 
-        root.add(pause);
-        root.row();
+//        root.add(pause);
+//        root.row();
         root.add(resume);
 
         resume.addListener(new ClickListener() {
