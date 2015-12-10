@@ -34,10 +34,10 @@ public class HighScoreView extends ScreenAdapter{
         int pad = 50;
 
         Label title = new Label(International.get(International.Label.HIGHSCORE), skin, "title");
-        Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "buttonStyle");
-        Label hard = new Label(International.get(International.Label.HARDLBL), skin, "buttonStyle");
-        normalScore = new Label("0", skin, "scoresStyle");
-        hardScore = new Label("0", skin, "scoresStyle");
+        Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "mainLabel");
+        Label hard = new Label(International.get(International.Label.HARDLBL), skin, "mainLabel");
+        normalScore = new Label("0", skin, "highScoreValue");
+        hardScore = new Label("0", skin, "highScoreValue");
 
         root.pad(pad);
 

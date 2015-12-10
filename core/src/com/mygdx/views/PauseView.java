@@ -24,8 +24,8 @@ public class PauseView extends ScreenAdapter {
         Table root = new Table();
         root.setFillParent(true);
         Skin skin = BTGGame.assets.get("textures/textures.json");
-        Label pause = new Label(International.get(PAUSE), skin, "pauseLabel");
-        Label resume = new Label(International.get(RESUME), skin, "resumeLabel");
+        Label pause = new Label(International.get(PAUSE), skin, "secMenuLabel");
+        Label resume = new Label(International.get(RESUME), skin, "secMenuLabel");
 
         root.add(pause);
         root.row();

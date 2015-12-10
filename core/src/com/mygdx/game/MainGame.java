@@ -27,7 +27,6 @@ public class MainGame extends Game {
 
     public void launchMainView() {
         setScreen(mainView);
-        TokenManager.decrementToken();
     }
     
     public void launchHighScoreView() {

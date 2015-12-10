@@ -26,9 +26,9 @@ public class EndOfGameView extends ScreenAdapter {
         Table root = new Table();
         root.setFillParent(true);
         Skin skin = assets.get("textures/textures.json");
-        scoreLabel = new Label("", skin, "finalScoreLabel");
-        Label playAgain = new Label(International.get(PLAYAGAIN), skin, "resumeLabel");
-        Label menu = new Label(International.get(MENU), skin, "resumeLabel");
+        scoreLabel = new Label("", skin, "secMenuLabel");
+        Label playAgain = new Label(International.get(PLAYAGAIN), skin, "secMenuLabel");
+        Label menu = new Label(International.get(MENU), skin, "secMenuLabel");
 
         root.add(scoreLabel).colspan(3);
         root.row();

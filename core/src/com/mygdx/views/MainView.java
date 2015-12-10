@@ -30,9 +30,9 @@ public class MainView extends ScreenAdapter {
         int pad = 50;
 
         Label title = new Label(International.get(International.Label.TITLE), skin, "title");
-        Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "buttonStyle");
-        Label hard = new Label(International.get(International.Label.HARDLBL), skin, "buttonStyle");
-        Label highScore = new Label(International.get(International.Label.HIGHSCORE), skin, "buttonStyle");
+        Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "mainLabel");
+        Label hard = new Label(International.get(International.Label.HARDLBL), skin, "mainLabel");
+        Label highScore = new Label(International.get(International.Label.HIGHSCORE), skin, "mainLabel");
         tokenQuantity = new Label("30/30", skin, "tokenQuantity");
         tokenCountdown = new Label("2:57", skin, "tokenCountdown");
         Image garry = new Image(skin.getDrawable("garry"));

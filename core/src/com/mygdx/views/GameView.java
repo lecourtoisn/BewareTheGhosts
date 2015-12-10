@@ -55,7 +55,7 @@ public class GameView extends ScreenAdapter {
         Container<Label> countdownCnt = new Container<Label>();
         firstLayer.setSkin(skin);
 
-        scoreLabel = new Label("0", skin, "scoreLabel");
+        scoreLabel = new Label("0", skin, "gameScoreLabel");
         countdownLabel = new Label("TOUCH", skin, "countdownLabel");
         pauseButton = new Button(skin, "pauseButton");
 
@@ -124,12 +124,6 @@ public class GameView extends ScreenAdapter {
         event = new EndlessSalvos(world, difficulty);
         scoreLabel.setText(" ");
         event.start();
-    }
-
-    private void initialize(Difficulty difficulty) {
-
-        //screen.setInputProcessor(new GameViewInput(screen, world, manager, countDown).getDetector());
-
     }
 
     @Override
