@@ -3,12 +3,10 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.userinterface.elements.FontParam;
 
 public class BTGGame implements ApplicationListener {
     public static final AssetManager assets = new AssetManager();
@@ -18,11 +16,6 @@ public class BTGGame implements ApplicationListener {
 
     @Override
     public void create() {
-//        FontGenerator.generate(); if (true) return;
-        FontParam.ratio = Gdx.graphics.getHeight()/100f;
-        InternalFileHandleResolver resolver = new InternalFileHandleResolver();
-        //assets.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
-        //assets.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
         Texture.setAssetManager(assets);
 
         spriteBatch = new SpriteBatch();
