@@ -1,5 +1,5 @@
 {
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
     	loading: { font: loadingFont },
-	}
+	},
 }

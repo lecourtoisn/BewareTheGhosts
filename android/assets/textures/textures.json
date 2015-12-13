@@ -6,12 +6,12 @@
         BLACK: { hex : 000000FF },
     },
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
-        title: { file: "fonts/generated/title.fnt" },
-        mainLabel: { file: "fonts/generated/mainLabel.fnt" },
-        countdownLabel: { file: "fonts/generated/countdownLabel.fnt" },
-        tokenQuantity: { file: "fonts/generated/tokenQuantity.fnt" },
-        tokenCountdown: { file: "fonts/generated/tokenCountdown.fnt" },
-        blackNWhiteLabel: { file: "fonts/generated/blackNWhiteLabel.fnt" },
+        title: { file: "title.fnt" },
+        mainLabel: { file: "mainLabel.fnt" },
+        countdownLabel: { file: "countdownLabel.fnt" },
+        tokenQuantity: { file: "tokenQuantity.fnt" },
+        tokenCountdown: { file: "tokenCountdown.fnt" },
+        blackNWhiteLabel: { file: "blackNWhiteLabel.fnt" },
     },
 	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
     	title: { font: title, fontColor: FOREST},
@@ -25,5 +25,5 @@
 	},
 	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		pauseButton: { up: pause },
-	}
+	},
 }

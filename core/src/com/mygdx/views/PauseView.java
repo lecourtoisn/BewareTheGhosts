@@ -5,13 +5,13 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.BTGGame;
 import com.mygdx.util.International;
 
+import static com.mygdx.game.BTGGame.skin;
 import static com.mygdx.util.International.Label.RESUME;
 
 public class PauseView extends ScreenAdapter {
@@ -22,12 +22,8 @@ public class PauseView extends ScreenAdapter {
 
         Table root = new Table();
         root.setFillParent(true);
-        Skin skin = BTGGame.assets.get("textures/textures.json");
-//        Label pause = new Label(International.get(PAUSE), skin, "secMenuLabel");
         Label resume = new Label(International.get(RESUME), skin, "secMenuLabel");
 
-//        root.add(pause);
-//        root.row();
         root.add(resume);
 
         resume.addListener(new ClickListener() {

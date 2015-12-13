@@ -5,15 +5,14 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.util.International;
 
 import static com.mygdx.event.DifficultySchema.Difficulty;
-import static com.mygdx.game.BTGGame.assets;
 import static com.mygdx.game.BTGGame.game;
+import static com.mygdx.game.BTGGame.skin;
 import static com.mygdx.util.International.Label.*;
 
 public class EndOfGameView extends ScreenAdapter {
@@ -25,15 +24,16 @@ public class EndOfGameView extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
         Table root = new Table();
         root.setFillParent(true);
-        Skin skin = assets.get("textures/textures.json");
         scoreLabel = new Label("", skin, "secMenuLabel");
         Label playAgain = new Label(International.get(PLAYAGAIN), skin, "secMenuLabel");
         Label menu = new Label(International.get(MENU), skin, "secMenuLabel");
 
+        float spacing = Gdx.graphics.getHeight()/20f;
+
         root.add(scoreLabel).colspan(3);
         root.row();
         root.add(playAgain).right();
-        root.add().space(0, 20, 0, 20);
+        root.add().space(0, spacing, 0, spacing);
         root.add(menu).left();
 
         playAgain.addListener(new ClickListener() {

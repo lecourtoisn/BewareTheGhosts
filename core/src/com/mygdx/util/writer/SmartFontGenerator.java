@@ -24,16 +24,24 @@ public class SmartFontGenerator {
 		forceGeneration = false;
 		generatedFontDir = "generated-fonts/";
 		referenceScreenWidth = 1280;
-		pageSize = 512; // size of atlas pages for font pngs
+		pageSize = 1024; // size of atlas pages for font pngs
 	}
 
+    public /*BitmapFont */ void createFont(FileHandle fontFile, String fontName, int fontSize) {
+        createFont(fontFile, fontName, fontSize, false, 0);
+    }
 
 	/** Will load font from file. If that fails, font will be generated and saved to file.
 	 * @param fontFile the actual font (.otf, .ttf)
 	 * @param fontName the name of the font, i.e. "arial-small", "arial-large", "monospace-10"
 	 *                 This will be used for creating the font file names
 	 * @param fontSize size of font when screen width equals referenceScreenWidth */
-	public /*BitmapFont */ void createFont(FileHandle fontFile, String fontName, int fontSize) {
+	public /*BitmapFont */ void createFont(FileHandle fontFile, String fontName, int fontSize, boolean log, int heightScreen) {
+        if (log) {
+            FileHandle file = Gdx.files.local("fontLog/" + heightScreen + ".txt");
+            file.writeString("gen.createFont(Gdx.files.internal(" + fontFile + "), \"" + fontName + "\", (int) (" + fontSize + "));\n", true);
+        }
+
 		BitmapFont font = null;
 		// if fonts are already generated, just load from file
 		Preferences fontPrefs = Gdx.app.getPreferences("org.jrenner.smartfont");
@@ -54,7 +62,7 @@ public class SmartFontGenerator {
 			}
 		}
 		if (!loaded || forceGeneration) {
-			forceGeneration = false;
+//			forceGeneration = false;
 			float width = Gdx.graphics.getWidth();
 			float ratio = width / referenceScreenWidth; // use 1920x1280 as baseline, arbitrary
 			float baseSize = 28f; // for 28 sized fonts at baseline width above
@@ -67,7 +75,6 @@ public class SmartFontGenerator {
 
 			font = generateFontWriteFiles(fontName, fontFile, fontSize, pageSize, pageSize);
 		}
-//        System.out.println(loaded);
 //		return font;
 	}
 

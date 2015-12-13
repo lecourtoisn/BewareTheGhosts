@@ -2,14 +2,13 @@ package com.mygdx.entity;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.util.Randomizer;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mygdx.game.BTGGame.assets;
+import static com.mygdx.game.BTGGame.skin;
 
 public enum EntityInfo {
     GARRY("garry", 6.2f, 9),
@@ -47,7 +46,6 @@ public enum EntityInfo {
     }
 
     public TextureRegion getTexture() {
-        Skin skin = assets.get("textures/textures.json");
         return skin.getRegion(texture);
     }
 

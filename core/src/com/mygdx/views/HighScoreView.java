@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -13,8 +12,8 @@ import com.mygdx.util.International;
 
 import static com.mygdx.event.DifficultySchema.Difficulty.HARD;
 import static com.mygdx.event.DifficultySchema.Difficulty.NORMAL;
-import static com.mygdx.game.BTGGame.assets;
 import static com.mygdx.game.BTGGame.game;
+import static com.mygdx.game.BTGGame.skin;
 import static com.mygdx.game.ScoreManager.getHighScore;
 
 public class HighScoreView extends ScreenAdapter{
@@ -23,7 +22,6 @@ public class HighScoreView extends ScreenAdapter{
     private Label hardScore;
     public HighScoreView() {
         stage = new Stage(new ScreenViewport());
-        Skin skin = assets.get("textures/textures.json");
 
         Table root = new Table();
         root.setSkin(skin);
@@ -31,7 +29,7 @@ public class HighScoreView extends ScreenAdapter{
         root.setBackground("background");
         Table bottomLeft = new Table();
 
-        int pad = 50;
+        int pad = Gdx.graphics.getHeight() / 10;
 
         Label title = new Label(International.get(International.Label.HIGHSCORE), skin, "title");
         Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "mainLabel");

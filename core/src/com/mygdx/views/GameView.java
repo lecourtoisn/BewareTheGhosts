@@ -44,10 +44,10 @@ public class GameView extends ScreenAdapter {
         viewport = new ExtendViewport(WORLD_HEIGHT, WORLD_HEIGHT);
         ui = new Stage(new ScreenViewport());
         gameInput = new GameViewInput();
-        multiplexer = new InputMultiplexer(ui, gameInput.getDetector());
+        multiplexer = new InputMultiplexer(gameInput.getDetector(), ui);
+//        multiplexer = new InputMultiplexer(ui, gameInput.getDetector());
 
         /* UI settings */
-        Skin skin = assets.get("textures/textures.json");
         Stack root = new Stack();
         root.setFillParent(true);
         root.setDebug(true);

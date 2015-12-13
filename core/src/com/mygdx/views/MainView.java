@@ -4,15 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.TokenManager;
 import com.mygdx.util.International;
 
 import static com.mygdx.event.DifficultySchema.Difficulty;
-import static com.mygdx.game.BTGGame.assets;
 import static com.mygdx.game.BTGGame.game;
+import static com.mygdx.game.BTGGame.skin;
 
 public class MainView extends ScreenAdapter {
     private Stage stage;
@@ -24,18 +26,13 @@ public class MainView extends ScreenAdapter {
 //        stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         stage = new Stage(new ScreenViewport());
 
-        Skin skin = assets.get("textures/textures.json");
-
-
-        int pad = 50;
-
+        int pad = Gdx.graphics.getHeight() / 10;
         Label title = new Label(International.get(International.Label.TITLE), skin, "title");
         Label normal = new Label(International.get(International.Label.NORMALLBL), skin, "mainLabel");
         Label hard = new Label(International.get(International.Label.HARDLBL), skin, "mainLabel");
         Label highScore = new Label(International.get(International.Label.HIGHSCORE), skin, "mainLabel");
-        tokenQuantity = new Label("30/30", skin, "tokenQuantity");
-        tokenCountdown = new Label("2:57", skin, "tokenCountdown");
-        Image garry = new Image(skin.getDrawable("garry"));
+        tokenQuantity = new Label("", skin, "tokenQuantity");
+        tokenCountdown = new Label("", skin, "tokenCountdown");
 
         final Table root = new Table();
         VerticalGroup topRight = new VerticalGroup();
@@ -50,7 +47,6 @@ public class MainView extends ScreenAdapter {
         root.add(topRight).center().right().expandX();
         root.row().expandY();
         root.add(bottomLeft).bottom().left().padRight(10);
-        root.add(garry).bottom().left();
 
         topRight.addActor(tokenQuantity);
         topRight.addActor(tokenCountdown);

@@ -9,6 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Beware The ghosts !";
         config.width = 1000; config.height = 563;
+//        config.width = 1024; config.height = 720;
 //        config.width = 2560; config.height = 1440;
 		new LwjglApplication(new BTGGame(), config);
 	}
