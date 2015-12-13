@@ -1,0 +1,29 @@
+{
+    com.badlogic.gdx.graphics.Color: {
+        CORAL: { hex :ff7f50ff },
+        FOREST: { hex :228b22ff },
+        WHITE: { hex : FFFFFFFF },
+        BLACK: { hex : 000000FF },
+    },
+    com.badlogic.gdx.graphics.g2d.BitmapFont: {
+        title: { file: "generated/title.fnt" },
+        mainLabel: { file: "generated/mainLabel.fnt" },
+        countdownLabel: { file: "generated/countdownLabel.fnt" },
+        tokenQuantity: { file: "generated/tokenQuantity.fnt" },
+        tokenCountdown: { file: "generated/tokenCountdown.fnt" },
+        blackNWhiteLabel: { file: "generated/blackNWhiteLabel.fnt" },
+    },
+	com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+    	title: { font: title, fontColor: FOREST},
+    	mainLabel: { font: mainLabel, fontColor: CORAL },
+        highScoreValue: { font: mainLabel, fontColor: FOREST },
+        countdownLabel: { font: countdownLabel, fontColor: BLACK },
+        tokenQuantity: { font: tokenQuantity, fontColor: CORAL },
+        tokenCountdown: { font: tokenCountdown, fontColor: CORAL },
+        gameScoreLabel: { font: blackNWhiteLabel, fontColor: BLACK },
+        secMenuLabel: { font: blackNWhiteLabel, fontColor: WHITE },
+	},
+	com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+		pauseButton: { up: pause },
+	}
+}

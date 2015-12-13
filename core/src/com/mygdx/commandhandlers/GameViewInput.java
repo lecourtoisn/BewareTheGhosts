@@ -37,6 +37,28 @@ public class GameViewInput extends CustomInputHandler {
     }
 
     @Override
+    public boolean fling(float velocityX, float velocityY, int button) {
+        Direction dir = null;
+        if(Math.abs(velocityX)>Math.abs(velocityY)){
+            if(velocityX>0){
+                dir = Direction.RIGHT;
+            }else{
+                dir = Direction.LEFT;
+            }
+        }else{
+            if(velocityY>0){
+                dir = Direction.DOWN;
+            }else{
+                dir = Direction.UP;
+            }
+        }
+        world.getGarry().setMovingDirection(dir);
+
+        return false;
+    }
+
+    /*
+    @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
         Direction dir = null;
         deltaX += fdx;
@@ -62,5 +84,5 @@ public class GameViewInput extends CustomInputHandler {
         fdx = 0;
         fdy = 0;
         return super.panStop(x, y, pointer, button);
-    }
+    }*/
 }

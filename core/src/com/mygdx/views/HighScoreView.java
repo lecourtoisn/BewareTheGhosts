@@ -1,12 +1,9 @@
 package com.mygdx.views;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.util.International;
 
@@ -20,6 +17,8 @@ public class HighScoreView extends ScreenAdapter{
     private Stage stage;
     private Label normalScore;
     private Label hardScore;
+    private InputProcessor multiplexer;
+
     public HighScoreView() {
         stage = new Stage(new ScreenViewport());
 
@@ -51,18 +50,21 @@ public class HighScoreView extends ScreenAdapter{
         bottomLeft.add(hard);
         bottomLeft.add(hardScore).spaceLeft(20);
 
-        stage.addListener(new ClickListener() {
+        InputProcessor proc = new InputAdapter() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 game.launchMainView();
+                return true;
             }
-        });
+        };
+
+        multiplexer = new InputMultiplexer(proc, stage);
         stage.addActor(root);
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
